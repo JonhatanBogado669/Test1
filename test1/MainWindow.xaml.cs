@@ -122,7 +122,7 @@ namespace test1
             cmd.ExecuteNonQuery();
             Limpiar();
             Mostrar();
-            
+        
         }
 
         
