@@ -24,7 +24,6 @@ namespace test1.models
         private string bomba;
         private string suicidio;
         private string idserv4445;
-        private string idrecurso;
         private string idmovil;
 
 
@@ -107,11 +106,6 @@ namespace test1.models
         {
             set { idserv4445 = value; }
             get { return idserv4445; }
-        }
-        public string IdRecurso
-        {
-            set { idrecurso = value; }
-            get { return idrecurso; }
         }
         public string IdMovil
         {
