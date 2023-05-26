@@ -18,9 +18,9 @@ namespace test1.models
         private string fax;
         private string fechacierre;
         private string cantserv;
-        private string serv1040;
-        private string serv1041;
-        private string serv1043;
+        private string idserv1040;
+        private string idserv1041;
+        private string idserv1043;
 
         public string IdInforme
         {
@@ -72,20 +72,20 @@ namespace test1.models
             set { cantserv = value; }
             get { return cantserv; }
         }
-        public string Serv1040
+        public string IdServ1040
         {
-            set { serv1040 = value; }
-            get { return serv1040; }
+            set { idserv1040 = value; }
+            get { return idserv1040; }
         }
-        public string Serv1041
+        public string IdServ1041
         {
-            set { serv1041 = value; }
-            get { return serv1041; }
+            set { idserv1041 = value; }
+            get { return idserv1041; }
         }
-        public string Serv1043
+        public string IdServ1043
         {
-            set { serv1043 = value; }
-            get { return serv1043; }
+            set { idserv1043 = value; }
+            get { return idserv1043; }
         }
     }
 }

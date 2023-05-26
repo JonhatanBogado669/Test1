@@ -125,6 +125,31 @@ namespace test1
         
         }
 
-        
+        private void SaveResumen_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string guardar4445 = "insert into serv4445(ileso,herido,fallecido,rescate)values(" + ilesostextBox.Text
+                + "," + heridostextBox.Text + "," + fallecidostextBox.Text + "," + rescatestextBox.Text + ")";
+                MySqlCommand cmd = new MySqlCommand(guardar4445, Conexion.conectar());
+                cmd.ExecuteNonQuery();
+                long idTabla1 = cmd.LastInsertedId;
+
+                string guardarserv1040 = "insert into serv1040(cant1040,idserv4445)values(" + cant1040textBox.Text + "," + idTabla1 + ")";
+                MySqlCommand cmd1 = new MySqlCommand(guardarserv1040, Conexion.conectar());
+                cmd1.ExecuteNonQuery();
+                long idTabla2 = cmd.LastInsertedId;
+
+                string guardarres = "insert into informe(cantserv,idserv1040)values("+totalservtextBox.Text+","+idTabla2+")";
+                MySqlCommand cmd2 = new MySqlCommand(guardarres, Conexion.conectar());
+                cmd2.ExecuteNonQuery();
+                    
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

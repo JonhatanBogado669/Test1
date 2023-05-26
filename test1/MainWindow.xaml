@@ -72,7 +72,7 @@
                     <Label x:Name="label10" Content="Hora:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="horatextBox" HorizontalAlignment="Left" Height="23" Margin="48,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39"/>
                     <Label x:Name="label11" Content="Mes:" HorizontalAlignment="Left" Margin="87,36,0,0" VerticalAlignment="Top"/>
-                    <DatePicker x:Name="FechaServ" HorizontalAlignment="Left" Margin="102,10,0,0" VerticalAlignment="Top" Width="166"/>
+                    <DatePicker x:Name="FechaServ" HorizontalAlignment="Left" Margin="102,10,0,0" VerticalAlignment="Top" Width="166" FontSize="11"/>
                     <TextBox x:Name="MestextBox" HorizontalAlignment="Left" Height="23" Margin="122,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73" />
                     <Label x:Name="label11_Copy" Content="Año:" HorizontalAlignment="Left" Margin="195,35,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="AnhotextBox" HorizontalAlignment="Left" Height="23" Margin="229,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39"/>
@@ -228,7 +228,7 @@
                     <TextBox x:Name="horaserv43textBox" HorizontalAlignment="Left" Height="24" Margin="1225,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <Label x:Name="label24_Copy12" Content="Servicio 10.43." HorizontalAlignment="Left" Margin="740,150,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <Label x:Name="label25_Copy53" Content="1- Rescate:" HorizontalAlignment="Left" Margin="740,180,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="rescatetextBox" HorizontalAlignment="Left" Height="22" Margin="868,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                    <TextBox x:Name="rescate43textBox" HorizontalAlignment="Left" Height="22" Margin="868,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <TextBox x:Name="recuperaciontextBox" HorizontalAlignment="Left" Height="22" Margin="868,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <Label x:Name="label25_Copy54" Content="2- Recuperación:" HorizontalAlignment="Left" Margin="740,202,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label25_Copy55" Content="3- Animales/Alimañas:" HorizontalAlignment="Left" Margin="740,228,0,0" VerticalAlignment="Top"/>
@@ -268,7 +268,7 @@
                     <Label x:Name="label24_Copy14" Content="Recursos Usados" HorizontalAlignment="Left" Margin="1099,254,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <TextBox x:Name="nomina43textBox" HorizontalAlignment="Left" Height="24" Margin="1227,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
                     <Label x:Name="label25_Copy71" Content="2- Nomina de Móviles:" HorizontalAlignment="Left" Margin="1099,302,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="guardarres" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="75" Background="#FF40C52B" Foreground="White" Click="SaveCombus_ButtonClick"/>
+                    <Button x:Name="guardarres" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="75" Background="#FF40C52B" Foreground="White" Click="SaveResumen_ButtonClick"/>
                     <Button x:Name="modificarres" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click"/>
                     <Button x:Name="borrarres" Content="Borrar" HorizontalAlignment="Left" Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeletecombusButton_Click"/>
                 </Grid>
