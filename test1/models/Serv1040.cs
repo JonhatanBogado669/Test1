@@ -25,9 +25,18 @@ namespace test1.models
         private string mediana;
         private string grande;
         private string emergral;
-        private string idserv4445;
-        private string idrecurso;
-        private string idmovil;
+        private string agua;
+        private string pqsco2;
+        private string combustible;
+        private string bombero;
+        private string tiempototal;
+        private string kmrecorrido;
+        private string ileso;
+        private string herido;
+        private string fallecido;
+        private string rescate;
+        private string totalkm;
+        private string nomina;
 
         public string IdServ1040
         {
@@ -52,7 +61,7 @@ namespace test1.models
         public string Vehicular
         {
             set { vehicular = value; }
-            get { return idrecurso; }
+            get { return vehicular; }
         }
         public string Basural
         {
@@ -114,20 +123,65 @@ namespace test1.models
             set { emergral = value; }
             get { return emergral; }
         }
-        public string IdServ4445
+        public string Agua
         {
-            set { idserv4445 = value; }
-            get { return idserv4445; }
+            set { agua = value; }
+            get { return agua; }
         }
-        public string IdRecurso
+        public string Pqsco2
         {
-            set { idrecurso = value; }
-            get { return idrecurso; }
+            set { pqsco2 = value; }
+            get { return pqsco2; }
         }
-        public string IdMovil
+        public string Combustible
         {
-            set { idmovil = value; }
-            get { return idmovil; }
+            set { combustible = value; }
+            get { return combustible; }
+        }
+        public string Bombero
+        {
+            set { bombero = value; }
+            get { return bombero; }
+        }
+        public string TiempoTotal
+        {
+            set { tiempototal = value; }
+            get { return tiempototal; }
+        }
+        public string KmRecorrido
+        {
+            set { kmrecorrido = value; }
+            get { return kmrecorrido; }
+        }
+        public string Ileso
+        {
+            set { ileso = value; }
+            get { return ileso; }
+        }
+        public string Herido
+        {
+            set { herido = value; }
+            get { return herido; }
+        }
+        public string Fallecido
+        {
+            set { fallecido = value; }
+            get { return fallecido; }
+        }
+        public string Rescate
+        {
+            set { rescate = value; }
+            get { return rescate; }
+        }
+        public string TotalKm
+        {
+            set { totalkm = value; }
+            get { return totalkm; }
+        }
+        public string Nomina
+        {
+            set { nomina = value; }
+            get { return nomina; }
         }
     }
 }

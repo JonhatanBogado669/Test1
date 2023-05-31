@@ -23,9 +23,11 @@ namespace test1.models
         private string naufragio;
         private string bomba;
         private string suicidio;
-        private string idserv4445;
-        private string idrecurso;
-        private string idmovil;
+        private string ileso;
+        private string herido;
+        private string fallecido;
+        private string combustible;
+        private string nomina;
 
 
         public string IdServ1043
@@ -103,20 +105,30 @@ namespace test1.models
             set { suicidio = value; }
             get { return suicidio; }
         }
-        public string IdServ4445
+        public string Ileso
         {
-            set { idserv4445 = value; }
-            get { return idserv4445; }
+            set { ileso = value; }
+            get { return ileso; }
         }
-        public string IdRecurso
+        public string Herido
         {
-            set { idrecurso = value; }
-            get { return idrecurso; }
+            set { herido = value; }
+            get { return herido; }
         }
-        public string IdMovil
+        public string Fallecido
         {
-            set { idmovil = value; }
-            get { return idmovil; }
+            set { fallecido = value; }
+            get { return fallecido; }
+        }
+        public string Combustible
+        {
+            set { combustible = value; }
+            get { return combustible; }
+        }
+        public string Nomina
+        {
+            set { nomina = value; }
+            get { return nomina; }
         }
     }
 }

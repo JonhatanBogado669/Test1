@@ -86,11 +86,10 @@
                     <Label x:Name="label17" Content="Enviado desde:" HorizontalAlignment="Left" Margin="301,52,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="lugartextBox" HorizontalAlignment="Left" Height="23" Margin="389,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="326"/>
                     <Label x:Name="label18" Content="Fax habilitado (para posible reenvío):" HorizontalAlignment="Left" Margin="740,0,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="faxtextBox" HorizontalAlignment="Left" Height="23" Margin="944,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210"/>
+                    <TextBox x:Name="faxtextBox" HorizontalAlignment="Left" Height="23" Margin="944,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
                     <Label x:Name="label19" Content="Fecha  de cierre del informe:" HorizontalAlignment="Left" Margin="740,26,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="cierretextBox" HorizontalAlignment="Left" Height="23" Margin="900,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254"/>
                     <Label x:Name="label20" Content="CANTIDAD TOTAL DE SERVICIO:" HorizontalAlignment="Left" Margin="740,52,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="totalservtextBox" HorizontalAlignment="Left" Height="23" Margin="930,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"/>
+                    <TextBox x:Name="totalservtextBox" HorizontalAlignment="Left" Height="23" Margin="930,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"/>
                     <Label x:Name="label21" Content="10.40" HorizontalAlignment="Left" Margin="12,83,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25" RenderTransformOrigin="0.463,0.48"/>
                     <Label x:Name="label22" Content="Cantidad global &#xD;&#xA;de 10.40:" HorizontalAlignment="Left" Margin="12,108,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="101"/>
                     <TextBox x:Name="cant1040textBox" HorizontalAlignment="Left" Height="24" Margin="113,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
@@ -110,13 +109,13 @@
                     <Label x:Name="label24_Copy" Content="Magnitudes" HorizontalAlignment="Left" Margin="182,150,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <Label x:Name="label25_Copy4" Content="1- Principio:" HorizontalAlignment="Left" Margin="182,176,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="principiotextBox" HorizontalAlignment="Left" Height="22" Margin="310,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="pqmagnitudtextBox" HorizontalAlignment="Left" Height="22" Margin="310,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                    <TextBox x:Name="pqmagtextBox" HorizontalAlignment="Left" Height="22" Margin="310,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <Label x:Name="label25_Copy5" Content="2- Pequeña Magnitud:" HorizontalAlignment="Left" Margin="182,202,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label25_Copy6" Content="3- Mediana Magnitud:" HorizontalAlignment="Left" Margin="182,228,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label25_Copy7" Content="4- Gran Magnitud:" HorizontalAlignment="Left" Margin="182,254,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label25_Copy8" Content="5- Emergencia Gral.:" HorizontalAlignment="Left" Margin="184,280,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="mdmagnitudtextBox" HorizontalAlignment="Left" Height="22" Margin="310,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="grmagnitudtextBox" HorizontalAlignment="Left" Height="22" Margin="310,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                    <TextBox x:Name="mdmagtextBox" HorizontalAlignment="Left" Height="22" Margin="310,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                    <TextBox x:Name="grmagtextBox" HorizontalAlignment="Left" Height="22" Margin="310,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <TextBox x:Name="emergraltextBox" HorizontalAlignment="Left" Height="22" Margin="310,284,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <Label x:Name="label24_Copy1" Content="Cantidad de 10.44/1045." HorizontalAlignment="Left" Margin="12,478,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <Label x:Name="label25_Copy9" Content="1- Ileso/s:" HorizontalAlignment="Left" Margin="12,504,0,0" VerticalAlignment="Top"/>
@@ -271,6 +270,7 @@
                     <Button x:Name="guardarres" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="75" Background="#FF40C52B" Foreground="White" Click="SaveResumen_ButtonClick"/>
                     <Button x:Name="modificarres" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click"/>
                     <Button x:Name="borrarres" Content="Borrar" HorizontalAlignment="Left" Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeletecombusButton_Click"/>
+                    <DatePicker x:Name="FechaCierre" HorizontalAlignment="Left" Margin="900,28,0,0" VerticalAlignment="Top" Width="166" FontSize="11"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Estadisticas de Servicios">

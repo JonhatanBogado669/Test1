@@ -10,7 +10,9 @@ namespace test1.models
     {
         private string idinforme;
         private string fechaenv;
-        private string horamesanho;
+        private string hora;
+        private string mes;
+        private string anho;
         private string cantcia_est;
         private string autor;
         private string telefono;
@@ -32,10 +34,20 @@ namespace test1.models
             set { fechaenv = value; }
             get { return fechaenv; }
         }
-        public string HoraMesAnho
+        public string Hora
         {
-            set { horamesanho = value; }
-            get { return horamesanho; }
+            set { hora = value; }
+            get { return hora; }
+        }
+        public string Mes
+        {
+            set { mes = value; }
+            get { return mes; }
+        }
+        public string Anho
+        {
+            set { anho = value; }
+            get { return anho; }
         }
         public string CantCiaEst
         {

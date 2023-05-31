@@ -129,20 +129,18 @@ namespace test1
         {
             try
             {
-                string guardar4445 = "insert into serv4445(ileso,herido,fallecido,rescate)values(" + ilesostextBox.Text
-                + "," + heridostextBox.Text + "," + fallecidostextBox.Text + "," + rescatestextBox.Text + ")";
-                MySqlCommand cmd = new MySqlCommand(guardar4445, Conexion.conectar());
+                string guardarserv1040 = "insert into serv1040(cant1040,horaserv,estructural,vehicular,basural,forestal,pastizal,desconocida,premeditada,accidental,findelimpieza,principio,pequena,mediana,grande,emergral,agua,pqsco2,combustible,bombero,tiempototal,ileso,herido,fallecido,rescate,totalkm,nomina)values("+
+                cant1040textBox.Text+","+horaserv40textBox.Text+","+estructuraltextBox.Text+","+vehiculartextBox.Text+","+basuraltextBox.Text+","+forestaltextBox.Text+","+pastizaltextBox.Text+","+desconocidastextBox.Text+","+premeditadastextBox.Text+","+accidentalestextBox.Text+","+limpiezatextBox.Text+","+
+                principiotextBox.Text+","+pqmagtextBox.Text+","+mdmagtextBox.Text+","+grmagtextBox.Text+","+emergraltextBox.Text+","+aguatextBox.Text+","+pqsco2textBox.Text+","+combustible40textBox.Text+","+bomberostextBox.Text+","+tiempototaltextBox.Text+","+ilesostextBox.Text+","+heridostextBox.Text+","+
+                fallecidostextBox.Text+","+rescatestextBox.Text+","+totalkmtextBox.Text+",'"+nomina40textBox.Text+"')";
+                MySqlCommand cmd = new MySqlCommand(guardarserv1040, Conexion.conectar());
                 cmd.ExecuteNonQuery();
                 long idTabla1 = cmd.LastInsertedId;
 
-                string guardarserv1040 = "insert into serv1040(cant1040,idserv4445)values(" + cant1040textBox.Text + "," + idTabla1 + ")";
-                MySqlCommand cmd1 = new MySqlCommand(guardarserv1040, Conexion.conectar());
+                string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040)values('"+FechaServ.Text+"','"+horatextBox.Text+"','"+MestextBox.Text+"','"+AnhotextBox.Text+"',"+cantciaesttextBox.Text+",'"+autortextBox.Text+"','"+teleftextBox.Text
+                +"','"+lugartextBox.Text+"','"+faxtextBox.Text+"','"+FechaCierre.Text+"',"+totalservtextBox.Text+","+idTabla1+")";
+                MySqlCommand cmd1 = new MySqlCommand(guardarres, Conexion.conectar());
                 cmd1.ExecuteNonQuery();
-                long idTabla2 = cmd.LastInsertedId;
-
-                string guardarres = "insert into informe(cantserv,idserv1040)values("+totalservtextBox.Text+","+idTabla2+")";
-                MySqlCommand cmd2 = new MySqlCommand(guardarres, Conexion.conectar());
-                cmd2.ExecuteNonQuery();
                     
                 
             }

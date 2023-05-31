@@ -30,9 +30,16 @@ namespace test1.models
         private string cintacomp;
         private string cascocond;
         private string cascoacomp;
-        private string idserv4445;
-        private string idrecurso;
-        private string idmovil;
+        private string ileso;
+        private string herido;
+        private string fallecido;
+        private string rescate;
+        private string combustible;
+        private string bombero;
+        private string kmrecorrido;
+        private string tiempototal;
+        private string nomina;
+
 
         public string IdServ1041
         {
@@ -144,20 +151,50 @@ namespace test1.models
             set { cascoacomp = value; }
             get { return cascoacomp; }
         }
-        public string IdServ4445
+        public string Ileso
         {
-            set { idserv4445 = value; }
-            get { return idserv4445; }
+            set { ileso = value; }
+            get { return ileso; }
         }
-        public string IdRecurso
+        public string Herido
         {
-            set { idrecurso = value; }
-            get { return idrecurso; }
+            set { herido = value; }
+            get { return herido; }
         }
-        public string IdMovil
+        public string Fallecido
         {
-            set { idmovil = value; }
-            get { return idmovil; }
+            set { fallecido = value; }
+            get { return fallecido; }
+        }
+        public string Rescate
+        {
+            set { rescate = value; }
+            get { return rescate; }
+        }
+        public string Combustible
+        {
+            set { combustible = value; }
+            get { return combustible; }
+        }
+        public string Bombero
+        {
+            set { bombero = value; }
+            get { return bombero; }
+        }
+        public string KmRecorrido
+        {
+            set { kmrecorrido = value; }
+            get { return kmrecorrido; }
+        }
+        public string TiempoTotal
+        {
+            set { tiempototal = value; }
+            get { return tiempototal; }
+        }
+        public string Nomina
+        {
+            set { nomina = value; }
+            get { return nomina; }
         }
     }
 }
