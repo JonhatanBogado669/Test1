@@ -37,6 +37,8 @@ namespace test1
         }
         public void Limpiar()
         {
+
+            //uso de combustible
             codtextBox.Text = "";
             entidadtextBox.Text = "";
             periodotextBox.Text = "";
@@ -52,6 +54,98 @@ namespace test1
             ltscargadotextBox.Text = "";
             facturatextBox.Text = "";
             importetextBox.Text = "";
+            //resumen de servicios
+            horatextBox.Text = "";
+            FechaServ.Text = "";
+            MestextBox.Text = "";
+            AnhotextBox.Text = "";
+            autortextBox.Text = "";
+            teleftextBox.Text = "";
+            cantciaesttextBox.Text = "";
+            lugartextBox.Text = "";
+            faxtextBox.Text = "";
+            totalservtextBox.Text = "";
+            cant1040textBox.Text = "";
+            horaserv40textBox.Text = "";
+            estructuraltextBox.Text = "";
+            vehiculartextBox.Text = "";
+            basuraltextBox.Text = "";
+            forestaltextBox.Text = "";
+            pastizaltextBox.Text = "";
+            principiotextBox.Text = "";
+            pqmagtextBox.Text = "";
+            mdmagtextBox.Text = "";
+            grmagtextBox.Text = "";
+            emergraltextBox.Text = "";
+            ilesostextBox.Text = "";
+            heridostextBox.Text = "";
+            fallecidostextBox.Text = "";
+            rescatestextBox.Text = "";
+            desconocidastextBox.Text = "";
+            premeditadastextBox.Text = "";
+            accidentalestextBox.Text = "";
+            cortotextBox.Text = "";
+            limpiezatextBox.Text = "";
+            aguatextBox.Text = "";
+            pqsco2textBox.Text = "";
+            combustible40textBox.Text = "";
+            bomberostextBox.Text = "";
+            tiempototaltextBox.Text = "";
+            totalkmtextBox.Text = "";
+            nomina40textBox.Text = "";
+            cant1041textBox.Text = "";
+            horaserv41textBox.Text = "";
+            arrollamientotextBox.Text = "";
+            choquetextBox.Text = "";
+            vuelcotextBox.Text = "";
+            caidatextBox.Text = "";
+            aeronavetextBox.Text = "";
+            dañomattextBox.Text = "";
+            conheridostextBox.Text = "";
+            conatraptextBox.Text = "";
+            coninctextBox.Text = "";
+            matpeltextBox.Text = "";
+            ilesos41textBox.Text = "";
+            heridos41textBox.Text = "";
+            fallecidos41textBox.Text = "";
+            rescates41textBox.Text = "";
+            peatonestextBox.Text = "";
+            motostextBox.Text = "";
+            vehlivtextBox.Text = "";
+            vehpestextBox.Text = "";
+            bustextBox.Text = "";
+            cintcondtextBox.Text = "";
+            cintacomptextBox.Text = "";
+            cascondtextBox.Text = "";
+            casacomptextBox.Text = "";
+            tiempototal41textBox.Text = "";
+            nomina41textBox.Text = "";
+            combustible41textBox.Text = "";
+            bomberos41textBox.Text = "";
+            kmrecorrido41textBox.Text = "";
+            cant1043textBox.Text = "";
+            horaserv43textBox.Text = "";
+            rescate43textBox.Text = "";
+            recuperaciontextBox.Text = "";
+            anialitextBox.Text = "";
+            coberturatextBox.Text = "";
+            cursotextBox.Text = "";
+            viviendatextBox.Text = "";
+            profundidadtextBox.Text = "";
+            alturatextBox.Text = "";
+            derrumbetextBox.Text = "";
+            naufragiotextBox.Text = "";
+            bombatextBox.Text = "";
+            suicidiotextBox.Text = "";
+            NafragiotextBox.Text = "";
+            transportetextBox.Text = "";
+            ilesos43textBox.Text = "";
+            heridos43textBox.Text = "";
+            fallecidos43textBox.Text = "";
+            combustible43textBox.Text = "";
+            nomina43textBox.Text = "";
+            FechaCierre.Text = "";
+            codrestextBox.Text = "";
 
 
         }
@@ -141,8 +235,24 @@ namespace test1
                 +"','"+lugartextBox.Text+"','"+faxtextBox.Text+"','"+FechaCierre.Text+"',"+totalservtextBox.Text+","+idTabla1+")";
                 MySqlCommand cmd1 = new MySqlCommand(guardarres, Conexion.conectar());
                 cmd1.ExecuteNonQuery();
-                    
+                Limpiar();    
                 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void DeleteresButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string borrarres = "delete from informe where idinforme=" + codrestextBox.Text + "";
+                MySqlCommand cmd = new MySqlCommand(borrarres, Conexion.conectar());
+                cmd.ExecuteNonQuery();
+                Limpiar();
+
             }
             catch (Exception ex)
             {
