@@ -137,7 +137,6 @@ namespace test1
             naufragiotextBox.Text = "";
             bombatextBox.Text = "";
             suicidiotextBox.Text = "";
-            NafragiotextBox.Text = "";
             transportetextBox.Text = "";
             ilesos43textBox.Text = "";
             heridos43textBox.Text = "";
@@ -223,20 +222,35 @@ namespace test1
         {
             try
             {
-                string guardarserv1040 = "insert into serv1040(cant1040,horaserv,estructural,vehicular,basural,forestal,pastizal,desconocida,premeditada,accidental,findelimpieza,principio,pequena,mediana,grande,emergral,agua,pqsco2,combustible,bombero,tiempototal,ileso,herido,fallecido,rescate,totalkm,nomina)values("+
-                cant1040textBox.Text+","+horaserv40textBox.Text+","+estructuraltextBox.Text+","+vehiculartextBox.Text+","+basuraltextBox.Text+","+forestaltextBox.Text+","+pastizaltextBox.Text+","+desconocidastextBox.Text+","+premeditadastextBox.Text+","+accidentalestextBox.Text+","+limpiezatextBox.Text+","+
-                principiotextBox.Text+","+pqmagtextBox.Text+","+mdmagtextBox.Text+","+grmagtextBox.Text+","+emergraltextBox.Text+","+aguatextBox.Text+","+pqsco2textBox.Text+","+combustible40textBox.Text+","+bomberostextBox.Text+","+tiempototaltextBox.Text+","+ilesostextBox.Text+","+heridostextBox.Text+","+
-                fallecidostextBox.Text+","+rescatestextBox.Text+","+totalkmtextBox.Text+",'"+nomina40textBox.Text+"')";
+                //serv1040
+                string guardarserv1040 = "insert into serv1040(cant1040,horaserv,estructural,vehicular,basural,forestal,pastizal,desconocida,premeditada,accidental,findelimpieza,principio,pequena,mediana,grande,emergral,agua,pqsco2,combustible,bombero,tiempototal,ileso,herido,fallecido,rescate,totalkm,nomina)values(" +
+                cant1040textBox.Text + "," + horaserv40textBox.Text + "," + estructuraltextBox.Text + "," + vehiculartextBox.Text + "," + basuraltextBox.Text + "," + forestaltextBox.Text + "," + pastizaltextBox.Text + "," + desconocidastextBox.Text + "," + premeditadastextBox.Text + "," + accidentalestextBox.Text + "," + limpiezatextBox.Text + "," +
+                principiotextBox.Text + "," + pqmagtextBox.Text + "," + mdmagtextBox.Text + "," + grmagtextBox.Text + "," + emergraltextBox.Text + "," + aguatextBox.Text + "," + pqsco2textBox.Text + "," + combustible40textBox.Text + "," + bomberostextBox.Text + "," + tiempototaltextBox.Text + "," + ilesostextBox.Text + "," + heridostextBox.Text + "," +
+                fallecidostextBox.Text + "," + rescatestextBox.Text + "," + totalkmtextBox.Text + ",'" + nomina40textBox.Text + "')";
                 MySqlCommand cmd = new MySqlCommand(guardarserv1040, Conexion.conectar());
                 cmd.ExecuteNonQuery();
                 long idTabla1 = cmd.LastInsertedId;
-
-                string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040)values('"+FechaServ.Text+"','"+horatextBox.Text+"','"+MestextBox.Text+"','"+AnhotextBox.Text+"',"+cantciaesttextBox.Text+",'"+autortextBox.Text+"','"+teleftextBox.Text
-                +"','"+lugartextBox.Text+"','"+faxtextBox.Text+"','"+FechaCierre.Text+"',"+totalservtextBox.Text+","+idTabla1+")";
-                MySqlCommand cmd1 = new MySqlCommand(guardarres, Conexion.conectar());
+                //serv1041
+                string guardarserv1041 = "insert into serv1041(cant1041,horaserv,arrollamiento,choque,vuelco,caida,aeronave,peaton,moto,vehliviano,vehpesado,bus,danomat,conherido,conatrap,coninc,matpel,cintcond,cintacomp,cascocond,cascoacomp,ileso,herido,fallecido,rescate,combustible,bombero,kmrecorrido,tiempototal,nomina)values(" +
+                cant1041textBox.Text + "," + horaserv41textBox.Text + "," + arrollamientotextBox.Text + "," + choquetextBox.Text + "," + vuelcotextBox.Text + "," + caidatextBox.Text + "," + aeronavetextBox.Text + ",'" + peatonestextBox.Text + "','" + motostextBox.Text + "','" + vehlivtextBox.Text + "','" + vehpestextBox.Text + "','" + bustextBox.Text + "','" + dañomattextBox.Text
+                + "','" + conheridostextBox.Text + "','" + conatraptextBox.Text + "','" + coninctextBox.Text + "','" + matpeltextBox.Text + "','" + cintcondtextBox.Text + "','" + cintacomptextBox.Text + "','" + cascondtextBox.Text + "','" + casacomptextBox.Text + "'," + ilesos41textBox.Text + "," + heridos41textBox.Text + "," + fallecidos41textBox.Text + "," + rescates41textBox.Text
+                + "," + combustible41textBox.Text + "," + bomberos41textBox.Text + "," + kmrecorrido41textBox.Text + "," + tiempototal41textBox.Text + ",'" + nomina41textBox.Text + "')";
+                MySqlCommand cmd1 = new MySqlCommand(guardarserv1041, Conexion.conectar());
                 cmd1.ExecuteNonQuery();
-                Limpiar();    
-                
+                long idTabla2 = cmd1.LastInsertedId;
+                //serv1043
+                string guardarserv1043 = "insert into serv1043(cant1043,horaserv,rescate,recuperacion,aniali,cobertura,curso,vivienda,profundidad,altura,derrumbe,naufragio,bomba,suicidio,ileso,herido,fallecido,combustible,nomina)values(" + cant1043textBox.Text + "," + horaserv43textBox.Text + "," + rescate43textBox.Text + "," + recuperaciontextBox.Text + "," +
+                anialitextBox.Text + "," + coberturatextBox.Text + "," + cursotextBox.Text + "," + viviendatextBox.Text + "," + profundidadtextBox.Text + "," + alturatextBox.Text + "," + derrumbetextBox.Text + "," + naufragiotextBox.Text + "," + bombatextBox.Text + "," + suicidiotextBox.Text + "," + ilesos43textBox.Text + "," + heridos43textBox.Text + "," + fallecidos43textBox.Text + "," +
+                combustible43textBox.Text + ",'" + nomina43textBox.Text + "')";
+                MySqlCommand cmd2 = new MySqlCommand(guardarserv1043, Conexion.conectar());
+                cmd2.ExecuteNonQuery();
+                long idTabla3 = cmd2.LastInsertedId;
+                //informe
+                string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040,idserv1041,idserv1043)values('" + FechaServ.Text + "','" + horatextBox.Text + "','" + MestextBox.Text + "','" + AnhotextBox.Text + "'," + cantciaesttextBox.Text + ",'" + autortextBox.Text + "','" + teleftextBox.Text
+                + "','" + lugartextBox.Text + "','" + faxtextBox.Text + "','" + FechaCierre.Text + "'," + totalservtextBox.Text + "," + idTabla1 + "," + idTabla2 + "," + idTabla3 + ")";
+                MySqlCommand cmd3 = new MySqlCommand(guardarres, Conexion.conectar());
+                cmd3.ExecuteNonQuery();
+                Limpiar();
             }
             catch (Exception ex)
             {

@@ -251,7 +251,6 @@
                     <Label x:Name="label25_Copy64" Content="7- Intento de Suicidio:" HorizontalAlignment="Left" Margin="919,348,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="suicidiotextBox" HorizontalAlignment="Left" Height="22" Margin="1045,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <Label x:Name="label25_Copy65" Content="5- Raudal/Naufrágio:" HorizontalAlignment="Left" Margin="919,294,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="NafragiotextBox" HorizontalAlignment="Left" Height="22" Margin="1045,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <Label x:Name="label25_Copy66" Content="6- Transporte:" HorizontalAlignment="Left" Margin="742,321,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="transportetextBox" HorizontalAlignment="Left" Height="22" Margin="868,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <Label x:Name="label24_Copy11" Content="Cantidad de 10.44/1045." HorizontalAlignment="Left" Margin="1099,164,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
