@@ -67,6 +67,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Resumen de Servicios">
+
                 <Grid Background="#FFE5E5E5">
                     <Label x:Name="label9" Content="Fecha de Envío:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label10" Content="Hora:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
@@ -76,201 +77,208 @@
                     <TextBox x:Name="MestextBox" HorizontalAlignment="Left" Height="23" Margin="122,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73" />
                     <Label x:Name="label11_Copy" Content="Año:" HorizontalAlignment="Left" Margin="195,35,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="AnhotextBox" HorizontalAlignment="Left" Height="23" Margin="229,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39"/>
-                    <Label x:Name="label14" Content="Elaborado por:" HorizontalAlignment="Left" Margin="299,36,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="autortextBox" HorizontalAlignment="Left" Height="23" Margin="387,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
-                    <Label x:Name="label15" Content="Cantidad Cía. /Estaciones:" HorizontalAlignment="Left" Margin="299,10,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label16" Content="Tel.:" HorizontalAlignment="Left" Margin="563,36,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="teleftextBox" HorizontalAlignment="Left" Height="23" Margin="593,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="cantciaesttextBox" HorizontalAlignment="Left" Height="23" Margin="443,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label x:Name="label17" Content="Enviado desde:" HorizontalAlignment="Left" Margin="299,65,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="lugartextBox" HorizontalAlignment="Left" Height="23" Margin="387,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="326"/>
-                    <Label x:Name="label18" Content="Fax habilitado (para posible reenvío):" HorizontalAlignment="Left" Margin="738,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="faxtextBox" HorizontalAlignment="Left" Height="23" Margin="942,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
-                    <Label x:Name="label19" Content="Fecha  de cierre del informe:" HorizontalAlignment="Left" Margin="738,36,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label20" Content="CANTIDAD TOTAL DE SERVICIO:" HorizontalAlignment="Left" Margin="738,62,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="totalservtextBox" HorizontalAlignment="Left" Height="23" Margin="928,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"/>
-                    <Label x:Name="label21" Content="10.40" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25" RenderTransformOrigin="0.463,0.48"/>
-                    <Label x:Name="label22" Content="Cantidad global &#xD;&#xA;de 10.40:" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="101"/>
-                    <TextBox x:Name="cant1040textBox" HorizontalAlignment="Left" Height="24" Margin="111,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label23" Content="Horas en servicios:" HorizontalAlignment="Left" Margin="182,136,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="horaserv40textBox" HorizontalAlignment="Left" Height="24" Margin="308,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24" Content="Servicio 10.40." HorizontalAlignment="Left" Margin="8,164,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25" Content="1- Estructural:" HorizontalAlignment="Left" Margin="9,190,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="estructuraltextBox" HorizontalAlignment="Left" Height="22" Margin="111,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="vehiculartextBox" HorizontalAlignment="Left" Height="22" Margin="111,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy" Content="2- Vehicular:" HorizontalAlignment="Left" Margin="8,216,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy1" Content="3- Basural:" HorizontalAlignment="Left" Margin="8,242,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy2" Content="4- Forestal:" HorizontalAlignment="Left" Margin="8,268,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy3" Content="5- Pastizal:" HorizontalAlignment="Left" Margin="10,294,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="basuraltextBox" HorizontalAlignment="Left" Height="22" Margin="111,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="forestaltextBox" HorizontalAlignment="Left" Height="22" Margin="111,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="pastizaltextBox" HorizontalAlignment="Left" Height="22" Margin="111,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy" Content="Magnitudes" HorizontalAlignment="Left" Margin="180,164,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy4" Content="1- Principio:" HorizontalAlignment="Left" Margin="180,190,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="principiotextBox" HorizontalAlignment="Left" Height="22" Margin="308,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="pqmagtextBox" HorizontalAlignment="Left" Height="22" Margin="308,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy5" Content="2- Pequeña Magnitud:" HorizontalAlignment="Left" Margin="180,216,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy6" Content="3- Mediana Magnitud:" HorizontalAlignment="Left" Margin="180,242,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy7" Content="4- Gran Magnitud:" HorizontalAlignment="Left" Margin="180,268,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy8" Content="5- Emergencia Gral.:" HorizontalAlignment="Left" Margin="182,294,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="mdmagtextBox" HorizontalAlignment="Left" Height="22" Margin="308,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="grmagtextBox" HorizontalAlignment="Left" Height="22" Margin="308,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="emergraltextBox" HorizontalAlignment="Left" Height="22" Margin="308,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy1" Content="Cantidad de 10.44/1045." HorizontalAlignment="Left" Margin="10,492,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy9" Content="1- Ileso/s:" HorizontalAlignment="Left" Margin="10,518,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="ilesostextBox" HorizontalAlignment="Left" Height="22" Margin="102,522,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="heridostextBox" HorizontalAlignment="Left" Height="22" Margin="102,548,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy10" Content="2- Herido/s:" HorizontalAlignment="Left" Margin="10,544,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy11" Content="3- Fallecido/s:" HorizontalAlignment="Left" Margin="10,570,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy12" Content="4- Rescate/s:" HorizontalAlignment="Left" Margin="10,596,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="fallecidostextBox" HorizontalAlignment="Left" Height="22" Margin="102,574,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="rescatestextBox" HorizontalAlignment="Left" Height="22" Margin="102,600,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy2" Content="Causas Posibles" HorizontalAlignment="Left" Margin="8,322,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy13" Content="1- Desconocidas:" HorizontalAlignment="Left" Margin="8,348,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="desconocidastextBox" HorizontalAlignment="Left" Height="22" Margin="111,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="premeditadastextBox" HorizontalAlignment="Left" Height="22" Margin="111,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy14" Content="2- Premeditadas :" HorizontalAlignment="Left" Margin="8,374,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy15" Content="3- Accidentales:" HorizontalAlignment="Left" Margin="8,400,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy16" Content="4- Corto Circuitos:" HorizontalAlignment="Left" Margin="8,426,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy17" Content="5- Fines de &#xD;&#xA;Limpieza:" HorizontalAlignment="Left" Margin="10,452,0,0" VerticalAlignment="Top" Height="45"/>
-                    <TextBox x:Name="accidentalestextBox" HorizontalAlignment="Left" Height="22" Margin="111,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="cortotextBox" HorizontalAlignment="Left" Height="22" Margin="111,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="limpiezatextBox" HorizontalAlignment="Left" Height="22" Margin="111,456,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy3" Content="Recursos Utilizados" HorizontalAlignment="Left" Margin="185,322,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy18" Content="1- Agua:" HorizontalAlignment="Left" Margin="180,348,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.538"/>
-                    <TextBox x:Name="aguatextBox" HorizontalAlignment="Left" Height="22" Margin="308,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="pqsco2textBox" HorizontalAlignment="Left" Height="22" Margin="308,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy19" Content="2- PQS/CO2:" HorizontalAlignment="Left" Margin="180,374,0,0" VerticalAlignment="Top" Width="81"/>
-                    <Label x:Name="label25_Copy20" Content="3- Combustible:" HorizontalAlignment="Left" Margin="180,400,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy21" Content="4- Bomberos:" HorizontalAlignment="Left" Margin="180,426,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy22" Content="5- Tiempo Total:" HorizontalAlignment="Left" Margin="180,452,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="combustible40textBox" HorizontalAlignment="Left" Height="22" Margin="308,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="bomberostextBox" HorizontalAlignment="Left" Height="22" Margin="308,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="tiempototaltextBox" HorizontalAlignment="Left" Height="22" Margin="308,456,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy4" Content="Móviles / Km." HorizontalAlignment="Left" Margin="173,492,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy23" Content="1- Total de Km.:" HorizontalAlignment="Left" Margin="173,518,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="totalkmtextBox" HorizontalAlignment="Left" Height="22" Margin="299,521,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="nomina40textBox" HorizontalAlignment="Left" Height="22" Margin="299,548,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
-                    <Label x:Name="label25_Copy24" Content="2- Nomina de &#xD;&#xA;Móviles:" HorizontalAlignment="Left" Margin="173,544,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label21_Copy" Content="10.41" HorizontalAlignment="Left" Margin="376,97,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25"/>
-                    <Label x:Name="label22_Copy" Content="Cantidad global &#xA;de 10.41:" HorizontalAlignment="Left" Margin="376,122,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="cant1041textBox" HorizontalAlignment="Left" Height="24" Margin="484,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42"/>
-                    <Label x:Name="label23_Copy" Content="Horas en servicios:" HorizontalAlignment="Left" Margin="534,136,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="horaserv41textBox" HorizontalAlignment="Left" Height="24" Margin="662,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy5" Content="Servicio 10.41." HorizontalAlignment="Left" Margin="376,164,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy25" Content="1- Arrollamiento/s:" HorizontalAlignment="Left" Margin="376,194,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="arrollamientotextBox" HorizontalAlignment="Left" Height="22" Margin="484,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="choquetextBox" HorizontalAlignment="Left" Height="22" Margin="484,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy26" Content="2- Choque/s:" HorizontalAlignment="Left" Margin="376,216,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy27" Content="3- Vuelco/s:" HorizontalAlignment="Left" Margin="376,242,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy28" Content="4- Caída/s:" HorizontalAlignment="Left" Margin="376,268,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy29" Content="5- Aeronave:" HorizontalAlignment="Left" Margin="378,294,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="vuelcotextBox" HorizontalAlignment="Left" Height="22" Margin="484,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="caidatextBox" HorizontalAlignment="Left" Height="22" Margin="484,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="aeronavetextBox" HorizontalAlignment="Left" Height="22" Margin="484,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy6" Content="Magnitudes" HorizontalAlignment="Left" Margin="534,164,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy30" Content="1- Daños Materiales:" HorizontalAlignment="Left" Margin="534,190,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="dañomattextBox" HorizontalAlignment="Left" Height="22" Margin="662,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="conheridostextBox" HorizontalAlignment="Left" Height="22" Margin="662,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy31" Content="2- Con Heridos:" HorizontalAlignment="Left" Margin="534,216,0,0" VerticalAlignment="Top" Width="128"/>
-                    <Label x:Name="label25_Copy32" Content="3- Con Atrap.:" HorizontalAlignment="Left" Margin="534,242,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy33" Content="4- Con Incendio:" HorizontalAlignment="Left" Margin="534,268,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy34" Content="5- Con Mat-Pel:" HorizontalAlignment="Left" Margin="536,294,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="conatraptextBox" HorizontalAlignment="Left" Height="22" Margin="662,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="coninctextBox" HorizontalAlignment="Left" Height="22" Margin="662,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="matpeltextBox" HorizontalAlignment="Left" Height="22" Margin="662,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy7" Content="Cantidad de 10.44/1045." HorizontalAlignment="Left" Margin="372,478,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy35" Content="1- Ileso/s:" HorizontalAlignment="Left" Margin="372,504,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="ilesos41textBox" HorizontalAlignment="Left" Height="22" Margin="484,508,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="heridos41textBox" HorizontalAlignment="Left" Height="22" Margin="484,534,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy36" Content="2- Herido/s:" HorizontalAlignment="Left" Margin="372,530,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy37" Content="3- Fallecido/s:" HorizontalAlignment="Left" Margin="372,556,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy38" Content="4- Rescate/s:" HorizontalAlignment="Left" Margin="372,582,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="fallecidos41textBox" HorizontalAlignment="Left" Height="22" Margin="484,560,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="rescates41textBox" HorizontalAlignment="Left" Height="22" Margin="484,586,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy8" Content="Elementos Involucrados" HorizontalAlignment="Left" Margin="372,322,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy39" Content="1- Peatones:" HorizontalAlignment="Left" Margin="376,348,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="peatonestextBox" HorizontalAlignment="Left" Height="22" Margin="484,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="motostextBox" HorizontalAlignment="Left" Height="22" Margin="484,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy40" Content="2- Motos:" HorizontalAlignment="Left" Margin="376,374,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy41" Content="3- Veh. Livianos:" HorizontalAlignment="Left" Margin="376,400,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy42" Content="4- Veh. Pesados:" HorizontalAlignment="Left" Margin="376,426,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy43" Content="5- Buses:" HorizontalAlignment="Left" Margin="378,452,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="vehlivtextBox" HorizontalAlignment="Left" Height="22" Margin="484,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="vehpestextBox" HorizontalAlignment="Left" Height="22" Margin="484,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="bustextBox" HorizontalAlignment="Left" Height="22" Margin="484,456,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy9" Content="Seguridad de Involucrados" HorizontalAlignment="Left" Margin="534,322,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy44" Content="1- Cinturón Cond.:" HorizontalAlignment="Left" Margin="534,348,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.538"/>
-                    <TextBox x:Name="cintcondtextBox" HorizontalAlignment="Left" Height="22" Margin="662,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="cintacomptextBox" HorizontalAlignment="Left" Height="22" Margin="662,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy45" Content="2- Cinturón At.:" HorizontalAlignment="Left" Margin="534,374,0,0" VerticalAlignment="Top" Width="128"/>
-                    <Label x:Name="label25_Copy46" Content="3- Casco Cond.:" HorizontalAlignment="Left" Margin="534,400,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy47" Content="4- Casco At.:" HorizontalAlignment="Left" Margin="534,426,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="cascondtextBox" HorizontalAlignment="Left" Height="22" Margin="662,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="casacomptextBox" HorizontalAlignment="Left" Height="22" Margin="662,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy10" Content="Recursos Usados" HorizontalAlignment="Left" Margin="534,478,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy49" Content="4- Tiempo Total:" HorizontalAlignment="Left" Margin="534,582,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="tiempototal41textBox" HorizontalAlignment="Left" Height="22" Margin="662,581,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="nomina41textBox" HorizontalAlignment="Left" Height="24" Margin="662,610,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
-                    <Label x:Name="label25_Copy50" Content="5- Nomina de Móviles:" HorizontalAlignment="Left" Margin="536,608,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy48" Content="1- Combustible:" HorizontalAlignment="Left" Margin="534,504,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy51" Content="2- Bomberos:" HorizontalAlignment="Left" Margin="534,530,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy52" Content="3- Km. Recorrido:" HorizontalAlignment="Left" Margin="534,556,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="combustible41textBox" HorizontalAlignment="Left" Height="22" Margin="662,503,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="bomberos41textBox" HorizontalAlignment="Left" Height="22" Margin="662,529,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="kmrecorrido41textBox" HorizontalAlignment="Left" Height="22" Margin="662,555,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label21_Copy1" Content="10.43" HorizontalAlignment="Left" Margin="740,97,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25"/>
-                    <Label x:Name="label22_Copy1" Content="Cantidad global &#xA;de 10.43:" HorizontalAlignment="Left" Margin="740,122,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="cant1043textBox" HorizontalAlignment="Left" Height="24" Margin="868,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42"/>
-                    <Label x:Name="label23_Copy1" Content="Horas en servicios:" HorizontalAlignment="Left" Margin="1097,136,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="horaserv43textBox" HorizontalAlignment="Left" Height="24" Margin="1225,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy12" Content="Servicio 10.43." HorizontalAlignment="Left" Margin="740,164,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy53" Content="1- Rescate:" HorizontalAlignment="Left" Margin="740,194,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="rescate43textBox" HorizontalAlignment="Left" Height="22" Margin="868,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="recuperaciontextBox" HorizontalAlignment="Left" Height="22" Margin="868,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy54" Content="2- Recuperación:" HorizontalAlignment="Left" Margin="740,216,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy55" Content="3- Animales/Alimañas:" HorizontalAlignment="Left" Margin="740,242,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy56" Content="4- Cobertura:" HorizontalAlignment="Left" Margin="740,268,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy57" Content="5- Curso/Charla:" HorizontalAlignment="Left" Margin="742,294,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="anialitextBox" HorizontalAlignment="Left" Height="22" Margin="868,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="coberturatextBox" HorizontalAlignment="Left" Height="22" Margin="868,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="cursotextBox" HorizontalAlignment="Left" Height="22" Margin="868,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy13" Content="Tipo de rescate" HorizontalAlignment="Left" Margin="917,164,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy58" Content="1- En Vivienda:" HorizontalAlignment="Left" Margin="917,190,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="viviendatextBox" HorizontalAlignment="Left" Height="22" Margin="1045,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="profundidadtextBox" HorizontalAlignment="Left" Height="22" Margin="1045,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy59" Content="2- Profundidad:" HorizontalAlignment="Left" Margin="917,216,0,0" VerticalAlignment="Top" Width="128"/>
-                    <Label x:Name="label25_Copy60" Content="3- Altura:" HorizontalAlignment="Left" Margin="917,242,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy61" Content="4- Derrumbe:" HorizontalAlignment="Left" Margin="917,268,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy62" Content="5- Raudal/Naufrágio:" HorizontalAlignment="Left" Margin="919,294,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="alturatextBox" HorizontalAlignment="Left" Height="22" Margin="1045,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="derrumbetextBox" HorizontalAlignment="Left" Height="22" Margin="1045,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="naufragiotextBox" HorizontalAlignment="Left" Height="22" Margin="1045,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy63" Content="6- Amenaza Bomba:" HorizontalAlignment="Left" Margin="919,321,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="bombatextBox" HorizontalAlignment="Left" Height="22" Margin="1045,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy64" Content="7- Intento de Suicidio:" HorizontalAlignment="Left" Margin="919,348,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="suicidiotextBox" HorizontalAlignment="Left" Height="22" Margin="1045,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy65" Content="5- Raudal/Naufrágio:" HorizontalAlignment="Left" Margin="919,294,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy66" Content="6- Transporte:" HorizontalAlignment="Left" Margin="742,321,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="transportetextBox" HorizontalAlignment="Left" Height="22" Margin="868,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy11" Content="Cantidad de 10.44/1045." HorizontalAlignment="Left" Margin="1099,164,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Label x:Name="label25_Copy67" Content="1- Ileso/s:" HorizontalAlignment="Left" Margin="1099,190,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="ilesos43textBox" HorizontalAlignment="Left" Height="22" Margin="1225,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <TextBox x:Name="heridos43textBox" HorizontalAlignment="Left" Height="22" Margin="1225,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy68" Content="2- Herido/s:" HorizontalAlignment="Left" Margin="1099,216,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label25_Copy69" Content="3- Fallecido/s:" HorizontalAlignment="Left" Margin="1099,242,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="fallecidos43textBox" HorizontalAlignment="Left" Height="22" Margin="1225,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label25_Copy70" Content="1- Combustible:" HorizontalAlignment="Left" Margin="1101,290,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="combustible43textBox" HorizontalAlignment="Left" Height="22" Margin="1227,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-                    <Label x:Name="label24_Copy14" Content="Recursos Usados" HorizontalAlignment="Left" Margin="1099,268,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="nomina43textBox" HorizontalAlignment="Left" Height="24" Margin="1227,316,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
-                    <Label x:Name="label25_Copy71" Content="2- Nomina de Móviles:" HorizontalAlignment="Left" Margin="1099,316,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label14" Content="Elaborado por:" HorizontalAlignment="Left" Margin="273,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="autortextBox" HorizontalAlignment="Left" Height="23" Margin="361,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259"/>
+                    <Label x:Name="label15" Content="Cantidad Cía. /Estaciones:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label16" Content="Tel.:" HorizontalAlignment="Left" Margin="273,65,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="teleftextBox" HorizontalAlignment="Left" Height="23" Margin="303,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+                    <TextBox x:Name="cantciaesttextBox" HorizontalAlignment="Left" Height="23" Margin="155,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+                    <Label x:Name="label17" Content="Enviado desde:" HorizontalAlignment="Left" Margin="273,36,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="lugartextBox" HorizontalAlignment="Left" Height="23" Margin="362,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="258"/>
+                    <Label x:Name="label18" Content="Fax habilitado (para posible reenvío):" HorizontalAlignment="Left" Margin="628,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="faxtextBox" HorizontalAlignment="Left" Height="23" Margin="832,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+                    <Label x:Name="label19" Content="Fecha  de cierre del informe:" HorizontalAlignment="Left" Margin="628,36,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label20" Content="CANTIDAD TOTAL DE SERVICIO:" HorizontalAlignment="Left" Margin="628,62,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBox x:Name="totalservtextBox" HorizontalAlignment="Left" Height="23" Margin="818,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"/>
+                    <DatePicker x:Name="FechaCierre" HorizontalAlignment="Left" Margin="788,38,0,0" VerticalAlignment="Top" Width="166" FontSize="11"/>
                     <Button x:Name="guardarres" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="75" Height="22" Background="#FF40C52B" Foreground="White" Click="SaveResumen_ButtonClick"/>
                     <Button x:Name="modificarres" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click" Height="22"/>
                     <Button x:Name="borrarres" Content="Borrar" HorizontalAlignment="Left" Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeleteresButton_Click" Height="22"/>
-                    <DatePicker x:Name="FechaCierre" HorizontalAlignment="Left" Margin="898,38,0,0" VerticalAlignment="Top" Width="166" FontSize="11"/>
                     <Label x:Name="label_Copy1" Content="Código:" HorizontalAlignment="Left" Margin="909,619,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="codrestextBox" HorizontalAlignment="Left" Height="23" Margin="960,623,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+                    <Grid x:Name="tabla3" Background="#FFBBBBBB" Margin="10,118,12,275">
+                        <Label x:Name="label22_Copy1" Content="Cantidad global de 10.43:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBox x:Name="cant1043textBox" HorizontalAlignment="Left" Height="24" Margin="164,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label23_Copy1" Content="Horas en servicios:" HorizontalAlignment="Left" Margin="1045,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBox x:Name="horaserv43textBox" HorizontalAlignment="Left" Height="24" Margin="1175,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy12" Content="Servicio 10.43." HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy53" Content="1- Rescate:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="rescate43textBox" HorizontalAlignment="Left" Height="22" Margin="164,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="recuperaciontextBox" HorizontalAlignment="Left" Height="22" Margin="164,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy54" Content="2- Recuperación:" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy55" Content="3- Animales/Alimañas:" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy56" Content="4- Cobertura:" HorizontalAlignment="Left" Margin="226,73,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy57" Content="5- Curso/Charla:" HorizontalAlignment="Left" Margin="228,99,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="anialitextBox" HorizontalAlignment="Left" Height="22" Margin="164,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="coberturatextBox" HorizontalAlignment="Left" Height="22" Margin="380,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="cursotextBox" HorizontalAlignment="Left" Height="22" Margin="380,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy13" Content="Tipo de rescate" HorizontalAlignment="Left" Margin="473,45,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy58" Content="1- En Vivienda:" HorizontalAlignment="Left" Margin="473,71,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="viviendatextBox" HorizontalAlignment="Left" Height="22" Margin="601,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="profundidadtextBox" HorizontalAlignment="Left" Height="22" Margin="601,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy59" Content="2- Profundidad:" HorizontalAlignment="Left" Margin="473,97,0,0" VerticalAlignment="Top" Width="128"/>
+                        <Label x:Name="label25_Copy60" Content="3- Altura:" HorizontalAlignment="Left" Margin="473,123,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy61" Content="4- Derrumbe:" HorizontalAlignment="Left" Margin="473,149,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="alturatextBox" HorizontalAlignment="Left" Height="22" Margin="601,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="derrumbetextBox" HorizontalAlignment="Left" Height="22" Margin="601,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="naufragiotextBox" HorizontalAlignment="Left" Height="22" Margin="778,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy63" Content="6- Amenaza Bomba:" HorizontalAlignment="Left" Margin="646,98,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="bombatextBox" HorizontalAlignment="Left" Height="22" Margin="778,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy64" Content="7- Intento de Suicidio:" HorizontalAlignment="Left" Margin="646,125,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="suicidiotextBox" HorizontalAlignment="Left" Height="22" Margin="778,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy65" Content="5- Raudal/Naufrágio:" HorizontalAlignment="Left" Margin="646,71,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy66" Content="6- Transporte:" HorizontalAlignment="Left" Margin="228,126,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="transportetextBox" HorizontalAlignment="Left" Height="22" Margin="380,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy11" Content="Cantidad de 10.44/1045." HorizontalAlignment="Left" Margin="854,45,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy67" Content="1- Ileso/s:" HorizontalAlignment="Left" Margin="854,71,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="ilesos43textBox" HorizontalAlignment="Left" Height="22" Margin="980,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="heridos43textBox" HorizontalAlignment="Left" Height="22" Margin="980,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy68" Content="2- Herido/s:" HorizontalAlignment="Left" Margin="854,97,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy69" Content="3- Fallecido/s:" HorizontalAlignment="Left" Margin="854,123,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="fallecidos43textBox" HorizontalAlignment="Left" Height="22" Margin="980,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy70" Content="1- Combustible:" HorizontalAlignment="Left" Margin="1047,75,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="combustible43textBox" HorizontalAlignment="Left" Height="22" Margin="1175,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy14" Content="Recursos Usados" HorizontalAlignment="Left" Margin="1047,45,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBox x:Name="nomina43textBox" HorizontalAlignment="Left" Height="24" Margin="1175,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
+                        <Label x:Name="label25_Copy71" Content="2- Nomina de Móviles:" HorizontalAlignment="Left" Margin="1045,101,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                    <Grid x:Name="tabla2" Background="#FFBBBBBB" Margin="10,118,12,275">
+                        <Label x:Name="label22_Copy" Content="Cantidad global de 10.41:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBox x:Name="cant1041textBox" HorizontalAlignment="Left" Height="24" Margin="164,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label23_Copy" Content="Horas en servicios:" HorizontalAlignment="Left" Margin="1058,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBox x:Name="horaserv41textBox" HorizontalAlignment="Left" Height="24" Margin="1186,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy5" Content="Servicio 10.41." HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy25" Content="1- Arrollamiento/s:" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="arrollamientotextBox" HorizontalAlignment="Left" Height="22" Margin="164,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="choquetextBox" HorizontalAlignment="Left" Height="22" Margin="164,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy26" Content="2- Choque/s:" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy27" Content="3- Vuelco/s:" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy28" Content="4- Caída/s:" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy29" Content="5- Aeronave:" HorizontalAlignment="Left" Margin="12,182,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="vuelcotextBox" HorizontalAlignment="Left" Height="22" Margin="164,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="caidatextBox" HorizontalAlignment="Left" Height="22" Margin="164,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="aeronavetextBox" HorizontalAlignment="Left" Height="22" Margin="164,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy6" Content="Magnitudes" HorizontalAlignment="Left" Margin="249,52,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy30" Content="1- Daños Materiales:" HorizontalAlignment="Left" Margin="249,78,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="dañomattextBox" HorizontalAlignment="Left" Height="22" Margin="377,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="conheridostextBox" HorizontalAlignment="Left" Height="22" Margin="377,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy31" Content="2- Con Heridos:" HorizontalAlignment="Left" Margin="249,104,0,0" VerticalAlignment="Top" Width="128"/>
+                        <Label x:Name="label25_Copy32" Content="3- Con Atrap.:" HorizontalAlignment="Left" Margin="249,130,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy33" Content="4- Con Incendio:" HorizontalAlignment="Left" Margin="249,156,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy34" Content="5- Con Mat-Pel:" HorizontalAlignment="Left" Margin="251,182,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="conatraptextBox" HorizontalAlignment="Left" Height="22" Margin="377,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="coninctextBox" HorizontalAlignment="Left" Height="22" Margin="377,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="matpeltextBox" HorizontalAlignment="Left" Height="22" Margin="377,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy8" Content="Elementos Involucrados" HorizontalAlignment="Left" Margin="460,52,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy39" Content="1- Peatones:" HorizontalAlignment="Left" Margin="464,78,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="peatonestextBox" HorizontalAlignment="Left" Height="22" Margin="572,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="motostextBox" HorizontalAlignment="Left" Height="22" Margin="572,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy40" Content="2- Motos:" HorizontalAlignment="Left" Margin="464,104,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy41" Content="3- Veh. Livianos:" HorizontalAlignment="Left" Margin="464,130,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy42" Content="4- Veh. Pesados:" HorizontalAlignment="Left" Margin="464,156,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy43" Content="5- Buses:" HorizontalAlignment="Left" Margin="466,182,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="vehlivtextBox" HorizontalAlignment="Left" Height="22" Margin="572,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="vehpestextBox" HorizontalAlignment="Left" Height="22" Margin="572,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="bustextBox" HorizontalAlignment="Left" Height="22" Margin="572,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy9" Content="Seguridad de Involucrados" HorizontalAlignment="Left" Margin="655,52,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy44" Content="1- Cinturón Cond.:" HorizontalAlignment="Left" Margin="655,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.538"/>
+                        <TextBox x:Name="cintcondtextBox" HorizontalAlignment="Left" Height="22" Margin="783,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="cintacomptextBox" HorizontalAlignment="Left" Height="22" Margin="783,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy45" Content="2- Cinturón At.:" HorizontalAlignment="Left" Margin="655,104,0,0" VerticalAlignment="Top" Width="128"/>
+                        <Label x:Name="label25_Copy46" Content="3- Casco Cond.:" HorizontalAlignment="Left" Margin="655,130,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy47" Content="4- Casco At.:" HorizontalAlignment="Left" Margin="655,156,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="cascondtextBox" HorizontalAlignment="Left" Height="22" Margin="783,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="casacomptextBox" HorizontalAlignment="Left" Height="22" Margin="783,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy7" Content="Cantidad de 10.44/1045." HorizontalAlignment="Left" Margin="866,52,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy35" Content="1- Ileso/s:" HorizontalAlignment="Left" Margin="866,78,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="ilesos41textBox" HorizontalAlignment="Left" Height="22" Margin="978,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="heridos41textBox" HorizontalAlignment="Left" Height="22" Margin="978,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy36" Content="2- Herido/s:" HorizontalAlignment="Left" Margin="866,104,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy37" Content="3- Fallecido/s:" HorizontalAlignment="Left" Margin="866,130,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy38" Content="4- Rescate/s:" HorizontalAlignment="Left" Margin="866,156,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="fallecidos41textBox" HorizontalAlignment="Left" Height="22" Margin="978,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="rescates41textBox" HorizontalAlignment="Left" Height="22" Margin="978,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy10" Content="Recursos Usados" HorizontalAlignment="Left" Margin="1058,52,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy49" Content="4- Tiempo Total:" HorizontalAlignment="Left" Margin="1058,156,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="tiempototal41textBox" HorizontalAlignment="Left" Height="22" Margin="1186,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="nomina41textBox" HorizontalAlignment="Left" Height="24" Margin="1186,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
+                        <Label x:Name="label25_Copy50" Content="5- Nomina de Móviles:" HorizontalAlignment="Left" Margin="1060,182,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy48" Content="1- Combustible:" HorizontalAlignment="Left" Margin="1058,78,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy51" Content="2- Bomberos:" HorizontalAlignment="Left" Margin="1058,104,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy52" Content="3- Km. Recorrido:" HorizontalAlignment="Left" Margin="1058,130,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="combustible41textBox" HorizontalAlignment="Left" Height="22" Margin="1186,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="bomberos41textBox" HorizontalAlignment="Left" Height="22" Margin="1186,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="kmrecorrido41textBox" HorizontalAlignment="Left" Height="22" Margin="1186,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+
+                    </Grid>
+                    <Grid x:Name="tabla1" Background="#FFBBBBBB" Margin="10,118,12,275">
+                        <Label x:Name="label22" Content="Cantidad global de 10.40:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="158"/>
+                        <TextBox x:Name="cant1040textBox" HorizontalAlignment="Left" Height="24" Margin="168,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label23" Content="Horas en servicios:" HorizontalAlignment="Left" Margin="980,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBox x:Name="horaserv40textBox" HorizontalAlignment="Left" Height="24" Margin="1106,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24" Content="Servicio 10.40." HorizontalAlignment="Left" Margin="7,48,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25" Content="1- Estructural:" HorizontalAlignment="Left" Margin="8,74,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="estructuraltextBox" HorizontalAlignment="Left" Height="22" Margin="110,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="vehiculartextBox" HorizontalAlignment="Left" Height="22" Margin="110,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy" Content="2- Vehicular:" HorizontalAlignment="Left" Margin="7,100,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy1" Content="3- Basural:" HorizontalAlignment="Left" Margin="7,126,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy2" Content="4- Forestal:" HorizontalAlignment="Left" Margin="7,152,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy3" Content="5- Pastizal:" HorizontalAlignment="Left" Margin="9,178,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="basuraltextBox" HorizontalAlignment="Left" Height="22" Margin="110,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="forestaltextBox" HorizontalAlignment="Left" Height="22" Margin="110,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="pastizaltextBox" HorizontalAlignment="Left" Height="22" Margin="110,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy" Content="Magnitudes" HorizontalAlignment="Left" Margin="182,48,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy4" Content="1- Principio:" HorizontalAlignment="Left" Margin="182,74,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="principiotextBox" HorizontalAlignment="Left" Height="22" Margin="310,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="pqmagtextBox" HorizontalAlignment="Left" Height="22" Margin="310,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy5" Content="2- Pequeña Magnitud:" HorizontalAlignment="Left" Margin="182,100,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy6" Content="3- Mediana Magnitud:" HorizontalAlignment="Left" Margin="182,126,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy7" Content="4- Gran Magnitud:" HorizontalAlignment="Left" Margin="182,152,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy8" Content="5- Emergencia Gral.:" HorizontalAlignment="Left" Margin="184,178,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="mdmagtextBox" HorizontalAlignment="Left" Height="22" Margin="310,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="grmagtextBox" HorizontalAlignment="Left" Height="22" Margin="310,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="emergraltextBox" HorizontalAlignment="Left" Height="22" Margin="310,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy1" Content="Cantidad de 10.44/1045." HorizontalAlignment="Left" Margin="805,48,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy9" Content="1- Ileso/s:" HorizontalAlignment="Left" Margin="805,73,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="ilesostextBox" HorizontalAlignment="Left" Height="22" Margin="897,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="heridostextBox" HorizontalAlignment="Left" Height="22" Margin="897,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy10" Content="2- Herido/s:" HorizontalAlignment="Left" Margin="805,100,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy11" Content="3- Fallecido/s:" HorizontalAlignment="Left" Margin="805,126,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy12" Content="4- Rescate/s:" HorizontalAlignment="Left" Margin="805,152,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="fallecidostextBox" HorizontalAlignment="Left" Height="22" Margin="897,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="rescatestextBox" HorizontalAlignment="Left" Height="22" Margin="897,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy2" Content="Causas Posibles" HorizontalAlignment="Left" Margin="390,48,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy13" Content="1- Desconocidas:" HorizontalAlignment="Left" Margin="390,74,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="desconocidastextBox" HorizontalAlignment="Left" Height="22" Margin="517,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="premeditadastextBox" HorizontalAlignment="Left" Height="22" Margin="517,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy14" Content="2- Premeditadas :" HorizontalAlignment="Left" Margin="390,100,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy15" Content="3- Accidentales:" HorizontalAlignment="Left" Margin="390,126,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy16" Content="4- Corto Circuitos:" HorizontalAlignment="Left" Margin="390,152,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy17" Content="5- Fines de Limpieza:" HorizontalAlignment="Left" Margin="390,178,0,0" VerticalAlignment="Top" Height="26" Width="125"/>
+                        <TextBox x:Name="accidentalestextBox" HorizontalAlignment="Left" Height="22" Margin="517,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="cortotextBox" HorizontalAlignment="Left" Height="22" Margin="517,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="limpiezatextBox" HorizontalAlignment="Left" Height="22" Margin="517,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy3" Content="Recursos Utilizados" HorizontalAlignment="Left" Margin="601,48,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy18" Content="1- Agua:" HorizontalAlignment="Left" Margin="597,74,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.538"/>
+                        <TextBox x:Name="aguatextBox" HorizontalAlignment="Left" Height="22" Margin="725,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="pqsco2textBox" HorizontalAlignment="Left" Height="22" Margin="725,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label25_Copy19" Content="2- PQS/CO2:" HorizontalAlignment="Left" Margin="597,100,0,0" VerticalAlignment="Top" Width="80"/>
+                        <Label x:Name="label25_Copy20" Content="3- Combustible:" HorizontalAlignment="Left" Margin="597,126,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy21" Content="4- Bomberos:" HorizontalAlignment="Left" Margin="597,152,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label25_Copy22" Content="5- Tiempo Total:" HorizontalAlignment="Left" Margin="597,178,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="combustible40textBox" HorizontalAlignment="Left" Height="22" Margin="725,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="bomberostextBox" HorizontalAlignment="Left" Height="22" Margin="725,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="tiempototaltextBox" HorizontalAlignment="Left" Height="22" Margin="725,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <Label x:Name="label24_Copy4" Content="Móviles / Km." HorizontalAlignment="Left" Margin="980,48,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <Label x:Name="label25_Copy23" Content="1- Total de Km.:" HorizontalAlignment="Left" Margin="980,74,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="totalkmtextBox" HorizontalAlignment="Left" Height="22" Margin="1106,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="nomina40textBox" HorizontalAlignment="Left" Height="22" Margin="1106,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
+                        <Label x:Name="label25_Copy24" Content="2- Nomina de &#xA;Móviles:" HorizontalAlignment="Left" Margin="980,100,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                    <Button x:Name="button43" Content="10.43" HorizontalAlignment="Left" Margin="100,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25" Width="45" Click="serv43ButtonClick"/>
+                    <Button x:Name="button41" Content="10.41" HorizontalAlignment="Left" Margin="55,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25" Width="45" Click="serv41ButtonClick"/>
+                    <Button x:Name="button40" Content="10.40" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25"  Width="45" Click="serv40ButtonClick"/>
+                    <DataGrid x:Name="InfdataGrid" HorizontalAlignment="Left" Height="215" Margin="10,399,0,0" VerticalAlignment="Top" Width="1268"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Estadisticas de Servicios">

@@ -150,10 +150,14 @@ namespace test1
         }
         public void Mostrar()
         {
+
             string mostrarcombus = "select idplan_combus as código,fecha,ci,nombre,lugar_sal as lugar_salida,km_salida,lugar_dest as lugar_destino,km_llegada,km_recorrido,motivo,lts_carg as litros_cargados, imp_total as importe_total from plan_combus";
             MySqlCommand cmd = new MySqlCommand(mostrarcombus, Conexion.conectar());
             CombustibledataGrid.ItemsSource = cmd.ExecuteReader();
-           
+
+            string mostrarinf = "select*from informe";
+            MySqlCommand cmd1 = new MySqlCommand(mostrarinf, Conexion.conectar());
+            InfdataGrid.ItemsSource = cmd1.ExecuteReader();
         }
         public void Carga()
         {
@@ -251,6 +255,7 @@ namespace test1
                 MySqlCommand cmd3 = new MySqlCommand(guardarres, Conexion.conectar());
                 cmd3.ExecuteNonQuery();
                 Limpiar();
+                Mostrar();
             }
             catch (Exception ex)
             {
@@ -266,12 +271,33 @@ namespace test1
                 MySqlCommand cmd = new MySqlCommand(borrarres, Conexion.conectar());
                 cmd.ExecuteNonQuery();
                 Limpiar();
-
+                Mostrar();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void serv40ButtonClick(object sender, RoutedEventArgs e)
+        {
+            tabla1.Visibility = Visibility.Visible;
+            tabla2.Visibility = Visibility.Collapsed;
+            tabla3.Visibility = Visibility.Collapsed;
+        }
+
+        private void serv41ButtonClick(object sender, RoutedEventArgs e)
+        {
+            tabla1.Visibility = Visibility.Collapsed;
+            tabla2.Visibility = Visibility.Visible;
+            tabla3.Visibility = Visibility.Collapsed;
+        }
+
+        private void serv43ButtonClick(object sender, RoutedEventArgs e)
+        {
+            tabla1.Visibility = Visibility.Collapsed;
+            tabla2.Visibility = Visibility.Collapsed;
+            tabla3.Visibility = Visibility.Visible;
         }
     }
 }
