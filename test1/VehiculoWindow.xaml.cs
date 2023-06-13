@@ -42,7 +42,7 @@ namespace test1
         }
         public void Mostrar()
         {
-            string mostrarveh = "select v.idvehiculo as codigo, v.descripcion, v.chapa, t.descripcion as tipo_combustible from vehiculo v inner join tipo_combus t where t.idtipo_combus=v.idtipo_combus order by codigo asc";
+            string mostrarveh = "select v.idvehiculo as codigo, v.descripcion, v.chapa, t.descripcion as combustible from vehiculo v inner join tipo_combus t where t.idtipo_combus=v.idtipo_combus order by codigo asc";
             MySqlCommand cmd = new MySqlCommand(mostrarveh, Conexion.conectar());
             VehiculodataGrid.ItemsSource = cmd.ExecuteReader();
         }
@@ -67,6 +67,8 @@ namespace test1
             cmd.ExecuteNonQuery();
             Mostrar();
             Limpiar();
+            
+            Carga();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
