@@ -154,7 +154,7 @@ namespace test1
             MySqlCommand cmd = new MySqlCommand(mostrarcombus, Conexion.conectar());
             CombustibledataGrid.ItemsSource = cmd.ExecuteReader();
 
-            string mostrarinf = "SELECT i.idinforme AS código,i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv,s.cant1040,ss.cant1041,sss.cant1043 FROM informe  i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043 GROUP BY i.idinforme;";
+            string mostrarinf = "SELECT i.idinforme AS código,i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv,s.cant1040,ss.cant1041,sss.cant1043 FROM informe  i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043";
             MySqlCommand cmd1 = new MySqlCommand(mostrarinf, Conexion.conectar());
             InfdataGrid.ItemsSource = cmd1.ExecuteReader();
         }
@@ -263,7 +263,45 @@ namespace test1
                 MessageBox.Show(ex.Message);
             }
         }
-
+        private void ModifyresButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //serv1040
+                string id1040 = "select i.idserv1040 from informe i where i.idinforme=" + codrestextBox.Text+"";
+                MySqlCommand cm = new MySqlCommand(id1040, Conexion.conectar());
+                using (MySqlDataReader reader = cm.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int id40 = reader.GetInt32(0);
+                        string mod = "update serv1040 set cant1040=" + cant1040textBox.Text + ", horaserv=" + horaserv40textBox.Text + ", estructural=" + estructuraltextBox.Text + ", vehicular=" + vehiculartextBox.Text + ", basural=" + basuraltextBox.Text + ", forestal=" + forestaltextBox.Text + ", pastizal=" + pastizaltextBox.Text + ", desconocida=" + desconocidastextBox.Text + ", premeditada=" + premeditadastextBox.Text + ", accidental=" +
+                accidentalestextBox.Text + ", findelimpieza=" + limpiezatextBox.Text + ", principio=" + principiotextBox.Text + ", pequena=" + pqmagtextBox.Text + ", mediana=" + mdmagtextBox.Text + ", grande=" + grmagtextBox.Text + ", emergral=" + emergraltextBox.Text + ", agua=" + aguatextBox.Text + ", pqsco2=" + pqsco2textBox.Text + ", combustible=" + combustible40textBox.Text + ", bombero=" + bomberostextBox.Text + ", tiempototal=" +
+                tiempototaltextBox.Text + ", ileso=" + ilesostextBox.Text + ", herido=" + heridostextBox.Text + ", fallecido=" + fallecidostextBox.Text + ", rescate=" + rescatestextBox.Text + ", totalkm=" + totalkmtextBox.Text + ", nomina='" + nomina40textBox.Text + "' where idserv1040 = " + id40 + "";
+                        MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                
+                //serv1041
+                /*string mod1 = "update serv1041 set";
+                MySqlCommand cmd1 = new MySqlCommand(mod1, Conexion.conectar());
+                cmd1.ExecuteNonQuery();
+                //serv1043
+                string mod2 = "update serv1043 set";
+                MySqlCommand cmd2 = new MySqlCommand(mod2, Conexion.conectar());
+                cmd2.ExecuteNonQuery();*/
+                //informe
+                string mod3 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes='" + MestextBox.Text + "', anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" + autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" + codrestextBox.Text + "";
+                MySqlCommand cmd3 = new MySqlCommand(mod3, Conexion.conectar());
+                cmd3.ExecuteNonQuery();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            Limpiar();
+            Mostrar();
+        }
         private void DeleteresButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -378,5 +416,7 @@ namespace test1
                 importetextBox.Text = imptotal.ToString();
             }
         }
+
+        
     }
 }
