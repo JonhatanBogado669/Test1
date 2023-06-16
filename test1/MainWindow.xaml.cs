@@ -268,7 +268,7 @@ namespace test1
             try
             {
                 //serv1040
-                string id1040 = "select i.idserv1040 from informe i where i.idinforme=" + codrestextBox.Text+"";
+                string id1040 = "select i.idserv1040 from informe i where i.idinforme=" + codrestextBox.Text + "";
                 MySqlCommand cm = new MySqlCommand(id1040, Conexion.conectar());
                 using (MySqlDataReader reader = cm.ExecuteReader())
                 {
@@ -276,25 +276,49 @@ namespace test1
                     {
                         int id40 = reader.GetInt32(0);
                         string mod = "update serv1040 set cant1040=" + cant1040textBox.Text + ", horaserv=" + horaserv40textBox.Text + ", estructural=" + estructuraltextBox.Text + ", vehicular=" + vehiculartextBox.Text + ", basural=" + basuraltextBox.Text + ", forestal=" + forestaltextBox.Text + ", pastizal=" + pastizaltextBox.Text + ", desconocida=" + desconocidastextBox.Text + ", premeditada=" + premeditadastextBox.Text + ", accidental=" +
-                accidentalestextBox.Text + ", findelimpieza=" + limpiezatextBox.Text + ", principio=" + principiotextBox.Text + ", pequena=" + pqmagtextBox.Text + ", mediana=" + mdmagtextBox.Text + ", grande=" + grmagtextBox.Text + ", emergral=" + emergraltextBox.Text + ", agua=" + aguatextBox.Text + ", pqsco2=" + pqsco2textBox.Text + ", combustible=" + combustible40textBox.Text + ", bombero=" + bomberostextBox.Text + ", tiempototal=" +
-                tiempototaltextBox.Text + ", ileso=" + ilesostextBox.Text + ", herido=" + heridostextBox.Text + ", fallecido=" + fallecidostextBox.Text + ", rescate=" + rescatestextBox.Text + ", totalkm=" + totalkmtextBox.Text + ", nomina='" + nomina40textBox.Text + "' where idserv1040 = " + id40 + "";
+                        accidentalestextBox.Text + ", findelimpieza=" + limpiezatextBox.Text + ", principio=" + principiotextBox.Text + ", pequena=" + pqmagtextBox.Text + ", mediana=" + mdmagtextBox.Text + ", grande=" + grmagtextBox.Text + ", emergral=" + emergraltextBox.Text + ", agua=" + aguatextBox.Text + ", pqsco2=" + pqsco2textBox.Text + ", combustible=" + combustible40textBox.Text + ", bombero=" + bomberostextBox.Text + ", tiempototal=" +
+                        tiempototaltextBox.Text + ", ileso=" + ilesostextBox.Text + ", herido=" + heridostextBox.Text + ", fallecido=" + fallecidostextBox.Text + ", rescate=" + rescatestextBox.Text + ", totalkm=" + totalkmtextBox.Text + ", nomina='" + nomina40textBox.Text + "' where idserv1040 = " + id40 + "";
+                        MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                //serv1041
+                string id1041 = "select i.idserv1041 from informe i where i.idinforme=" + codrestextBox.Text + "";
+                MySqlCommand cm1 = new MySqlCommand(id1041, Conexion.conectar());
+                using(MySqlDataReader reader = cm1.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int id41 = reader.GetInt32(0);
+                        string mod = "update serv1041 set cant1041=" + cant1041textBox.Text + ", horaserv=" + horaserv41textBox.Text + ", arrollamiento=" + arrollamientotextBox.Text + ", choque=" + choquetextBox.Text + ", vuelco=" + vuelcotextBox.Text + ", caida=" + caidatextBox.Text + ", aeronave=" + aeronavetextBox.Text + ", peaton='" + peatonestextBox.Text + "', moto='" + motostextBox.Text + "', vehliviano='" + vehlivtextBox.Text + "', vehpesado='" + vehpestextBox.Text + "', bus='" + bustextBox.Text
+                        + "', danomat='" + dañomattextBox.Text + "', conherido='" + conheridostextBox.Text + "', conatrap='" + conatraptextBox.Text + "', coninc='" + coninctextBox.Text + "', matpel='" + matpeltextBox.Text + "', cintcond='" + cintcondtextBox.Text + "', cintacomp='" + cintacomptextBox.Text + "', cascocond='" + cascondtextBox.Text + "', cascoacomp='" + casacomptextBox.Text + "', ileso=" + ilesos41textBox.Text + ", herido=" + heridos41textBox.Text + ", fallecido=" + fallecidos41textBox.Text
+                        + ", rescate=" + rescates41textBox.Text + ", combustible=" + combustible41textBox.Text + ", bombero=" + bomberos41textBox.Text + ", kmrecorrido=" + kmrecorrido41textBox.Text + ", tiempototal=" + tiempototal41textBox.Text + ", nomina='" + nomina41textBox.Text + "' where idserv1041=" + id41 + "";
+                        MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                //serv1043
+                string id1043 = "select i.idserv1043 from informe i where i.idinforme=" + codrestextBox.Text + "";
+                MySqlCommand cm2 = new MySqlCommand(id1043, Conexion.conectar());
+                using (MySqlDataReader reader = cm2.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int id43 = reader.GetInt32(0);
+                        string mod = "update serv1043 set cant1043=" + cant1043textBox.Text + ", horaserv=" + horaserv43textBox.Text + ", rescate=" + rescate43textBox.Text + ", recuperacion=" + recuperaciontextBox.Text + ", aniali=" + anialitextBox.Text + ", cobertura=" + coberturatextBox.Text + ", curso=" + cursotextBox.Text + ", vivienda=" + viviendatextBox.Text + ", profundidad=" + profundidadtextBox.Text + ", altura=" + alturatextBox.Text + ", derrumbe=" + derrumbetextBox.Text 
+                        + ", naufragio=" + naufragiotextBox.Text + ", bomba=" + bombatextBox.Text + ", suicidio=" + suicidiotextBox.Text + ", ileso=" + ilesos43textBox.Text + ", herido=" + heridos43textBox.Text + ", fallecido=" + fallecidos43textBox.Text
+                        + ", combustible=" + combustible43textBox.Text + ", nomina='" + nomina43textBox.Text + "' where idserv1043="+id43+"";
                         MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
                         cmd.ExecuteNonQuery();
                     }
                 }
                 
-                //serv1041
-                /*string mod1 = "update serv1041 set";
+                //informe
+                string mod1 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes='" + MestextBox.Text + "', anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" + autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" + codrestextBox.Text + "";
                 MySqlCommand cmd1 = new MySqlCommand(mod1, Conexion.conectar());
                 cmd1.ExecuteNonQuery();
-                //serv1043
-                string mod2 = "update serv1043 set";
-                MySqlCommand cmd2 = new MySqlCommand(mod2, Conexion.conectar());
-                cmd2.ExecuteNonQuery();*/
-                //informe
-                string mod3 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes='" + MestextBox.Text + "', anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" + autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" + codrestextBox.Text + "";
-                MySqlCommand cmd3 = new MySqlCommand(mod3, Conexion.conectar());
-                cmd3.ExecuteNonQuery();
             }catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
