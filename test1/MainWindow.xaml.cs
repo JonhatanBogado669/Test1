@@ -41,18 +41,19 @@ namespace test1
             //uso de combustible
             codtextBox.Text = "";
             periodotextBox.Text = "";
-            vehiculocomboBox.Text = "";
-            CItextBox.Text = "";
+            vehiculocomboBox.Text = ""; 
+            FechaCombus.Text = "";
+            CItextBox.Text = "0";
             nombretextBox.Text = "";
             salidatextBox.Text = "";
-            kmsalidatextBox.Text = "";
+            kmsalidatextBox.Text = "0";
             destinotextBox.Text = "";
-            kmllegadatextBox.Text = "";
-            kmrecorridotextBox.Text = "";
+            kmllegadatextBox.Text = "0";
+            kmrecorridotextBox.Text = "0";
             motivotextBox.Text = "";
-            ltscargadotextBox.Text = "";
+            ltscargadotextBox.Text = "0";
             facturatextBox.Text = "";
-            importetextBox.Text = "";
+            importetextBox.Text = "0";
             //resumen de servicios
             horatextBox.Text = "";
             FechaServ.Text = "";
@@ -60,54 +61,54 @@ namespace test1
             AnhotextBox.Text = "";
             autortextBox.Text = "";
             teleftextBox.Text = "";
-            cantciaesttextBox.Text = "";
+            cantciaesttextBox.Text = "0";
             lugartextBox.Text = "";
             faxtextBox.Text = "";
-            totalservtextBox.Text = "";
-            cant1040textBox.Text = "";
-            horaserv40textBox.Text = "";
-            estructuraltextBox.Text = "";
-            vehiculartextBox.Text = "";
-            basuraltextBox.Text = "";
-            forestaltextBox.Text = "";
-            pastizaltextBox.Text = "";
-            principiotextBox.Text = "";
-            pqmagtextBox.Text = "";
-            mdmagtextBox.Text = "";
-            grmagtextBox.Text = "";
-            emergraltextBox.Text = "";
-            ilesostextBox.Text = "";
-            heridostextBox.Text = "";
-            fallecidostextBox.Text = "";
-            rescatestextBox.Text = "";
-            desconocidastextBox.Text = "";
-            premeditadastextBox.Text = "";
-            accidentalestextBox.Text = "";
-            cortotextBox.Text = "";
-            limpiezatextBox.Text = "";
-            aguatextBox.Text = "";
-            pqsco2textBox.Text = "";
-            combustible40textBox.Text = "";
-            bomberostextBox.Text = "";
-            tiempototaltextBox.Text = "";
-            totalkmtextBox.Text = "";
+            totalservtextBox.Text = "0";
+            cant1040textBox.Text = "0";
+            horaserv40textBox.Text = "0";
+            estructuraltextBox.Text = "0";
+            vehiculartextBox.Text = "0";
+            basuraltextBox.Text = "0";
+            forestaltextBox.Text = "0";
+            pastizaltextBox.Text = "0";
+            principiotextBox.Text = "0";
+            pqmagtextBox.Text = "0";
+            mdmagtextBox.Text = "0";
+            grmagtextBox.Text = "0";
+            emergraltextBox.Text = "0";
+            ilesostextBox.Text = "0";
+            heridostextBox.Text = "0";
+            fallecidostextBox.Text = "0";
+            rescatestextBox.Text = "0";
+            desconocidastextBox.Text = "0";
+            premeditadastextBox.Text = "0";
+            accidentalestextBox.Text = "0";
+            cortotextBox.Text = "0";
+            limpiezatextBox.Text = "0";
+            aguatextBox.Text = "0";
+            pqsco2textBox.Text = "0";
+            combustible40textBox.Text = "0";
+            bomberostextBox.Text = "0";
+            tiempototaltextBox.Text = "0";
+            totalkmtextBox.Text = "0";
             nomina40textBox.Text = "";
-            cant1041textBox.Text = "";
-            horaserv41textBox.Text = "";
-            arrollamientotextBox.Text = "";
-            choquetextBox.Text = "";
-            vuelcotextBox.Text = "";
-            caidatextBox.Text = "";
-            aeronavetextBox.Text = "";
+            cant1041textBox.Text = "0";
+            horaserv41textBox.Text = "0";
+            arrollamientotextBox.Text = "0";
+            choquetextBox.Text = "0";
+            vuelcotextBox.Text = "0";
+            caidatextBox.Text = "0";
+            aeronavetextBox.Text = "0";
             dañomattextBox.Text = "";
             conheridostextBox.Text = "";
             conatraptextBox.Text = "";
             coninctextBox.Text = "";
             matpeltextBox.Text = "";
-            ilesos41textBox.Text = "";
-            heridos41textBox.Text = "";
-            fallecidos41textBox.Text = "";
-            rescates41textBox.Text = "";
+            ilesos41textBox.Text = "0";
+            heridos41textBox.Text = "0";
+            fallecidos41textBox.Text = "0";
+            rescates41textBox.Text = "0";
             peatonestextBox.Text = "";
             motostextBox.Text = "";
             vehlivtextBox.Text = "";
@@ -117,35 +118,33 @@ namespace test1
             cintacomptextBox.Text = "";
             cascondtextBox.Text = "";
             casacomptextBox.Text = "";
-            tiempototal41textBox.Text = "";
+            tiempototal41textBox.Text = "0";
             nomina41textBox.Text = "";
-            combustible41textBox.Text = "";
-            bomberos41textBox.Text = "";
-            kmrecorrido41textBox.Text = "";
-            cant1043textBox.Text = "";
-            horaserv43textBox.Text = "";
-            rescate43textBox.Text = "";
-            recuperaciontextBox.Text = "";
-            anialitextBox.Text = "";
-            coberturatextBox.Text = "";
-            cursotextBox.Text = "";
-            viviendatextBox.Text = "";
-            profundidadtextBox.Text = "";
-            alturatextBox.Text = "";
-            derrumbetextBox.Text = "";
-            naufragiotextBox.Text = "";
-            bombatextBox.Text = "";
-            suicidiotextBox.Text = "";
-            transportetextBox.Text = "";
-            ilesos43textBox.Text = "";
-            heridos43textBox.Text = "";
-            fallecidos43textBox.Text = "";
-            combustible43textBox.Text = "";
+            combustible41textBox.Text = "0";
+            bomberos41textBox.Text = "0";
+            kmrecorrido41textBox.Text = "0";
+            cant1043textBox.Text = "0";
+            horaserv43textBox.Text = "0";
+            rescate43textBox.Text = "0";
+            recuperaciontextBox.Text = "0";
+            anialitextBox.Text = "0";
+            coberturatextBox.Text = "0";
+            cursotextBox.Text = "0";
+            viviendatextBox.Text = "0";
+            profundidadtextBox.Text = "0";
+            alturatextBox.Text = "0";
+            derrumbetextBox.Text = "0";
+            naufragiotextBox.Text = "0";
+            bombatextBox.Text = "0";
+            suicidiotextBox.Text = "0";
+            transportetextBox.Text = "0";
+            ilesos43textBox.Text = "0";
+            heridos43textBox.Text = "0";
+            fallecidos43textBox.Text = "0";
+            combustible43textBox.Text = "0";
             nomina43textBox.Text = "";
             FechaCierre.Text = "";
             codrestextBox.Text = "";
-
-
         }
         public void Mostrar()
         {
@@ -228,35 +227,50 @@ namespace test1
             try
             {
                 //serv1040
-                string guardarserv1040 = "insert into serv1040(cant1040,horaserv,estructural,vehicular,basural,forestal,pastizal,desconocida,premeditada,accidental,findelimpieza,principio,pequena,mediana,grande,emergral,agua,pqsco2,combustible,bombero,tiempototal,ileso,herido,fallecido,rescate,totalkm,nomina)values(" +
-                cant1040textBox.Text + "," + horaserv40textBox.Text + "," + estructuraltextBox.Text + "," + vehiculartextBox.Text + "," + basuraltextBox.Text + "," + forestaltextBox.Text + "," + pastizaltextBox.Text + "," + desconocidastextBox.Text + "," + premeditadastextBox.Text + "," + accidentalestextBox.Text + "," + limpiezatextBox.Text + "," +
-                principiotextBox.Text + "," + pqmagtextBox.Text + "," + mdmagtextBox.Text + "," + grmagtextBox.Text + "," + emergraltextBox.Text + "," + aguatextBox.Text + "," + pqsco2textBox.Text + "," + combustible40textBox.Text + "," + bomberostextBox.Text + "," + tiempototaltextBox.Text + "," + ilesostextBox.Text + "," + heridostextBox.Text + "," +
-                fallecidostextBox.Text + "," + rescatestextBox.Text + "," + totalkmtextBox.Text + ",'" + nomina40textBox.Text + "')";
-                MySqlCommand cmd = new MySqlCommand(guardarserv1040, Conexion.conectar());
-                cmd.ExecuteNonQuery();
-                long idTabla1 = cmd.LastInsertedId;
+                //if (cant1040textBox.Text != null)
+                //{
+                    string guardarserv1040 = "insert into serv1040(cant1040,horaserv,estructural,vehicular,basural,forestal,pastizal,desconocida,premeditada,accidental,findelimpieza,principio,pequena,mediana,grande,emergral,agua,pqsco2,combustible,bombero,tiempototal,ileso,herido,fallecido,rescate,totalkm,nomina)values(" +
+                    cant1040textBox.Text + "," + horaserv40textBox.Text + "," + estructuraltextBox.Text + "," + vehiculartextBox.Text + "," + basuraltextBox.Text + "," + forestaltextBox.Text + "," + pastizaltextBox.Text + "," + desconocidastextBox.Text + "," + premeditadastextBox.Text + "," + accidentalestextBox.Text + "," +
+                    limpiezatextBox.Text + "," + principiotextBox.Text + "," + pqmagtextBox.Text + "," + mdmagtextBox.Text + "," + grmagtextBox.Text + "," + emergraltextBox.Text + "," + aguatextBox.Text + "," + pqsco2textBox.Text + "," + combustible40textBox.Text + "," + bomberostextBox.Text + "," + tiempototaltextBox.Text + "," +
+                    ilesostextBox.Text + "," + heridostextBox.Text + "," + fallecidostextBox.Text + "," + rescatestextBox.Text + "," + totalkmtextBox.Text + ",'" + nomina40textBox.Text + "')";
+                    MySqlCommand cmd = new MySqlCommand(guardarserv1040, Conexion.conectar());
+                    cmd.ExecuteNonQuery();
+
+                   
+                //}
                 //serv1041
-                string guardarserv1041 = "insert into serv1041(cant1041,horaserv,arrollamiento,choque,vuelco,caida,aeronave,peaton,moto,vehliviano,vehpesado,bus,danomat,conherido,conatrap,coninc,matpel,cintcond,cintacomp,cascocond,cascoacomp,ileso,herido,fallecido,rescate,combustible,bombero,kmrecorrido,tiempototal,nomina)values(" +
-                cant1041textBox.Text + "," + horaserv41textBox.Text + "," + arrollamientotextBox.Text + "," + choquetextBox.Text + "," + vuelcotextBox.Text + "," + caidatextBox.Text + "," + aeronavetextBox.Text + ",'" + peatonestextBox.Text + "','" + motostextBox.Text + "','" + vehlivtextBox.Text + "','" + vehpestextBox.Text + "','" + bustextBox.Text + "','" + dañomattextBox.Text
-                + "','" + conheridostextBox.Text + "','" + conatraptextBox.Text + "','" + coninctextBox.Text + "','" + matpeltextBox.Text + "','" + cintcondtextBox.Text + "','" + cintacomptextBox.Text + "','" + cascondtextBox.Text + "','" + casacomptextBox.Text + "'," + ilesos41textBox.Text + "," + heridos41textBox.Text + "," + fallecidos41textBox.Text + "," + rescates41textBox.Text
-                + "," + combustible41textBox.Text + "," + bomberos41textBox.Text + "," + kmrecorrido41textBox.Text + "," + tiempototal41textBox.Text + ",'" + nomina41textBox.Text + "')";
-                MySqlCommand cmd1 = new MySqlCommand(guardarserv1041, Conexion.conectar());
-                cmd1.ExecuteNonQuery();
-                long idTabla2 = cmd1.LastInsertedId;
+                //if (cant1041textBox.Text != null)
+                /*{
+                    string guardarserv1041 = "insert into serv1041(cant1041,horaserv,arrollamiento,choque,vuelco,caida,aeronave,peaton,moto,vehliviano,vehpesado,bus,danomat,conherido,conatrap,coninc,matpel,cintcond,cintacomp,cascocond,cascoacomp,ileso,herido,fallecido,rescate,combustible,bombero,kmrecorrido,tiempototal,nomina)values(" +
+                    cant1041textBox.Text + "," + horaserv41textBox.Text + "," + arrollamientotextBox.Text + "," + choquetextBox.Text + "," + vuelcotextBox.Text + "," + caidatextBox.Text + "," + aeronavetextBox.Text + ",'" + peatonestextBox.Text + "','" + motostextBox.Text + "','" + vehlivtextBox.Text + "','" + vehpestextBox.Text + "','" +
+                    bustextBox.Text + "','" + dañomattextBox.Text + "','" + conheridostextBox.Text + "','" + conatraptextBox.Text + "','" + coninctextBox.Text + "','" + matpeltextBox.Text + "','" + cintcondtextBox.Text + "','" + cintacomptextBox.Text + "','" + cascondtextBox.Text + "','" + casacomptextBox.Text + "'," + ilesos41textBox.Text + "," +
+                    heridos41textBox.Text + "," + fallecidos41textBox.Text + "," + rescates41textBox.Text + "," + combustible41textBox.Text + "," + bomberos41textBox.Text + "," + kmrecorrido41textBox.Text + "," + tiempototal41textBox.Text + ",'" + nomina41textBox.Text + "')";
+                    MySqlCommand cmd1 = new MySqlCommand(guardarserv1041, Conexion.conectar());
+                    cmd1.ExecuteNonQuery();
+                    long idTabla2 = cmd1.LastInsertedId;
+                //}
                 //serv1043
-                string guardarserv1043 = "insert into serv1043(cant1043,horaserv,rescate,recuperacion,aniali,cobertura,curso,vivienda,profundidad,altura,derrumbe,naufragio,bomba,suicidio,ileso,herido,fallecido,combustible,nomina)values(" + cant1043textBox.Text + "," + horaserv43textBox.Text + "," + rescate43textBox.Text + "," + recuperaciontextBox.Text + "," +
-                anialitextBox.Text + "," + coberturatextBox.Text + "," + cursotextBox.Text + "," + viviendatextBox.Text + "," + profundidadtextBox.Text + "," + alturatextBox.Text + "," + derrumbetextBox.Text + "," + naufragiotextBox.Text + "," + bombatextBox.Text + "," + suicidiotextBox.Text + "," + ilesos43textBox.Text + "," + heridos43textBox.Text + "," + fallecidos43textBox.Text + "," +
-                combustible43textBox.Text + ",'" + nomina43textBox.Text + "')";
-                MySqlCommand cmd2 = new MySqlCommand(guardarserv1043, Conexion.conectar());
-                cmd2.ExecuteNonQuery();
-                long idTabla3 = cmd2.LastInsertedId;
+                //if (cant1043textBox.Text != null)
+                //{
+                    string guardarserv1043 = "insert into serv1043(cant1043,horaserv,rescate,recuperacion,aniali,cobertura,curso,vivienda,profundidad,altura,derrumbe,naufragio,bomba,suicidio,ileso,herido,fallecido,combustible,nomina)values(" + cant1043textBox.Text + "," + horaserv43textBox.Text + "," + rescate43textBox.Text + "," + recuperaciontextBox.Text + "," +
+                    anialitextBox.Text + "," + coberturatextBox.Text + "," + cursotextBox.Text + "," + viviendatextBox.Text + "," + profundidadtextBox.Text + "," + alturatextBox.Text + "," + derrumbetextBox.Text + "," + naufragiotextBox.Text + "," + bombatextBox.Text + "," + suicidiotextBox.Text + "," + ilesos43textBox.Text + "," + heridos43textBox.Text + "," + fallecidos43textBox.Text + "," +
+                    combustible43textBox.Text + ",'" + nomina43textBox.Text + "')";
+                    MySqlCommand cmd2 = new MySqlCommand(guardarserv1043, Conexion.conectar());
+                    cmd2.ExecuteNonQuery();
+                    long idTabla3 = cmd2.LastInsertedId;
+                //}*/
                 //informe
-                string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040,idserv1041,idserv1043)values('" + FechaServ.Text + "','" + horatextBox.Text + "','" + MestextBox.Text + "','" + AnhotextBox.Text + "'," + cantciaesttextBox.Text + ",'" + autortextBox.Text + "','" + teleftextBox.Text
-                + "','" + lugartextBox.Text + "','" + faxtextBox.Text + "','" + FechaCierre.Text + "'," + totalservtextBox.Text + "," + idTabla1 + "," + idTabla2 + "," + idTabla3 + ")";
-                MySqlCommand cmd3 = new MySqlCommand(guardarres, Conexion.conectar());
-                cmd3.ExecuteNonQuery();
-                Limpiar();
-                Mostrar();
+                if (guardarserv1040 != null)
+                {
+                    long idTabla1 = cmd.LastInsertedId;
+                    string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040)values('" + FechaServ.Text + "','" + horatextBox.Text + "','" + MestextBox.Text + "','" + AnhotextBox.Text + "'," + cantciaesttextBox.Text + ",'" + autortextBox.Text + "','" + teleftextBox.Text
+                    + "','" + lugartextBox.Text + "','" + faxtextBox.Text + "','" + FechaCierre.Text + "'," + totalservtextBox.Text + "," + idTabla1 + ")";
+                    MySqlCommand cmd3 = new MySqlCommand(guardarres, Conexion.conectar());
+                    cmd3.ExecuteNonQuery();
+                    Limpiar();
+                    Mostrar();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -275,9 +289,13 @@ namespace test1
                     if (reader.Read())
                     {
                         int id40 = reader.GetInt32(0);
-                        string mod = "update serv1040 set cant1040=" + cant1040textBox.Text + ", horaserv=" + horaserv40textBox.Text + ", estructural=" + estructuraltextBox.Text + ", vehicular=" + vehiculartextBox.Text + ", basural=" + basuraltextBox.Text + ", forestal=" + forestaltextBox.Text + ", pastizal=" + pastizaltextBox.Text + ", desconocida=" + desconocidastextBox.Text + ", premeditada=" + premeditadastextBox.Text + ", accidental=" +
-                        accidentalestextBox.Text + ", findelimpieza=" + limpiezatextBox.Text + ", principio=" + principiotextBox.Text + ", pequena=" + pqmagtextBox.Text + ", mediana=" + mdmagtextBox.Text + ", grande=" + grmagtextBox.Text + ", emergral=" + emergraltextBox.Text + ", agua=" + aguatextBox.Text + ", pqsco2=" + pqsco2textBox.Text + ", combustible=" + combustible40textBox.Text + ", bombero=" + bomberostextBox.Text + ", tiempototal=" +
-                        tiempototaltextBox.Text + ", ileso=" + ilesostextBox.Text + ", herido=" + heridostextBox.Text + ", fallecido=" + fallecidostextBox.Text + ", rescate=" + rescatestextBox.Text + ", totalkm=" + totalkmtextBox.Text + ", nomina='" + nomina40textBox.Text + "' where idserv1040 = " + id40 + "";
+                        string mod = "update serv1040 set cant1040=" + cant1040textBox.Text + ", horaserv=" + horaserv40textBox.Text + ", estructural=" + estructuraltextBox.Text + ", vehicular=" + 
+                        vehiculartextBox.Text + ", basural=" + basuraltextBox.Text + ", forestal=" + forestaltextBox.Text + ", pastizal=" + pastizaltextBox.Text + ", desconocida=" +
+                        desconocidastextBox.Text + ", premeditada=" + premeditadastextBox.Text + ", accidental=" + accidentalestextBox.Text + ", findelimpieza=" + limpiezatextBox.Text + ", principio=" +
+                        principiotextBox.Text + ", pequena=" + pqmagtextBox.Text + ", mediana=" + mdmagtextBox.Text + ", grande=" + grmagtextBox.Text + ", emergral=" + emergraltextBox.Text + ", agua=" +
+                        aguatextBox.Text + ", pqsco2=" + pqsco2textBox.Text + ", combustible=" + combustible40textBox.Text + ", bombero=" + bomberostextBox.Text + ", tiempototal=" +
+                        tiempototaltextBox.Text + ", ileso=" + ilesostextBox.Text + ", herido=" + heridostextBox.Text + ", fallecido=" + fallecidostextBox.Text + ", rescate=" +
+                        rescatestextBox.Text + ", totalkm=" + totalkmtextBox.Text + ", nomina='" + nomina40textBox.Text + "' where idserv1040 = " + id40 + "";
                         MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
                         cmd.ExecuteNonQuery();
                     }
@@ -291,9 +309,13 @@ namespace test1
                     if (reader.Read())
                     {
                         int id41 = reader.GetInt32(0);
-                        string mod = "update serv1041 set cant1041=" + cant1041textBox.Text + ", horaserv=" + horaserv41textBox.Text + ", arrollamiento=" + arrollamientotextBox.Text + ", choque=" + choquetextBox.Text + ", vuelco=" + vuelcotextBox.Text + ", caida=" + caidatextBox.Text + ", aeronave=" + aeronavetextBox.Text + ", peaton='" + peatonestextBox.Text + "', moto='" + motostextBox.Text + "', vehliviano='" + vehlivtextBox.Text + "', vehpesado='" + vehpestextBox.Text + "', bus='" + bustextBox.Text
-                        + "', danomat='" + dañomattextBox.Text + "', conherido='" + conheridostextBox.Text + "', conatrap='" + conatraptextBox.Text + "', coninc='" + coninctextBox.Text + "', matpel='" + matpeltextBox.Text + "', cintcond='" + cintcondtextBox.Text + "', cintacomp='" + cintacomptextBox.Text + "', cascocond='" + cascondtextBox.Text + "', cascoacomp='" + casacomptextBox.Text + "', ileso=" + ilesos41textBox.Text + ", herido=" + heridos41textBox.Text + ", fallecido=" + fallecidos41textBox.Text
-                        + ", rescate=" + rescates41textBox.Text + ", combustible=" + combustible41textBox.Text + ", bombero=" + bomberos41textBox.Text + ", kmrecorrido=" + kmrecorrido41textBox.Text + ", tiempototal=" + tiempototal41textBox.Text + ", nomina='" + nomina41textBox.Text + "' where idserv1041=" + id41 + "";
+                        string mod = "update serv1041 set cant1041=" + cant1041textBox.Text + ", horaserv=" + horaserv41textBox.Text + ", arrollamiento=" + arrollamientotextBox.Text + ", choque=" +
+                        choquetextBox.Text + ", vuelco=" + vuelcotextBox.Text + ", caida=" + caidatextBox.Text + ", aeronave=" + aeronavetextBox.Text + ", peaton='" + peatonestextBox.Text + "', moto='" +
+                        motostextBox.Text + "', vehliviano='" + vehlivtextBox.Text + "', vehpesado='" + vehpestextBox.Text + "', bus='" + bustextBox.Text + "', danomat='" + dañomattextBox.Text + "', conherido='" +
+                        conheridostextBox.Text + "', conatrap='" + conatraptextBox.Text + "', coninc='" + coninctextBox.Text + "', matpel='" + matpeltextBox.Text + "', cintcond='" + cintcondtextBox.Text + "', cintacomp='" +
+                        cintacomptextBox.Text + "', cascocond='" + cascondtextBox.Text + "', cascoacomp='" + casacomptextBox.Text + "', ileso=" + ilesos41textBox.Text + ", herido=" + heridos41textBox.Text + ", fallecido=" +
+                        fallecidos41textBox.Text + ", rescate=" + rescates41textBox.Text + ", combustible=" + combustible41textBox.Text + ", bombero=" + bomberos41textBox.Text + ", kmrecorrido=" +
+                        kmrecorrido41textBox.Text + ", tiempototal=" + tiempototal41textBox.Text + ", nomina='" + nomina41textBox.Text + "' where idserv1041=" + id41 + "";
                         MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
                         cmd.ExecuteNonQuery();
                     }
@@ -307,16 +329,20 @@ namespace test1
                     if (reader.Read())
                     {
                         int id43 = reader.GetInt32(0);
-                        string mod = "update serv1043 set cant1043=" + cant1043textBox.Text + ", horaserv=" + horaserv43textBox.Text + ", rescate=" + rescate43textBox.Text + ", recuperacion=" + recuperaciontextBox.Text + ", aniali=" + anialitextBox.Text + ", cobertura=" + coberturatextBox.Text + ", curso=" + cursotextBox.Text + ", vivienda=" + viviendatextBox.Text + ", profundidad=" + profundidadtextBox.Text + ", altura=" + alturatextBox.Text + ", derrumbe=" + derrumbetextBox.Text 
-                        + ", naufragio=" + naufragiotextBox.Text + ", bomba=" + bombatextBox.Text + ", suicidio=" + suicidiotextBox.Text + ", ileso=" + ilesos43textBox.Text + ", herido=" + heridos43textBox.Text + ", fallecido=" + fallecidos43textBox.Text
-                        + ", combustible=" + combustible43textBox.Text + ", nomina='" + nomina43textBox.Text + "' where idserv1043="+id43+"";
+                        string mod = "update serv1043 set cant1043=" + cant1043textBox.Text + ", horaserv=" + horaserv43textBox.Text + ", rescate=" + rescate43textBox.Text + ", recuperacion=" + 
+                        recuperaciontextBox.Text + ", aniali=" + anialitextBox.Text + ", cobertura=" + coberturatextBox.Text + ", curso=" + cursotextBox.Text + ", vivienda=" + viviendatextBox.Text + ", profundidad=" +
+                        profundidadtextBox.Text + ", altura=" + alturatextBox.Text + ", derrumbe=" + derrumbetextBox.Text  + ", naufragio=" + naufragiotextBox.Text + ", bomba=" + bombatextBox.Text + ", suicidio=" + 
+                        suicidiotextBox.Text + ", ileso=" + ilesos43textBox.Text + ", herido=" + heridos43textBox.Text + ", fallecido=" + fallecidos43textBox.Text + ", combustible=" + combustible43textBox.Text + ", nomina='" +
+                        nomina43textBox.Text + "' where idserv1043="+id43+"";
                         MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
                         cmd.ExecuteNonQuery();
                     }
                 }
                 
                 //informe
-                string mod1 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes='" + MestextBox.Text + "', anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" + autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" + codrestextBox.Text + "";
+                string mod1 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes='" + MestextBox.Text + "', anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" +
+                autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" + 
+                codrestextBox.Text + "";
                 MySqlCommand cmd1 = new MySqlCommand(mod1, Conexion.conectar());
                 cmd1.ExecuteNonQuery();
             }catch(Exception ex)
