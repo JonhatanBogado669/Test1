@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="712.5" Width="1301.5" WindowStartupLocation="CenterScreen" HorizontalAlignment="Left" VerticalAlignment="Bottom" ResizeMode="CanMinimize">
     <Grid>
+
         <TabControl x:Name="tabControl">
             <TabItem Header="Uso de Combustible">
                 <Grid Background="#FFE5E5E5">
@@ -96,7 +97,7 @@
                     <TextBox x:Name="codrestextBox" HorizontalAlignment="Left" Height="23" Margin="960,623,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
                     <Grid x:Name="tabla3" Background="#FFBBBBBB" Margin="10,118,4,275">
                         <Label x:Name="label22_Copy1" Content="Cantidad global de 10.43:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                        <TextBox x:Name="cant1043textBox" HorizontalAlignment="Left" Height="24" Margin="164,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" TextChanged="Cant1043textBox_TextChanged" Text="0"/>
+                        <TextBox x:Name="cant1043textBox" HorizontalAlignment="Left" Height="24" Margin="164,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Text="0"/>
                         <Label x:Name="label23_Copy1" Content="Horas en servicios:" HorizontalAlignment="Left" Margin="1045,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                         <TextBox x:Name="horaserv43textBox" HorizontalAlignment="Left" Height="24" Margin="1175,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Text="0"/>
                         <Label x:Name="label24_Copy12" Content="Servicio 10.43." HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
@@ -253,7 +254,7 @@
                         <Label x:Name="label25_Copy15" Content="3- Accidentales:" HorizontalAlignment="Left" Margin="390,126,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label25_Copy16" Content="4- Corto Circuitos:" HorizontalAlignment="Left" Margin="390,152,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label25_Copy17" Content="5- Fines de Limpieza:" HorizontalAlignment="Left" Margin="390,178,0,0" VerticalAlignment="Top" Height="26" Width="125"/>
-                        <TextBox x:Name="accidentalestextBox" HorizontalAlignment="Left" Height="22" Margin="517,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" TextChanged="AccidentalestextBox_TextChanged" Text="0"/>
+                        <TextBox x:Name="accidentalestextBox" HorizontalAlignment="Left" Height="22" Margin="517,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Text="0"/>
                         <TextBox x:Name="cortotextBox" HorizontalAlignment="Left" Height="22" Margin="517,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Text="0"/>
                         <TextBox x:Name="limpiezatextBox" HorizontalAlignment="Left" Height="22" Margin="517,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Text="0"/>
                         <Label x:Name="label24_Copy3" Content="Recursos Utilizados" HorizontalAlignment="Left" Margin="597,45,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
@@ -294,7 +295,16 @@
             </TabItem>
 
         </TabControl>
+        <Grid Background="#FFE5E5E5">
+            <Label x:Name="label3" Content="Cuartel de Bomberos Voluntarios de Coronel Bogado" HorizontalAlignment="Left" Margin="193,146,0,0" VerticalAlignment="Top" Height="74" Width="914" FontSize="36" FontWeight="Bold"/>
+            <Label x:Name="label12" Content="Usuario:" HorizontalAlignment="Left" Margin="527,263,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="37" Margin="613,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="20"/>
+            <Label x:Name="label12_Copy" Content="Contraseña:" HorizontalAlignment="Left" Margin="495,305,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="37" Margin="613,305,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"  FontSize="20"/>
+            <Button x:Name="button3" Content="Ingresar" HorizontalAlignment="Left" Height="36" Margin="613,347,0,0" VerticalAlignment="Top" Width="98" FontSize="20" Background="#FF67C367" Foreground="#FFF7F7F7"/>
+            <Button x:Name="button4" Content="Olvidaste tu contraseña?" HorizontalAlignment="Left" Margin="613,383,0,0" VerticalAlignment="Top" Width="178" Height="32" FontSize="16" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF476BA0" FontStyle="Italic"/>
 
+        </Grid>
     </Grid>
 </Window>
 

@@ -68,9 +68,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="models\Informe.cs" />
+    <Compile Include="models\PasswordReset.cs" />
     <Compile Include="models\Serv1040.cs" />
     <Compile Include="models\Serv1041.cs" />
     <Compile Include="models\Serv1043.cs" />
+    <Compile Include="models\Users.cs" />
     <Compile Include="VehiculoWindow.xaml.cs">
       <DependentUpon>VehiculoWindow.xaml</DependentUpon>
     </Compile>
