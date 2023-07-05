@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using System.Security.Cryptography;
 using System.Collections.ObjectModel;
 using System.Collections;
 using test1.models;
@@ -467,6 +468,104 @@ namespace test1
             }
         }
 
-       
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            string username = UsernametextBox.Text;
+            string password = PasswordtextBox.Password;
+
+            if (string.IsNullOrEmpty(UsernametextBox.Text) || string.IsNullOrEmpty(PasswordtextBox.Password))
+            {
+                MessageBox.Show("Por favor, ingrese su nombre de usuario y contraseña.", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (Login(UsernametextBox.Text, PasswordtextBox.Password))
+            {
+                // Inicio de sesión exitoso, realizar acciones según el rol del usuario
+                string role = GetUserRole(UsernametextBox.Text);
+                switch (role)
+                {
+                    case "Admin":
+                        // Lógica para el rol de administrador
+                        UsernametextBox.Text = null;
+                        PasswordtextBox.Password = null;
+                        MessageBox.Show("¡Inicio de sesión exitoso como administrador!", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoginGrid.Visibility = Visibility.Collapsed;
+                        
+                        break;
+                    case "Usuario":
+                        // Lógica para el rol de usuario normal
+                        MessageBox.Show("¡Inicio de sesión exitoso como usuario!", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Information);
+                        break;
+                    default:
+                        MessageBox.Show("El usuario no tiene un rol válido.", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nombre de usuario o contraseña incorrectos.", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+        private bool Login(string username, string password)
+        {
+            try
+            {
+                string hashedPassword = HashPassword(password);
+                Conexion.conectar();
+
+                string cadena = "SELECT COUNT(*) FROM users WHERE username = '"+UsernametextBox.Text+"' AND password = '"+PasswordtextBox.Password+"'";
+                MySqlCommand cmd = new MySqlCommand(cadena, Conexion.conectar());
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al intentar iniciar sesión: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        private string GetUserRole(string username)
+        {
+            try
+            {
+                Conexion.conectar();
+
+                string cadena = "SELECT role FROM users WHERE username = '"+UsernametextBox.Text+"'";
+                MySqlCommand cmd = new MySqlCommand(cadena, Conexion.conectar());
+                string role = cmd.ExecuteScalar()?.ToString();
+                return role;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener el rol del usuario: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+
+                return builder.ToString();
+            }
+        }
+        private void LogOutButton_Clikc(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result =  MessageBox.Show("Quieres cerrar sesión?", "Cierre de sesión", MessageBoxButton.YesNo , MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                LoginGrid.Visibility = Visibility.Visible;
+            }
+            
+        }
     }
 }
