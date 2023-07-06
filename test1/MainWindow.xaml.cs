@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
+using System.Net;
+using System.Net.Mail;
 using System.Collections.ObjectModel;
 using System.Collections;
 using test1.models;
@@ -33,6 +35,7 @@ namespace test1
             InitializeComponent();
             vehiculocomboBox.ItemsSource = listvehiculo;
             Conexion.conectar();
+            
             Mostrar();
             Cargar();
         }
@@ -467,7 +470,7 @@ namespace test1
                 importetextBox.Text = imptotal.ToString();
             }
         }
-
+        /////////////////////////////////Login/////////////////////////////////////
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernametextBox.Text;
@@ -489,9 +492,8 @@ namespace test1
                         // Lógica para el rol de administrador
                         UsernametextBox.Text = null;
                         PasswordtextBox.Password = null;
-                        MessageBox.Show("¡Inicio de sesión exitoso como administrador!", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Information);
                         LoginGrid.Visibility = Visibility.Collapsed;
-                        
+                        MessageBox.Show("¡Inicio de sesión exitoso como administrador!", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                     case "Usuario":
                         // Lógica para el rol de usuario normal
@@ -566,6 +568,157 @@ namespace test1
                 LoginGrid.Visibility = Visibility.Visible;
             }
             
+        }
+        /////////////////////////Reseteo de Contraseña///////////////////////////
+        private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            string username = UsernametextBox.Text;
+
+            if (string.IsNullOrEmpty(username))
+            {
+                MessageBox.Show("Por favor, ingrese su nombre de usuario.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            string email = GetEmailByUsername(username);
+            if (string.IsNullOrEmpty(email))
+            {
+                MessageBox.Show("No se encontró ninguna dirección de correo electrónico asociada a ese nombre de usuario.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (username != null && email != null)
+            {
+                LoginGrid.Visibility = Visibility.Collapsed;
+                tabControl.Visibility = Visibility.Collapsed;
+                Correoview();
+            }
+        }
+        private string GetEmailByUsername(string username)
+        {
+            try
+            {
+               
+                string query = "SELECT correo FROM users WHERE username = '"+username+"'";
+                MySqlCommand cmd = new MySqlCommand(query, Conexion.conectar());
+                string email = cmd.ExecuteScalar()?.ToString();
+                return email;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener la dirección de correo electrónico: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        public void Correoview()
+        {
+            string username = UsernametextBox.Text;
+            string email = GetEmailByUsername(username);
+            labelcorreo.Content = email;
+        }
+        private void EnviarButton_Click(object sender, RoutedEventArgs e)
+        {
+            string username = UsernametextBox.Text;
+            string email = GetEmailByUsername(username);
+            string resetCode = GenerateResetCode();
+            if (SendResetCodeByEmail(email, resetCode))
+            {
+                // Aquí puedes guardar el resetCode en una base de datos o en memoria para su posterior validación
+                string guardarcode = "insert into password_reset(username,reset_code)value('" + username + "'," + resetCode + ")";
+                MySqlCommand cmd = new MySqlCommand(guardarcode, Conexion.conectar());
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Se ha enviado un código de restablecimiento a su dirección de correo electrónico registrada.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Information);
+                verifyGrid.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MessageBox.Show("No se pudo enviar el código de restablecimiento. Por favor, intente nuevamente más tarde.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private string GenerateResetCode()
+        {
+            const string digits = "0123456789";
+            var random = new Random();
+
+            // Genera una cadena de 6 dígitos aleatorios
+            string resetCode = new string(Enumerable.Repeat(digits, 6)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            return resetCode;
+        }
+        private bool SendResetCodeByEmail(string email, string resetCode)
+        {
+            try
+            {
+                string username = UsernametextBox.Text;
+                string senderEmail = GetEmailByUsername(username);
+                string senderPassword = senderPasswordtextBox.Password;
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+
+                // Configurar la información del correo electrónico
+                MailMessage mailMessage = new MailMessage(senderEmail, email);
+                mailMessage.Subject = "Código de restablecimiento de contraseña";
+                mailMessage.Body = "Su código de restablecimiento de contraseña es: " + resetCode;
+
+                SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                smtpClient.EnableSsl = true;
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
+
+                // Enviar el correo electrónico
+                smtpClient.Send(mailMessage);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al enviar el código de restablecimiento por correo electrónico: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+        private void VerificarButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string username = UsernametextBox.Text;
+                string select = "SELECT COUNT(*) FROM password_reset WHERE username = '" + username + "' AND reset_code = " + resetcodetextBox.Text + "";
+                MySqlCommand cmd = new MySqlCommand(select, Conexion.conectar());
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                if (count > 0)
+                {
+                    resetGrid.Visibility = Visibility.Collapsed;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al verificar el código de restablecimiento y actualizar la contraseña: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string username = UsernametextBox.Text;
+                string update = "UPDATE users SET password = '" + updatetextBox.Password + "' WHERE username = '" + username + "'";
+                MySqlCommand cmd1 = new MySqlCommand(update, Conexion.conectar());
+                cmd1.ExecuteNonQuery();
+
+                // Eliminar el registro de reset_code de la tabla password_reset
+                string delete = "DELETE FROM password_reset WHERE username = '" + username + "'";
+                MySqlCommand cmd2 = new MySqlCommand(delete, Conexion.conectar());
+                cmd2.ExecuteNonQuery();
+                MessageBox.Show("Contraseña actualizada!", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
