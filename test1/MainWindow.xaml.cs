@@ -14,8 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
-using System.Net;
-using System.Net.Mail;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
 using System.Collections.ObjectModel;
 using System.Collections;
 using test1.models;
@@ -653,22 +654,27 @@ namespace test1
             {
                 string username = UsernametextBox.Text;
                 string senderEmail = GetEmailByUsername(username);
-                string senderPassword = senderPasswordtextBox.Password;
+                string senderPassword = senderPasswordtextBox.Text;
                 string smtpServer = "smtp.gmail.com";
                 int smtpPort = 587;
 
-                // Configurar la información del correo electrónico
-                MailMessage mailMessage = new MailMessage(senderEmail, email);
-                mailMessage.Subject = "Código de restablecimiento de contraseña";
-                mailMessage.Body = "Su código de restablecimiento de contraseña es: " + resetCode;
+                // Configurar el mensaje de correo electrónico
+                var message = new MimeMessage();
+                message.From.Add(MailboxAddress.Parse(senderEmail));
+                message.To.Add(MailboxAddress.Parse(email));
+                message.Subject = "Código de restablecimiento de contraseña";
+                message.Body = new TextPart("plain")
+                {
+                    Text = "Su código de restablecimiento de contraseña es: " + resetCode
+                };
 
-                SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
-                smtpClient.EnableSsl = true;
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
-
-                // Enviar el correo electrónico
-                smtpClient.Send(mailMessage);
+                using (var client = new SmtpClient())
+                {
+                    client.Connect(smtpServer, smtpPort, SecureSocketOptions.StartTls);
+                    client.Authenticate(senderEmail, senderPassword);
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
 
                 return true;
             }
@@ -714,6 +720,7 @@ namespace test1
                 MySqlCommand cmd2 = new MySqlCommand(delete, Conexion.conectar());
                 cmd2.ExecuteNonQuery();
                 MessageBox.Show("Contraseña actualizada!", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoginGrid.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
