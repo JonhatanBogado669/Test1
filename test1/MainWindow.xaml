@@ -7,24 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="712.5" Width="1301.5" WindowStartupLocation="CenterScreen" HorizontalAlignment="Left" VerticalAlignment="Bottom" ResizeMode="CanMinimize">
     <Grid>
-        <Grid x:Name="updateGrid" Background="#FFE5E5E5">
-            <Label x:Name="l" Content="Ingresa una nueva contraseña:" HorizontalAlignment="Left" Margin="27,10,0,0" VerticalAlignment="Top"/>
-            <PasswordBox x:Name="updatetextBox" HorizontalAlignment="Left" Height="23" Margin="52,41,0,0" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="b" Content="Actualizar" HorizontalAlignment="Left" Margin="74,69,0,0" VerticalAlignment="Top" Width="75" Click="UpdateButton_Click"/>
-        </Grid>
-        <Grid x:Name="resetGrid" Background="#FFE5E5E5">
-            <TextBox x:Name="resetcodetextBox" HorizontalAlignment="Left" Height="23" Margin="52,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <Label x:Name="l1" Content="Ingresa el código:" HorizontalAlignment="Left" Margin="61,10,0,0" VerticalAlignment="Top" Width="101"/>
-            <Button x:Name="b1" Content="Verificar" HorizontalAlignment="Left" Margin="74,69,0,0" VerticalAlignment="Top" Width="75" Click="VerificarButton_Click"/>
-        </Grid>
-        <Grid x:Name="verifyGrid" Background="#FFE5E5E5">
-            <Label x:Name="l2" Content="Ingresa la contraseña de este correo:" HorizontalAlignment="Left" Margin="21,10,0,0" VerticalAlignment="Top"/>
-
-            <TextBox x:Name="senderPasswordtextBox" HorizontalAlignment="Left" Height="23" Margin="52,67,0,0" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="b2" Content="Enviar" HorizontalAlignment="Left" Margin="74,100,0,0" VerticalAlignment="Top" Width="75" Click="EnviarButton_Click"/>
-            <Label x:Name="labelcorreo" Content="" HorizontalAlignment="Left" Margin="44,36,0,0" VerticalAlignment="Top" Width="150" Height="26"/>
-            <Label x:Name="label2_Copy" Content="Presione &quot;Enviar&quot; para recibir el&#xA;código en su correo de Gmail." HorizontalAlignment="Left" Margin="33,121,0,0" VerticalAlignment="Top" FontSize="11" Foreground="#FF515151" Width="161"/>
-        </Grid>
         <TabControl x:Name="tabControl">
             <TabItem Header="Uso de Combustible">
                 <Grid Background="#FFE5E5E5">
@@ -315,16 +297,7 @@
 
         </TabControl>
         <Button x:Name="button3" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="1188,34,0,0" VerticalAlignment="Top" Width="85" Background="#FF555555" Foreground="White" Click="LogOutButton_Clikc"/>
-        <Grid x:Name="LoginGrid" Background="#FFE5E5E5">
-            <Label x:Name="label3" Content="Cuartel de Bomberos Voluntarios de Coronel Bogado" HorizontalAlignment="Left" Margin="193,146,0,0" VerticalAlignment="Top" Height="74" Width="914" FontSize="36" FontWeight="Bold"/>
-            <Label x:Name="label12" Content="Usuario:" HorizontalAlignment="Left" Margin="527,263,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <TextBox x:Name="UsernametextBox" HorizontalAlignment="Left" Height="37" Margin="613,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="20"/>
-            <Label x:Name="label12_Copy" Content="Contraseña:" HorizontalAlignment="Left" Margin="495,305,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <PasswordBox x:Name="PasswordtextBox" HorizontalAlignment="Left" Height="37" Margin="613,305,0,0" VerticalAlignment="Top" Width="220"  FontSize="20"/>
-            <Button x:Name="button4" Content="Iniciar Sesión " HorizontalAlignment="Left" Height="36" Margin="613,347,0,0" VerticalAlignment="Top" Width="131" FontSize="20" Background="#FF67C367" Foreground="#FFF7F7F7" Click="LoginButton_Click"/>
-            <Button x:Name="button5" Content="Olvidaste tu contraseña?" HorizontalAlignment="Left" Margin="613,383,0,0" VerticalAlignment="Top" Width="178" Height="32" FontSize="16" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF476BA0" FontStyle="Italic" Click="ForgotPasswordButton_Click"/>
 
-        </Grid>
     </Grid>
 </Window>
 
