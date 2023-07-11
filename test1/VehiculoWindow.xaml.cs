@@ -46,7 +46,7 @@ namespace test1
             MySqlCommand cmd = new MySqlCommand(mostrarveh, Conexion.conectar());
             VehiculodataGrid.ItemsSource = cmd.ExecuteReader();
         }
-        public void Carga()
+       public void Carga()
         {
             string cargar = "select idtipo_combus,descripcion from tipo_combus";
             MySqlCommand cmd = new MySqlCommand(cargar, Conexion.conectar());
@@ -65,10 +65,10 @@ namespace test1
             string guardar = "insert into vehiculo(descripcion,chapa,idtipo_combus)values('" + descripvehtextBox.Text + "','" + chapatextBox.Text + "'," + tc.IdTipoCombus + ")";
             MySqlCommand cmd = new MySqlCommand(guardar, Conexion.conectar());
             cmd.ExecuteNonQuery();
+            MainWindow main = new MainWindow();
             Mostrar();
             Limpiar();
-            
-            Carga();
+            main.Cargar();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -76,8 +76,10 @@ namespace test1
             string borrar = "delete from vehiculo where idvehiculo="+CodigovehtextBox.Text+"";
             MySqlCommand cmd = new MySqlCommand(borrar, Conexion.conectar());
             cmd.ExecuteNonQuery();
+            MainWindow main = new MainWindow();
             Limpiar();
             Mostrar();
+            main.Cargar();
         }
     }
 }

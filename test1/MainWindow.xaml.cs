@@ -4,23 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
+using System.Data;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
+using Microsoft.Win32;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using System.Collections.ObjectModel;
 using System.Collections;
 using test1.models;
 using test1;
+using System.Windows.Controls.Primitives;
 
 namespace test1
 {
@@ -30,24 +35,28 @@ namespace test1
     public partial class MainWindow : Window
     {
         ObservableCollection<Vehiculo> listvehiculo = new ObservableCollection<Vehiculo>();
-        
-        
+
+
         public MainWindow()
         {
             InitializeComponent();
             vehiculocomboBox.ItemsSource = listvehiculo;
             Conexion.conectar();
-            
+
             Mostrar();
             Cargar();
         }
-        public void Limpiar()
+        public void LimpiarCombus()
         {
-
             //uso de combustible
             codtextBox.Text = "";
             periodotextBox.Text = "";
-            vehiculocomboBox.Text = ""; 
+            vehiculocomboBox.Text = "";
+
+        }
+        public void Limpiar()
+        {
+            //uso de combustible
             FechaCombus.Text = "";
             CItextBox.Text = "0";
             nombretextBox.Text = "";
@@ -165,7 +174,7 @@ namespace test1
         }
         public void Cargar()
         {
-            string cargar = "select idvehiculo,descripcion, chapa from vehiculo";
+            string cargar = "select v.idvehiculo,v.descripcion, v.chapa, t.descripcion from vehiculo v, tipo_combus t where t.idtipo_combus=v.idtipo_combus";
             MySqlCommand cmd = new MySqlCommand(cargar, Conexion.conectar());
             MySqlDataReader r = cmd.ExecuteReader();
             while (r.Read())
@@ -174,24 +183,28 @@ namespace test1
                 v.IdVehiculo = r.GetValue(0).ToString();
                 v.Descripcion = r.GetValue(1).ToString();
                 v.Chapa = r.GetValue(2).ToString();
+                v.IdTipoCombus = r.GetValue(3).ToString();
                 listvehiculo.Add(v);
             }
         }
-       
+        private void LimpiarCombusButton_Click(object sender, RoutedEventArgs e)
+        {
+            LimpiarCombus();
+        }
         private void SaveCombus_ButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
                 Vehiculo v = (Vehiculo)vehiculocomboBox.SelectedValue;
-                string guardar = "insert into plan_combus(periodo,idvehiculo,fecha,ci,nombre,lugar_sal,km_salida,lugar_dest,km_llegada,km_recorrido,motivo,lts_carg,nro_fact,imp_total)values('"+
-                periodotextBox.Text+"',"+v.IdVehiculo+",'"+FechaCombus.Text+"','"+CItextBox.Text+"','"+nombretextBox.Text+"','"+salidatextBox.Text+"',"+kmsalidatextBox.Text+",'"+
-                destinotextBox.Text+"',"+kmllegadatextBox.Text+","+kmrecorridotextBox.Text+",'"+motivotextBox.Text+"',"+ltscargadotextBox.Text+",'"+facturatextBox.Text+"',"+importetextBox.Text+")";
+                string guardar = "insert into plan_combus(periodo,idvehiculo,fecha,ci,nombre,lugar_sal,km_salida,lugar_dest,km_llegada,km_recorrido,motivo,lts_carg,nro_fact,imp_total)values('" +
+                periodotextBox.Text + "'," + v.IdVehiculo + ",'" + FechaCombus.Text + "','" + CItextBox.Text + "','" + nombretextBox.Text + "','" + salidatextBox.Text + "'," + kmsalidatextBox.Text + ",'" +
+                destinotextBox.Text + "'," + kmllegadatextBox.Text + "," + kmrecorridotextBox.Text + ",'" + motivotextBox.Text + "'," + ltscargadotextBox.Text + ",'" + facturatextBox.Text + "'," + importetextBox.Text + ")";
                 MySqlCommand cmd = new MySqlCommand(guardar, Conexion.conectar());
                 cmd.ExecuteNonQuery();
                 Limpiar();
                 Mostrar();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 System.Windows.MessageBox.Show(ex.Message);
             }
@@ -201,29 +214,38 @@ namespace test1
         {
             VehiculoWindow v = new VehiculoWindow();
             v.Show();
-           
+
         }
 
         private void ModifycombusButton_Click(object sender, RoutedEventArgs e)
         {
-            Vehiculo v = (Vehiculo)vehiculocomboBox.SelectedValue;
-            string modificar = "update plan_combus set periodo='"+periodotextBox.Text+"', idvehiculo="+v.IdVehiculo+", fecha='"+FechaCombus+"',ci='"+CItextBox.Text+"', nombre='"+
-            nombretextBox.Text+"', lugar_sal='"+salidatextBox.Text+"', km_salida="+kmsalidatextBox.Text+", lugar_dest='"+destinotextBox.Text+"', km_llegada="+kmllegadatextBox.Text+", km_recorrido="+kmrecorridotextBox.Text
-            +", motivo='"+motivotextBox.Text+"', lts_carg="+ltscargadotextBox.Text+", nro_fact='"+facturatextBox.Text+"', imp_total="+importetextBox.Text+" where idplan_combus="+codtextBox.Text+"";
-            MySqlCommand cmd = new MySqlCommand(modificar, Conexion.conectar());
-            cmd.ExecuteNonQuery();
-            Limpiar();
-            Mostrar();
+            try
+            {
+                Vehiculo v = (Vehiculo)vehiculocomboBox.SelectedValue;
+                string modificar = "update plan_combus set periodo='" + periodotextBox.Text + "', idvehiculo=" + v.IdVehiculo + ", fecha='" + FechaCombus + "',ci='" + CItextBox.Text + "', nombre='" +
+                nombretextBox.Text + "', lugar_sal='" + salidatextBox.Text + "', km_salida=" + kmsalidatextBox.Text + ", lugar_dest='" + destinotextBox.Text + "', km_llegada=" + kmllegadatextBox.Text + ", km_recorrido=" + kmrecorridotextBox.Text
+                + ", motivo='" + motivotextBox.Text + "', lts_carg=" + ltscargadotextBox.Text + ", nro_fact='" + facturatextBox.Text + "', imp_total=" + importetextBox.Text + " where idplan_combus=" + codtextBox.Text + "";
+                MySqlCommand cmd = new MySqlCommand(modificar, Conexion.conectar());
+                cmd.ExecuteNonQuery();
+                Limpiar();
+                LimpiarCombus();
+                Mostrar();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
         }
 
         private void DeletecombusButton_Click(object sender, RoutedEventArgs e)
         {
-            string borrar = "delete from plan_combus where idplan_combus="+codtextBox.Text+"";
+            string borrar = "delete from plan_combus where idplan_combus=" + codtextBox.Text + "";
             MySqlCommand cmd = new MySqlCommand(borrar, Conexion.conectar());
             cmd.ExecuteNonQuery();
             Limpiar();
+            LimpiarCombus();
             Mostrar();
-        
+
         }
 
         ////////////////////////////////////////////////////////////////////////Resumen de Servicios///////////////////////////////////////////////////////////////////////////////
@@ -235,14 +257,14 @@ namespace test1
                 //serv1040
                 //if (cant1040textBox.Text != null)
                 //{
-                    string guardarserv1040 = "insert into serv1040(cant1040,horaserv,estructural,vehicular,basural,forestal,pastizal,desconocida,premeditada,accidental,findelimpieza,principio,pequena,mediana,grande,emergral,agua,pqsco2,combustible,bombero,tiempototal,ileso,herido,fallecido,rescate,totalkm,nomina)values(" +
-                    cant1040textBox.Text + "," + horaserv40textBox.Text + "," + estructuraltextBox.Text + "," + vehiculartextBox.Text + "," + basuraltextBox.Text + "," + forestaltextBox.Text + "," + pastizaltextBox.Text + "," + desconocidastextBox.Text + "," + premeditadastextBox.Text + "," + accidentalestextBox.Text + "," +
-                    limpiezatextBox.Text + "," + principiotextBox.Text + "," + pqmagtextBox.Text + "," + mdmagtextBox.Text + "," + grmagtextBox.Text + "," + emergraltextBox.Text + "," + aguatextBox.Text + "," + pqsco2textBox.Text + "," + combustible40textBox.Text + "," + bomberostextBox.Text + "," + tiempototaltextBox.Text + "," +
-                    ilesostextBox.Text + "," + heridostextBox.Text + "," + fallecidostextBox.Text + "," + rescatestextBox.Text + "," + totalkmtextBox.Text + ",'" + nomina40textBox.Text + "')";
-                    MySqlCommand cmd = new MySqlCommand(guardarserv1040, Conexion.conectar());
-                    cmd.ExecuteNonQuery();
+                string guardarserv1040 = "insert into serv1040(cant1040,horaserv,estructural,vehicular,basural,forestal,pastizal,desconocida,premeditada,accidental,findelimpieza,principio,pequena,mediana,grande,emergral,agua,pqsco2,combustible,bombero,tiempototal,ileso,herido,fallecido,rescate,totalkm,nomina)values(" +
+                cant1040textBox.Text + "," + horaserv40textBox.Text + "," + estructuraltextBox.Text + "," + vehiculartextBox.Text + "," + basuraltextBox.Text + "," + forestaltextBox.Text + "," + pastizaltextBox.Text + "," + desconocidastextBox.Text + "," + premeditadastextBox.Text + "," + accidentalestextBox.Text + "," +
+                limpiezatextBox.Text + "," + principiotextBox.Text + "," + pqmagtextBox.Text + "," + mdmagtextBox.Text + "," + grmagtextBox.Text + "," + emergraltextBox.Text + "," + aguatextBox.Text + "," + pqsco2textBox.Text + "," + combustible40textBox.Text + "," + bomberostextBox.Text + "," + tiempototaltextBox.Text + "," +
+                ilesostextBox.Text + "," + heridostextBox.Text + "," + fallecidostextBox.Text + "," + rescatestextBox.Text + "," + totalkmtextBox.Text + ",'" + nomina40textBox.Text + "')";
+                MySqlCommand cmd = new MySqlCommand(guardarserv1040, Conexion.conectar());
+                cmd.ExecuteNonQuery();
 
-                   
+
                 //}
                 //serv1041
                 //if (cant1041textBox.Text != null)
@@ -276,7 +298,7 @@ namespace test1
                     Limpiar();
                     Mostrar();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -295,7 +317,7 @@ namespace test1
                     if (reader.Read())
                     {
                         int id40 = reader.GetInt32(0);
-                        string mod = "update serv1040 set cant1040=" + cant1040textBox.Text + ", horaserv=" + horaserv40textBox.Text + ", estructural=" + estructuraltextBox.Text + ", vehicular=" + 
+                        string mod = "update serv1040 set cant1040=" + cant1040textBox.Text + ", horaserv=" + horaserv40textBox.Text + ", estructural=" + estructuraltextBox.Text + ", vehicular=" +
                         vehiculartextBox.Text + ", basural=" + basuraltextBox.Text + ", forestal=" + forestaltextBox.Text + ", pastizal=" + pastizaltextBox.Text + ", desconocida=" +
                         desconocidastextBox.Text + ", premeditada=" + premeditadastextBox.Text + ", accidental=" + accidentalestextBox.Text + ", findelimpieza=" + limpiezatextBox.Text + ", principio=" +
                         principiotextBox.Text + ", pequena=" + pqmagtextBox.Text + ", mediana=" + mdmagtextBox.Text + ", grande=" + grmagtextBox.Text + ", emergral=" + emergraltextBox.Text + ", agua=" +
@@ -310,7 +332,7 @@ namespace test1
                 //serv1041
                 string id1041 = "select i.idserv1041 from informe i where i.idinforme=" + codrestextBox.Text + "";
                 MySqlCommand cm1 = new MySqlCommand(id1041, Conexion.conectar());
-                using(MySqlDataReader reader = cm1.ExecuteReader())
+                using (MySqlDataReader reader = cm1.ExecuteReader())
                 {
                     if (reader.Read())
                     {
@@ -335,23 +357,23 @@ namespace test1
                     if (reader.Read())
                     {
                         int id43 = reader.GetInt32(0);
-                        string mod = "update serv1043 set cant1043=" + cant1043textBox.Text + ", horaserv=" + horaserv43textBox.Text + ", rescate=" + rescate43textBox.Text + ", recuperacion=" + 
+                        string mod = "update serv1043 set cant1043=" + cant1043textBox.Text + ", horaserv=" + horaserv43textBox.Text + ", rescate=" + rescate43textBox.Text + ", recuperacion=" +
                         recuperaciontextBox.Text + ", aniali=" + anialitextBox.Text + ", cobertura=" + coberturatextBox.Text + ", curso=" + cursotextBox.Text + ", vivienda=" + viviendatextBox.Text + ", profundidad=" +
-                        profundidadtextBox.Text + ", altura=" + alturatextBox.Text + ", derrumbe=" + derrumbetextBox.Text  + ", naufragio=" + naufragiotextBox.Text + ", bomba=" + bombatextBox.Text + ", suicidio=" + 
+                        profundidadtextBox.Text + ", altura=" + alturatextBox.Text + ", derrumbe=" + derrumbetextBox.Text + ", naufragio=" + naufragiotextBox.Text + ", bomba=" + bombatextBox.Text + ", suicidio=" +
                         suicidiotextBox.Text + ", ileso=" + ilesos43textBox.Text + ", herido=" + heridos43textBox.Text + ", fallecido=" + fallecidos43textBox.Text + ", combustible=" + combustible43textBox.Text + ", nomina='" +
-                        nomina43textBox.Text + "' where idserv1043="+id43+"";
+                        nomina43textBox.Text + "' where idserv1043=" + id43 + "";
                         MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
                         cmd.ExecuteNonQuery();
                     }
                 }
-                
+
                 //informe
                 string mod1 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes='" + MestextBox.Text + "', anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" +
-                autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" + 
+                autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" +
                 codrestextBox.Text + "";
                 MySqlCommand cmd1 = new MySqlCommand(mod1, Conexion.conectar());
                 cmd1.ExecuteNonQuery();
-            }catch(Exception ex)
+            } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -454,7 +476,7 @@ namespace test1
                 int ltscarg = Convert.ToInt32(selectedRow["litros_cargados"]);
                 string factura = selectedRow["factura"].ToString();
                 int imptotal = Convert.ToInt32(selectedRow["importe_total"]);
-                
+
 
                 codtextBox.Text = id.ToString();
                 periodotextBox.Text = periodo;
@@ -483,6 +505,79 @@ namespace test1
             }
 
         }
+        /////////////Generar PDF//////////////
+        private void GenerarPDFButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Obtener los datos filtrados de la base de datos
+            string periodo = "";
+            string vehiculo = "";
+            string chapa = "";
+            string tipo = "";
+            string header = "select pc.periodo, v.descripcion as vehiculo, v.chapa, tc.descripcion as tipo from plan_combus pc, vehiculo v, tipo_combus tc where  tc.idtipo_combus=v.idtipo_combus and v.idvehiculo=pc.idvehiculo and pc.periodo like '%" + filtrotextBox.Text + "%'";
+                MySqlCommand cmd = new MySqlCommand(header, Conexion.conectar());
+                using (MySqlDataReader r = cmd.ExecuteReader())
+                {
+                    if (r.Read())
+                    {
+                        periodo = r["periodo"].ToString();
+                        vehiculo = r["vehiculo"].ToString();
+                        chapa = r["chapa"].ToString();
+                        tipo = r["tipo"].ToString();
+                    }
+                }
 
+            // Cargar la plantilla de Word
+            string plantillaWord = "C:/Users/usuario/Desktop/App Bombero/Planilla.docx";
+            string archivoSalidaWord = "C:/Users/usuario/Desktop/App Bombero/Planilla_Modificada.docx";
+
+            File.Copy(plantillaWord, archivoSalidaWord, true);
+
+            using (WordprocessingDocument doc = WordprocessingDocument.Open(archivoSalidaWord, true))
+            {
+                // Buscar y reemplazar los valores en el documento
+
+                foreach (var text in doc.MainDocumentPart.Document.Descendants<Text>())
+                {
+                    if (text.Text.Contains("<periodo>"))
+                        text.Text = text.Text.Replace("<periodo>", periodo);
+                    if (text.Text.Contains("vehiculo"))
+                        text.Text = text.Text.Replace("vehiculo", vehiculo);
+                    if (text.Text.Contains("<chapa>"))
+                        text.Text = text.Text.Replace("<chapa>", chapa);
+                    if (text.Text.Contains("<tipo>"))
+                        text.Text = text.Text.Replace("<tipo>", tipo);
+                }
+
+                // Guardar los cambios
+                doc.MainDocumentPart.Document.Save();
+            }
+
+            // Abrir un cuadro de diálogo para guardar el archivo modificado
+            SaveFileDialog dialogoGuardar = new SaveFileDialog();
+            dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
+            dialogoGuardar.DefaultExt = "docx";
+
+            if (dialogoGuardar.ShowDialog() == true)
+            {
+                string rutaArchivo = dialogoGuardar.FileName;
+                File.Move(archivoSalidaWord, rutaArchivo);
+                MessageBox.Show("Documento modificado y guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+       
+        private void FiltrarperiodoButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string filtrado = "select p.idplan_combus as código,p.periodo,v.descripcion as vehiculo,p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo and p.periodo like '%"+filtrotextBox.Text+"%'";
+                MySqlCommand cmd = new MySqlCommand(filtrado, Conexion.conectar());
+                CombustibledataGrid.ItemsSource = cmd.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
+

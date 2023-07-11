@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:test1"
         mc:Ignorable="d"
-        Title="Login" Height="712.5" Width="1301.5" WindowStartupLocation="CenterScreen" HorizontalAlignment="Left" VerticalAlignment="Bottom" ResizeMode="CanMinimize">
+        Title="Login" Height="712.5" Width="1301.5" WindowStartupLocation="CenterScreen" HorizontalAlignment="Left" VerticalAlignment="Bottom" ResizeMode="CanResize">
     <Grid>
         <Grid x:Name="LoginGrid" Background="#FFE5E5E5">
             <Label x:Name="label3" Content="Cuartel de Bomberos Voluntarios de Coronel Bogado" HorizontalAlignment="Left" Margin="193,146,0,0" VerticalAlignment="Top" Height="74" Width="914" FontSize="36" FontWeight="Bold"/>
