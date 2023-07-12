@@ -506,7 +506,7 @@ namespace test1
 
         }
         /////////////Generar PDF//////////////
-        private void GenerarPDFButton_Click(object sender, RoutedEventArgs e)
+        private void GenerarWordButton_Click(object sender, RoutedEventArgs e)
         {
             // Obtener los datos filtrados de la base de datos
             string periodo = "";
@@ -535,7 +535,6 @@ namespace test1
             using (WordprocessingDocument doc = WordprocessingDocument.Open(archivoSalidaWord, true))
             {
                 // Buscar y reemplazar los valores en el documento
-
                 foreach (var text in doc.MainDocumentPart.Document.Descendants<Text>())
                 {
                     if (text.Text.Contains("<periodo>"))
@@ -548,8 +547,84 @@ namespace test1
                         text.Text = text.Text.Replace("<tipo>", tipo);
                 }
 
-                // Guardar los cambios
-                doc.MainDocumentPart.Document.Save();
+                string consulta = "select p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo and p.periodo like '%" + filtrotextBox.Text + "%'";
+                MySqlCommand command = new MySqlCommand(consulta, Conexion.conectar());
+                MySqlDataReader reader = command.ExecuteReader();
+
+                // Obtener el MainDocumentPart existente o agregar uno nuevo si no existe
+                MainDocumentPart mainPart = doc.MainDocumentPart ?? doc.AddMainDocumentPart();
+                if (mainPart.Document == null)
+                {
+                    mainPart.Document = new Document();
+                }
+                Body body = mainPart.Document.Body;
+
+                // Agregar una tabla al documento
+                Table wordTable = body.AppendChild(new Table());
+                TableRow headerRow = new TableRow();
+                // Agregar bordes a la tabla
+                TableProperties tableProperties = new TableProperties(
+                new TableLayout() { Type = TableLayoutValues.Autofit },
+                new TableWidth() { Type = TableWidthUnitValues.Auto, Width = "105" },
+                new TableBorders(
+                     new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                     new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                     new LeftBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                     new RightBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                     new InsideHorizontalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                     new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" }
+                    )
+                );
+                wordTable.AppendChild(tableProperties);
+                headerRow.AppendChild(CreateTableCell("Fecha", "9"));
+                headerRow.AppendChild(CreateTableCell("CI", "9"));
+                headerRow.AppendChild(CreateTableCell("Nombre", "9"));
+                headerRow.AppendChild(CreateTableCell("LugarSalida", "9"));
+                headerRow.AppendChild(CreateTableCell("KmSalida", "9"));
+                headerRow.AppendChild(CreateTableCell("LugarDestino", "9"));
+                headerRow.AppendChild(CreateTableCell("KmLlegada", "9"));
+                headerRow.AppendChild(CreateTableCell("KmRecorrido", "9"));
+                headerRow.AppendChild(CreateTableCell("Motivo", "9"));
+                headerRow.AppendChild(CreateTableCell("LitrosCargados", "9"));
+                headerRow.AppendChild(CreateTableCell("Factura", "9"));
+                headerRow.AppendChild(CreateTableCell("ImporteTotal", "9"));
+                wordTable.AppendChild(headerRow);
+               
+                
+                // Leer los resultados de la consulta y agregarlos a la tabla
+                while (reader.Read())
+                {
+                    string fecha = reader.GetString(0);
+                    string ci = reader.GetString(1);
+                    string nombre = reader.GetString(2);
+                    string lugarsalida = reader.GetString(3);
+                    string kmsalida = reader.GetString(4);
+                    string lugardestino = reader.GetString(5);
+                    string kmllegada = reader.GetString(6);
+                    string kmrecorrido = reader.GetString(7);
+                    string motivo = reader.GetString(8);
+                    string litros = reader.GetString(9);
+                    string factura = reader.GetString(10);
+                    string importe = reader.GetString(11);
+
+                    TableRow dataRow = new TableRow();
+                    dataRow.AppendChild(CreateTableCell(fecha, "9"));
+                    dataRow.AppendChild(CreateTableCell(ci, "9"));
+                    dataRow.AppendChild(CreateTableCell(nombre, "9"));
+                    dataRow.AppendChild(CreateTableCell(lugarsalida, "9"));
+                    dataRow.AppendChild(CreateTableCell(kmsalida, "9"));
+                    dataRow.AppendChild(CreateTableCell(lugardestino, "9"));
+                    dataRow.AppendChild(CreateTableCell(kmllegada, "9"));
+                    dataRow.AppendChild(CreateTableCell(kmrecorrido, "9"));
+                    dataRow.AppendChild(CreateTableCell(motivo, "9"));
+                    dataRow.AppendChild(CreateTableCell(litros, "9"));
+                    dataRow.AppendChild(CreateTableCell(factura, "9"));
+                    dataRow.AppendChild(CreateTableCell(importe, "9"));
+                    wordTable.AppendChild(dataRow);
+                }
+
+                //doc.MainDocumentPart.Document.Save();
+                mainPart.Document.Save();
             }
 
             // Abrir un cuadro de diálogo para guardar el archivo modificado
@@ -565,6 +640,18 @@ namespace test1
             }
         }
        
+        private TableCell CreateTableCell(string text, string fontSize)
+        {
+            TableCell cell = new TableCell();
+            Paragraph paragraph = new Paragraph();
+            Run run = new Run(new Text(text));
+            RunProperties runProperties = new RunProperties();
+            runProperties.Append(new FontSize() { Val = fontSize });       // Tamaño de letra
+            run.Append(runProperties);
+            paragraph.Append(run);
+            cell.Append(paragraph);
+            return cell;
+        }
         private void FiltrarperiodoButton_Click(object sender, RoutedEventArgs e)
         {
             try

@@ -63,7 +63,7 @@
                     <Button x:Name="button2" Content="Agregar Vehículo +" HorizontalAlignment="Left" Margin="283,39,0,0" VerticalAlignment="Top" Width="110" Height="23" Click="AgregarVehiculoButton_Click"/>
                     <Label x:Name="label" Content="Código:" HorizontalAlignment="Left" Margin="954,619,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="codtextBox" HorizontalAlignment="Left" Height="23" Margin="1010,622,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30"/>
-                    <Button x:Name="button_Copy2" Content="Generar PDF" HorizontalAlignment="Left" Margin="869,623,0,0" VerticalAlignment="Top" Width="80" Background="#FF4D4D4D" Foreground="White" Click="GenerarPDFButton_Click" Height="22"/>
+                    <Button x:Name="button_Copy2" Content="Generar Word" HorizontalAlignment="Left" Margin="869,623,0,0" VerticalAlignment="Top" Width="80" Background="#FF4D4D4D" Foreground="White" Click="GenerarWordButton_Click" Height="22"/>
                     <Button x:Name="button4" HorizontalAlignment="Left" Margin="398,29,0,0" VerticalAlignment="Top" Width="33" Height="33" Click="LimpiarCombusButton_Click">
                         <Button.Background>
                             <ImageBrush ImageSource="Cleaning-icon-png.png" Stretch="Uniform"/>
