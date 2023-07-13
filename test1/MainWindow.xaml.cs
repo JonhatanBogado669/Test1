@@ -527,13 +527,40 @@ namespace test1
                 }
 
             // Cargar la plantilla de Word
-            string plantillaWord = "C:/Users/usuario/Desktop/App Bombero/Planilla.docx";
-            string archivoSalidaWord = "C:/Users/usuario/Desktop/App Bombero/Planilla_Modificada.docx";
+            //string plantillaWord = "C:/Users/usuario/Desktop/App Bombero/Planilla.docx";
+            //string archivoSalidaWord = "C:/Users/usuario/Desktop/App Bombero/Planilla_Modificada.docx";
+            string filePath = "C:/Users/usuario/Desktop/Documento.docx";
 
-            File.Copy(plantillaWord, archivoSalidaWord, true);
+            //File.Copy(plantillaWord, archivoSalidaWord, true);
 
-            using (WordprocessingDocument doc = WordprocessingDocument.Open(archivoSalidaWord, true))
+            using (WordprocessingDocument doc = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
             {
+                // Configurar la orientación y el tamaño de página
+                MainDocumentPart mainPart = doc.AddMainDocumentPart();
+                mainPart.Document = new Document();
+                Body body = mainPart.Document.AppendChild(new Body());
+                SectionProperties sectionProperties = new SectionProperties();
+                PageSize pageSize = new PageSize()
+                {
+                    Width = 21590U,
+                    Height = 35560U,
+                    Orient = PageOrientationValues.Landscape
+                };
+                sectionProperties.Append(pageSize);
+                body.AppendChild(sectionProperties);
+
+                // Obtener el cuerpo del documento
+                //Body body = doc.AddBody();
+
+                // Agregar los primeros dos párrafos
+                AddParagraph(body, "PLANILLA DE USO DE COMBUSTIBLE", JustificationValues.Center, 28, true);
+                AddParagraph(body, "CUERPO DE BOMBEROS VOLUNTARIOS DE CORONEL BOGADO", JustificationValues.Center, 28, true);
+                AddParagraph(body, "Entidad: CUERPO DE BOMBEROS VOLUNTARIOS DE CORONEL BOGADO", JustificationValues.Left, 22, true);
+                AddParagraph(body, "Periodo y Ejercicio: <periodo>", JustificationValues.Left, 22, true);
+                AddParagraph(body, "Vehículo: vehiculo    Chapa: <chapa>    Tipo de combustible: <tipo>", JustificationValues.Left, 22, true);
+                AddParagraph(body, "PLANILLA DE USO DE COMBUSTIBLE", JustificationValues.Center, 22, true);
+
+
                 // Buscar y reemplazar los valores en el documento
                 foreach (var text in doc.MainDocumentPart.Document.Descendants<Text>())
                 {
@@ -551,21 +578,23 @@ namespace test1
                 MySqlCommand command = new MySqlCommand(consulta, Conexion.conectar());
                 MySqlDataReader reader = command.ExecuteReader();
 
-                // Obtener el MainDocumentPart existente o agregar uno nuevo si no existe
-                MainDocumentPart mainPart = doc.MainDocumentPart ?? doc.AddMainDocumentPart();
+                // Obtener el MainDocumenPart existente o agregar uno nuevo si no existe
+                /*MainDocumentPart mainPart = doc.MainDocumentPart ?? doc.AddMainDocumentPart();
                 if (mainPart.Document == null)
                 {
                     mainPart.Document = new Document();
                 }
-                Body body = mainPart.Document.Body;
+                Body body = mainPart.Document.Body;*/
 
                 // Agregar una tabla al documento
                 Table wordTable = body.AppendChild(new Table());
                 TableRow headerRow = new TableRow();
                 // Agregar bordes a la tabla
                 TableProperties tableProperties = new TableProperties(
-                new TableLayout() { Type = TableLayoutValues.Autofit },
-                new TableWidth() { Type = TableWidthUnitValues.Auto, Width = "105" },
+               // new TableLayout() { Type = TableLayoutValues.Autofit },
+                //new TableWidth() { Type = TableWidthUnitValues.Auto },
+                //new TableIndentation() { Width = 0, Type = TableWidthUnitValues.Dxa },
+                //new TableJustification() { Val = TableRowAlignmentValues.Left },
                 new TableBorders(
                      new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
                      new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
@@ -575,19 +604,23 @@ namespace test1
                      new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" }
                     )
                 );
+                TableCellProperties cellProperties = new TableCellProperties(
+                new TableCellWidth() { Type = TableWidthUnitValues.Pct, Width = "10" });
                 wordTable.AppendChild(tableProperties);
-                headerRow.AppendChild(CreateTableCell("Fecha", "9"));
-                headerRow.AppendChild(CreateTableCell("CI", "9"));
-                headerRow.AppendChild(CreateTableCell("Nombre", "9"));
-                headerRow.AppendChild(CreateTableCell("LugarSalida", "9"));
-                headerRow.AppendChild(CreateTableCell("KmSalida", "9"));
-                headerRow.AppendChild(CreateTableCell("LugarDestino", "9"));
-                headerRow.AppendChild(CreateTableCell("KmLlegada", "9"));
-                headerRow.AppendChild(CreateTableCell("KmRecorrido", "9"));
-                headerRow.AppendChild(CreateTableCell("Motivo", "9"));
-                headerRow.AppendChild(CreateTableCell("LitrosCargados", "9"));
-                headerRow.AppendChild(CreateTableCell("Factura", "9"));
-                headerRow.AppendChild(CreateTableCell("ImporteTotal", "9"));
+                wordTable.AppendChild(cellProperties);
+
+                headerRow.AppendChild(CreateTableCell("Fecha", true));
+                headerRow.AppendChild(CreateTableCell("CI", true));
+                headerRow.AppendChild(CreateTableCell("Nombre", true));
+                headerRow.AppendChild(CreateTableCell("Lugar Salida", true));
+                headerRow.AppendChild(CreateTableCell("Km Salida", true));
+                headerRow.AppendChild(CreateTableCell("Lugar Destino", true));
+                headerRow.AppendChild(CreateTableCell("Km Llegada", true));
+                headerRow.AppendChild(CreateTableCell("Km Recorrido", true));
+                headerRow.AppendChild(CreateTableCell("Motivo", true));
+                headerRow.AppendChild(CreateTableCell("Litros Cargados", true));
+                headerRow.AppendChild(CreateTableCell("Factura", true));
+                headerRow.AppendChild(CreateTableCell("Importe Total", true));
                 wordTable.AppendChild(headerRow);
                
                 
@@ -608,18 +641,18 @@ namespace test1
                     string importe = reader.GetString(11);
 
                     TableRow dataRow = new TableRow();
-                    dataRow.AppendChild(CreateTableCell(fecha, "9"));
-                    dataRow.AppendChild(CreateTableCell(ci, "9"));
-                    dataRow.AppendChild(CreateTableCell(nombre, "9"));
-                    dataRow.AppendChild(CreateTableCell(lugarsalida, "9"));
-                    dataRow.AppendChild(CreateTableCell(kmsalida, "9"));
-                    dataRow.AppendChild(CreateTableCell(lugardestino, "9"));
-                    dataRow.AppendChild(CreateTableCell(kmllegada, "9"));
-                    dataRow.AppendChild(CreateTableCell(kmrecorrido, "9"));
-                    dataRow.AppendChild(CreateTableCell(motivo, "9"));
-                    dataRow.AppendChild(CreateTableCell(litros, "9"));
-                    dataRow.AppendChild(CreateTableCell(factura, "9"));
-                    dataRow.AppendChild(CreateTableCell(importe, "9"));
+                    dataRow.AppendChild(CreateTableCell(fecha, false));
+                    dataRow.AppendChild(CreateTableCell(ci, false));
+                    dataRow.AppendChild(CreateTableCell(nombre, false));
+                    dataRow.AppendChild(CreateTableCell(lugarsalida, false));
+                    dataRow.AppendChild(CreateTableCell(kmsalida, false));
+                    dataRow.AppendChild(CreateTableCell(lugardestino, false));
+                    dataRow.AppendChild(CreateTableCell(kmllegada, false));
+                    dataRow.AppendChild(CreateTableCell(kmrecorrido, false));
+                    dataRow.AppendChild(CreateTableCell(motivo, false));
+                    dataRow.AppendChild(CreateTableCell(litros, false));
+                    dataRow.AppendChild(CreateTableCell(factura, false));
+                    dataRow.AppendChild(CreateTableCell(importe, false));
                     wordTable.AppendChild(dataRow);
                 }
 
@@ -635,19 +668,33 @@ namespace test1
             if (dialogoGuardar.ShowDialog() == true)
             {
                 string rutaArchivo = dialogoGuardar.FileName;
-                File.Move(archivoSalidaWord, rutaArchivo);
-                MessageBox.Show("Documento modificado y guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                File.Move(filePath, rutaArchivo);
+                MessageBox.Show("Documento guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-       
-        private TableCell CreateTableCell(string text, string fontSize)
+        private void AddParagraph(Body body, string text, JustificationValues justification, int fontSize, bool isBold)
+        {
+            Paragraph paragraph = body.AppendChild(new Paragraph());
+            Run run = paragraph.AppendChild(new Run());
+            run.AppendChild(new Text(text));
+            run.RunProperties = new RunProperties();
+            run.RunProperties.FontSize = new FontSize() { Val = fontSize.ToString() };
+            if (isBold)
+            {
+                run.RunProperties.Bold = new Bold();
+            }
+            paragraph.ParagraphProperties = new ParagraphProperties(new Justification() { Val = justification });
+        }
+        private TableCell CreateTableCell(string text, bool isBold)
         {
             TableCell cell = new TableCell();
             Paragraph paragraph = new Paragraph();
             Run run = new Run(new Text(text));
-            RunProperties runProperties = new RunProperties();
-            runProperties.Append(new FontSize() { Val = fontSize });       // Tamaño de letra
-            run.Append(runProperties);
+            run.RunProperties = new RunProperties();
+            if (isBold)
+            {
+                run.RunProperties.Bold = new Bold();
+            }
             paragraph.Append(run);
             cell.Append(paragraph);
             return cell;
