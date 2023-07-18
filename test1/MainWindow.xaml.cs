@@ -268,14 +268,14 @@ namespace test1
                 //}
                 //serv1041
                 //if (cant1041textBox.Text != null)
-                /*{
+                //{
                     string guardarserv1041 = "insert into serv1041(cant1041,horaserv,arrollamiento,choque,vuelco,caida,aeronave,peaton,moto,vehliviano,vehpesado,bus,danomat,conherido,conatrap,coninc,matpel,cintcond,cintacomp,cascocond,cascoacomp,ileso,herido,fallecido,rescate,combustible,bombero,kmrecorrido,tiempototal,nomina)values(" +
                     cant1041textBox.Text + "," + horaserv41textBox.Text + "," + arrollamientotextBox.Text + "," + choquetextBox.Text + "," + vuelcotextBox.Text + "," + caidatextBox.Text + "," + aeronavetextBox.Text + ",'" + peatonestextBox.Text + "','" + motostextBox.Text + "','" + vehlivtextBox.Text + "','" + vehpestextBox.Text + "','" +
                     bustextBox.Text + "','" + dañomattextBox.Text + "','" + conheridostextBox.Text + "','" + conatraptextBox.Text + "','" + coninctextBox.Text + "','" + matpeltextBox.Text + "','" + cintcondtextBox.Text + "','" + cintacomptextBox.Text + "','" + cascondtextBox.Text + "','" + casacomptextBox.Text + "'," + ilesos41textBox.Text + "," +
                     heridos41textBox.Text + "," + fallecidos41textBox.Text + "," + rescates41textBox.Text + "," + combustible41textBox.Text + "," + bomberos41textBox.Text + "," + kmrecorrido41textBox.Text + "," + tiempototal41textBox.Text + ",'" + nomina41textBox.Text + "')";
                     MySqlCommand cmd1 = new MySqlCommand(guardarserv1041, Conexion.conectar());
                     cmd1.ExecuteNonQuery();
-                    long idTabla2 = cmd1.LastInsertedId;
+                    
                 //}
                 //serv1043
                 //if (cant1043textBox.Text != null)
@@ -285,20 +285,21 @@ namespace test1
                     combustible43textBox.Text + ",'" + nomina43textBox.Text + "')";
                     MySqlCommand cmd2 = new MySqlCommand(guardarserv1043, Conexion.conectar());
                     cmd2.ExecuteNonQuery();
-                    long idTabla3 = cmd2.LastInsertedId;
-                //}*/
+                   
+                //}
                 //informe
                 if (guardarserv1040 != null)
                 {
                     long idTabla1 = cmd.LastInsertedId;
-                    string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040)values('" + FechaServ.Text + "','" + horatextBox.Text + "','" + MestextBox.Text + "','" + AnhotextBox.Text + "'," + cantciaesttextBox.Text + ",'" + autortextBox.Text + "','" + teleftextBox.Text
-                    + "','" + lugartextBox.Text + "','" + faxtextBox.Text + "','" + FechaCierre.Text + "'," + totalservtextBox.Text + "," + idTabla1 + ")";
+                    long idTabla2 = cmd1.LastInsertedId;
+                    long idTabla3 = cmd2.LastInsertedId;
+                    string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040,idserv1041,idserv1043)values('" + FechaServ.Text + "','" + horatextBox.Text + "','" + MestextBox.Text + "','" + AnhotextBox.Text + "'," + cantciaesttextBox.Text + ",'" + autortextBox.Text + "','" + teleftextBox.Text
+                    + "','" + lugartextBox.Text + "','" + faxtextBox.Text + "','" + FechaCierre.Text + "'," + totalservtextBox.Text + "," + idTabla1 + ","+idTabla2+","+idTabla3+")";
                     MySqlCommand cmd3 = new MySqlCommand(guardarres, Conexion.conectar());
                     cmd3.ExecuteNonQuery();
                     Limpiar();
                     Mostrar();
                 }
-
             }
             catch (Exception ex)
             {
@@ -373,7 +374,8 @@ namespace test1
                 codrestextBox.Text + "";
                 MySqlCommand cmd1 = new MySqlCommand(mod1, Conexion.conectar());
                 cmd1.ExecuteNonQuery();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -514,17 +516,17 @@ namespace test1
             string chapa = "";
             string tipo = "";
             string header = "select pc.periodo, v.descripcion as vehiculo, v.chapa, tc.descripcion as tipo from plan_combus pc, vehiculo v, tipo_combus tc where  tc.idtipo_combus=v.idtipo_combus and v.idvehiculo=pc.idvehiculo and pc.periodo like '%" + filtrotextBox.Text + "%'";
-                MySqlCommand cmd = new MySqlCommand(header, Conexion.conectar());
-                using (MySqlDataReader r = cmd.ExecuteReader())
+            MySqlCommand cmd = new MySqlCommand(header, Conexion.conectar());
+            using (MySqlDataReader r = cmd.ExecuteReader())
+            {
+                if (r.Read())
                 {
-                    if (r.Read())
-                    {
-                        periodo = r["periodo"].ToString();
-                        vehiculo = r["vehiculo"].ToString();
-                        chapa = r["chapa"].ToString();
-                        tipo = r["tipo"].ToString();
-                    }
+                    periodo = r["periodo"].ToString();
+                    vehiculo = r["vehiculo"].ToString();
+                    chapa = r["chapa"].ToString();
+                    tipo = r["tipo"].ToString();
                 }
+            }
 
             // Cargar la plantilla de Word
             //string plantillaWord = "C:/Users/usuario/Desktop/App Bombero/Planilla.docx";
@@ -591,7 +593,7 @@ namespace test1
                 TableRow headerRow = new TableRow();
                 // Agregar bordes a la tabla
                 TableProperties tableProperties = new TableProperties(
-               // new TableLayout() { Type = TableLayoutValues.Autofit },
+                // new TableLayout() { Type = TableLayoutValues.Autofit },
                 //new TableWidth() { Type = TableWidthUnitValues.Auto },
                 //new TableIndentation() { Width = 0, Type = TableWidthUnitValues.Dxa },
                 //new TableJustification() { Val = TableRowAlignmentValues.Left },
@@ -622,8 +624,8 @@ namespace test1
                 headerRow.AppendChild(CreateTableCell("Factura", true));
                 headerRow.AppendChild(CreateTableCell("Importe Total", true));
                 wordTable.AppendChild(headerRow);
-               
-                
+
+
                 // Leer los resultados de la consulta y agregarlos a la tabla
                 while (reader.Read())
                 {
@@ -703,13 +705,116 @@ namespace test1
         {
             try
             {
-                string filtrado = "select p.idplan_combus as código,p.periodo,v.descripcion as vehiculo,p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo and p.periodo like '%"+filtrotextBox.Text+"%'";
+                string filtrado = "select p.idplan_combus as código,p.periodo,v.descripcion as vehiculo,p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo and p.periodo like '%" + filtrotextBox.Text + "%'";
                 MySqlCommand cmd = new MySqlCommand(filtrado, Conexion.conectar());
                 CombustibledataGrid.ItemsSource = cmd.ExecuteReader();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void GenerarWordServButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Obtener los datos de la base de datos
+            string fechaenv = "";
+            string hora = "";
+            string mes = "";
+            string año = "";
+            string cantest = "";
+            string autor = "";
+            string telf = "";
+            string lugar = "";
+            string fax = "";
+            string fechacierre = "";
+            string cantserv = "";
+            string header = "SELECT i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv FROM informe  i WHERE i.idinforme= " + codrestextBox.Text + "";
+            MySqlCommand cmd = new MySqlCommand(header, Conexion.conectar());
+            using (MySqlDataReader r = cmd.ExecuteReader())
+            {
+                if (r.Read())
+                {
+                    fechaenv = r["fechaenv"].ToString();
+                    hora = r["hora"].ToString();
+                    mes = r["mes"].ToString();
+                    año = r["año"].ToString();
+                    cantest = r["cantcia_est"].ToString();
+                    autor = r["autor"].ToString();
+                    telf = r["telefono"].ToString();
+                    lugar = r["lugar"].ToString();
+                    fax = r["fax"].ToString();
+                    fechacierre = r["fechacierre"].ToString();
+                    cantserv = r["cantserv"].ToString();
+                }
+            }
+
+            string filePath = "C:/Users/usuario/Desktop/DocumentoServ.docx";
+
+            using (WordprocessingDocument doc = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
+            {
+                MainDocumentPart mainPart = doc.AddMainDocumentPart();
+                mainPart.Document = new Document();
+                Body body = mainPart.Document.AppendChild(new Body());
+                // Agregar los primeros dos párrafos
+                AddParagraph(body, "JUNTA NACIONAL DE CUERPOS DE BOMBEROS VOLUNTARIOS DEL PARAGUAY", JustificationValues.Center, 22, true);
+                AddParagraph(body, "COMANDANCIA NACIONAL", JustificationValues.Center, 24, true);
+                AddParagraph(body, "INFORME MENSUAL DE SERVICIOS", JustificationValues.Center, 28, true);
+                AddParagraph(body, "CBV de CORONEL BOGADO", JustificationValues.Center, 22, true);
+                AddParagraph(body, "Fecha de Envió: <fechaenv>", JustificationValues.Left, 22, true);
+                AddParagraph(body, "Hora: <hora>                            Mes: <mes>                              Año: <año>", JustificationValues.Left, 22, true);
+                AddParagraph(body, "Datos de Envio", JustificationValues.Left, 22, true);
+                AddParagraph(body, "CBV de Cnel. José Félix Bogado                                             Cantidad Cía. /Estaciones: <cantest>", JustificationValues.Left, 22, true);
+                AddParagraph(body, "Elaborado por: <autor>                                                     Tel.: <telf>", JustificationValues.Left, 22, false);
+                AddParagraph(body, "Enviado desde: Cuerpo de Bomberos Voluntarios de Cnel. Bogado", JustificationValues.Left, 22, false);
+                AddParagraph(body, "Fax habilitado (para posible reenvío):<fax>", JustificationValues.Left, 22, false);
+                AddParagraph(body, "Fecha  de cierre del informe:<fechacierre>", JustificationValues.Left, 22, false);
+                AddParagraph(body, "CANTIDAD TOTAL DE SERVICIO:<cantserv>", JustificationValues.Left, 22, true);
+                AddParagraph(body, "10.40", JustificationValues.Left, 32, true);
+                AddParagraph(body, "CANTIDAD GLOBAL DE 10.40: <cant40>                      Horas en servicios: <horaserv40>", JustificationValues.Left, 24, true);
+                AddParagraph(body, "Servicio 10.40.                                      Magnitudes.                       Cantidad de 10.44/10.45", JustificationValues.Left, 24, true);
+                AddParagraph(body, "1-Estructural: <estructural>               1-Principio: <principio>     1-Ileso/s: <ileso40>", JustificationValues.Left, 24, false);
+                //AddParagraph(body, "10.40", JustificationValues.Left, 32, true);
+                //AddParagraph(body, "10.40", JustificationValues.Left, 32, true);
+                //AddParagraph(body, "10.40", JustificationValues.Left, 32, true);
+                //AddParagraph(body, "10.40", JustificationValues.Left, 32, true);
+
+                // Buscar y reemplazar los valores en el documento
+                foreach (var text in doc.MainDocumentPart.Document.Descendants<Text>())
+                {
+                    if (text.Text.Contains("<fechaenv>"))
+                        text.Text = text.Text.Replace("<fechaenv>", fechaenv);
+                    if (text.Text.Contains("<hora>"))
+                        text.Text = text.Text.Replace("<hora>", hora);
+                    if (text.Text.Contains("<mes>"))
+                        text.Text = text.Text.Replace("<mes>", mes);
+                    if (text.Text.Contains("<año>"))
+                        text.Text = text.Text.Replace("<año>", año);
+                    if (text.Text.Contains("<cantest>"))
+                        text.Text = text.Text.Replace("<cantest>", cantest);
+                    if (text.Text.Contains("<autor>"))
+                        text.Text = text.Text.Replace("<autor>", autor);
+                    if (text.Text.Contains("<telf>"))
+                        text.Text = text.Text.Replace("<telf>", telf);
+                    if (text.Text.Contains("<fax>"))
+                        text.Text = text.Text.Replace("<fax>", fax);
+                    if (text.Text.Contains("<fechacierre>"))
+                        text.Text = text.Text.Replace("<fechacierre>", fechacierre);
+                    if (text.Text.Contains("<cantserv>"))
+                        text.Text = text.Text.Replace("<cantserv>", cantserv);
+                }
+
+                mainPart.Document.Save();
+            }
+            SaveFileDialog dialogoGuardar = new SaveFileDialog();
+            dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
+            dialogoGuardar.DefaultExt = "docx";
+
+            if (dialogoGuardar.ShowDialog() == true)
+            {
+                string rutaArchivo = dialogoGuardar.FileName;
+                File.Move(filePath, rutaArchivo);
+                MessageBox.Show("Documento guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

@@ -109,8 +109,8 @@
                     <Button x:Name="guardarres" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="75" Height="22" Background="#FF40C52B" Foreground="White" Click="SaveResumen_ButtonClick"/>
                     <Button x:Name="modificarres" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifyresButton_Click" Height="22"/>
                     <Button x:Name="borrarres" Content="Borrar" HorizontalAlignment="Left" Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeleteresButton_Click" Height="22"/>
-                    <Label x:Name="label_Copy1" Content="Código:" HorizontalAlignment="Left" Margin="909,619,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="codrestextBox" HorizontalAlignment="Left" Height="23" Margin="960,623,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+                    <Label x:Name="label_Copy1" Content="Código:" HorizontalAlignment="Left" Margin="849,619,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="codrestextBox" HorizontalAlignment="Left" Height="23" Margin="905,623,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
                     <Grid x:Name="tabla3" Background="#FFBBBBBB" Margin="10,118,4,275">
                         <Label x:Name="label22_Copy1" Content="Cantidad global de 10.43:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                         <TextBox x:Name="cant1043textBox" HorizontalAlignment="Left" Height="24" Margin="164,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Text="0"/>
@@ -294,6 +294,7 @@
                     <Button x:Name="button41" Content="10.41" HorizontalAlignment="Left" Margin="55,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25" Width="45" Click="serv41ButtonClick"/>
                     <Button x:Name="button40" Content="10.40" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25"  Width="45" Click="serv40ButtonClick"/>
                     <DataGrid x:Name="InfdataGrid" HorizontalAlignment="Left" Height="215" Margin="10,399,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="*" SelectionChanged="InfdataGrid_SelectionChanged"/>
+                    <Button x:Name="button_Copy4" Content="Generar Word" HorizontalAlignment="Left" Margin="960,623,0,0" VerticalAlignment="Top" Width="80" Background="#FF4D4D4D" Foreground="White" Click="GenerarWordServButton_Click" Height="22"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Estadisticas de Servicios">
