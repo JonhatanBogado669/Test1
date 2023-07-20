@@ -16,6 +16,7 @@ namespace test1.models
         private string aniali;
         private string cobertura;
         private string curso;
+        private string transporte;
         private string vivienda;
         private string profundidad;
         private string altura;
@@ -69,6 +70,11 @@ namespace test1.models
         {
             set { curso = value; }
             get { return curso; }
+        }
+        public string Transporte
+        {
+            set { transporte = value; }
+            get { return transporte; }
         }
         public string Vivienda
         {

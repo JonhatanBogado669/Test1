@@ -19,6 +19,7 @@ namespace test1.models
         private string desconocida;
         private string premeditada;
         private string accidental;
+        private string corto;
         private string findelimpieza;
         private string principio;
         private string pequena;
@@ -92,6 +93,11 @@ namespace test1.models
         {
             set { accidental = value; }
             get { return accidental; }
+        }
+        public string Corto
+        {
+            set { corto = value; }
+            get { return corto; }
         }
         public string FindeLimpieza
         {
