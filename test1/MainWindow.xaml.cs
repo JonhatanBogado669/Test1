@@ -958,59 +958,63 @@ namespace test1
                         AddHeader(body, "INFORME MENSUAL DE SERVICIOS");
                         AddHeader(body, "CBV de CORONEL BOGADO");
                         AddParagraph(body, "Fecha de Envió: " + fechaenv + "", JustificationValues.Left, 22, true, true);
-                        AddParagraph(body, "Hora: "+hora+ "                            Mes: " + mes + "                              Año: " + año + "", JustificationValues.Left, 22, true, true);
+                        AddParagraph(body, "Hora: "+hora+"                            Mes: " + mes + "                              Año: " + año + "", JustificationValues.Left, 22, true, true);
                         AddParagraph(body, "CBV de Cnel. José Félix Bogado                                             Cantidad Cía. /Estaciones: " + cantest + "", JustificationValues.Left, 22, true, true);
                         AddParagraph(body, "Elaborado por: " + autor + "                                                     Tel.: " + telf + "", JustificationValues.Left, 20, false, true);
                         AddParagraph(body, "Enviado desde: Cuerpo de Bomberos Voluntarios de Cnel. Bogado", JustificationValues.Left, 20, false, true);
                         AddParagraph(body, "Fax habilitado (para posible reenvío): " + fax + "		     Fecha de cierre del informe: " + fechacierre + "", JustificationValues.Left, 20, false, true);
                         AddParagraph(body, "CANTIDAD TOTAL DE SERVICIO: " + cantserv + "", JustificationValues.Left, 22, true, true);
                         AddParagraph(body, "10.40", JustificationValues.Left, 24, true, true);
-                        AddParagraph(body, "CANTIDAD GLOBAL DE 10.40: " + cant40 + "                                    Horas en servicios: " + hs40 + "", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "Servicio 10.40.                                    Magnitudes.                                Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1-Estructural: " + estructural + "                                1-Principio: " + principio + "                   1-Ileso/s: " + ileso40 + ">", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2-Vehicular: " + vehicular + "                           2-Pequeña Magnitud: " + pequena + "                 2-Herido/s: " + herido40 + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3-Basural: " + basural + "                               3-Mediana Magnitud: " + mediana + "    3-Fallecidos/s: " + fallecido40 + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4-Forestal: " + forestal + "                     4-Gran Magnitud: " + grande + "           4-Rescate/s: " + rescate40 + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5-Pastizal: " + pastizal + "                      5-Emergencia Gral.: " + emergral + "", JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "10.40", JustificationValues.Center, 20, true, true);
+                        AddParagraph(body, "CANTIDAD GLOBAL DE 10.40: " + cant40 + "     Horas en servicios: " + hs40, JustificationValues.Left, 20, true, true);
+                        AddParagraph(body, "Servicio 10.40.                                      Magnitudes.                                Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
+                        AddParagraph(body, "1-Estructural: " + estructural + "                                    1-Principio: " + principio + "                                1-Ileso/s: " + ileso40 + "", JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "2-Vehicular: " + vehicular + "                                       2-Pequeña Magnitud: " + pequena + "             2-Herido/s: " + herido40, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "3-Basural: " + basural + "                                           3-Mediana Magnitud: " + mediana + "          3-Fallecidos/s: " + fallecido40, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "4-Forestal: " + forestal + "                                          4-Gran Magnitud: " + grande + "                 4-Rescate/s: " + rescate40, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "5-Pastizal: " + pastizal + "                                           5-Emergencia Gral.: " + emergral, JustificationValues.Left, 20, false, true);
 
-                        AddParagraph(body, "Causas Posibles                               Recursos Utilizados                       Móviles/Km.", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1-Desconocidas: " + desconocidas + " 1-Agua: " + agua + "                               1-Total km.: " + totalkm + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2-Premeditadas: " + premeditadas + " 2-PQS/CO2: " + pqsco2 + "                    2-Nomina: " + nomina40 + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3-Accidentales: " + accidental + "     3-Combustible: " + combus40 + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4-Corto Circuito: " + corto + "                4-Bomberos: " + bomber40 + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5-Fin de Limpieza: " + limpieza + "            5-Tiempo total: " + tt40 + "", JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "Causas Posibles                                    Recursos Utilizados                   Móviles/Km.", JustificationValues.Left, 20, true, true);
+                        AddParagraph(body, "1-Desconocidas: " + desconocidas + "                              1-Agua: " + agua + "                                   1-Total km.: " + totalkm, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "2-Premeditadas: " + premeditadas + "                              2-PQS/CO2: " + pqsco2 + "                           2-Nomina: " + nomina40, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "3-Accidentales: " + accidental + "                                3-Combustible: " + combus40, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "4-Corto Circuito: " + corto + "                                  4-Bomberos: " + bomber40, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "5-Fin de Limpieza: " + limpieza + "                           5-Tiempo total: " + tt40, JustificationValues.Left, 20, false, true);
+
 
                         AddParagraph(body, "", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "10.41", JustificationValues.Left, 24, true, true);
-                        AddParagraph(body, "CANTIDAD GLOBAL DE 10.41: " + cant41 + "                                    Horas en servicios: " + hs41 + "", JustificationValues.Left, 20, true, true);
+                        AddParagraph(body, "10.41", JustificationValues.Left, 20, true, true);
+                        AddParagraph(body, "CANTIDAD GLOBAL DE 10.41: " + cant41 + "                                                             Horas en servicios: " + hs41, JustificationValues.Left, 20, true, true);
                         AddParagraph(body, "Servicio 10.41.                                     Magnitudes.                               Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1- Arrollamientos:<arroll>               1- Daños Materiales:<daño>        1-Ileso/s: <ileso41>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2- Choque:<choque>                        2- Con Heridos.:<conhe>               2-Herido/s: :<herido41>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3- Vuelcos:<vuelco>                          3- Con Heridos Atrap.:<conhera>3-Fallecido/s: :<fall41>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4- Caída:<caida>                                4- Con Incendio.:<coninc>             4-Rescate/s:<res41>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5- Aeronave:<aero>                          5- Con Mat-Pel.:<matpel>", JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "1- Arrollamientos: " + arrollamiento + "                           1- Daños Materiales: " + danomat + "               1-Ileso/s: " + danomat, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "2- Choque: " + choque + "                                         2- Con Heridos.: " + conherido + "                      2-Herido/s: " + herido41, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "3- Vuelcos: " + vuelco + "                                         3- Con Heridos Atrap.: " + conatrap + "         3-Fallecido/s: " + fallecido41, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "4- Caída: " + caida + "                                             4- Con Incendio.: " + coninc + "                  4-Rescate/s: " + rescate41, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "5- Aeronave: " + aeronave + "                                      5- Con Mat-Pel.: " + matpel, JustificationValues.Left, 20, false, true);
+
                         AddParagraph(body, "Elementos Involucrados                 Seguridad de Involucrados          Recursos Usados.", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1-Peatones:<peat>                           1-Cinturón Conductor:<cintcond>1-Combustible:<combus41>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2-Moto:<moto>                                2-Cinturón Acomp.:<cintacomp>  2-Bomberos:<bomber41>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3-Veh. Livianos :<vehliv>                 3-Casco Conductor:<cascond>      3-Km. recorrido:<kmre>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4-Veh. Pesados:<vehpes>                4-Casco Acompan.:<casacomp>   4-Tiempo Total:<tt41>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5-Buses:<bus>                                                                                               5 - Nomina:<nomina41>", JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "1-Peatones: " + peaton + "                                      1-Cinturón Conductor: " + cintcond + "         1-Combustible: " + combus41, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "2-Moto: " + moto + "                                             2-Cinturón Acomp.: " + cintacomp + "              2-Bomberos: " + bomber41, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "3-Veh. Livianos: " + vehliviano + "                               3-Casco Conductor: " + cascocond + "               3-Km. recorrido: " + kmrecorrido, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "4-Veh. Pesados: " + vehpesado + "                               4-Casco Acompan.: " + cascoacomp + "               4-Tiempo Total: " + tt41, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "5-Buses: " + bus, JustificationValues.Left, 20, false, true);
 
 
                         AddParagraph(body, "", JustificationValues.Left, 10, true, true);
                         AddParagraph(body, "10.43", JustificationValues.Left, 24, true, true);
-                        AddParagraph(body, "CANTIDAD GLOBAL DE 10.43: <cant43>                                            Horas en servicios:<hs43>", JustificationValues.Left, 20, true, true);
+                        AddParagraph(body, "CANTIDAD GLOBAL DE 10.43: " + cant43 + "                                                          Horas en servicios: " + hs43, JustificationValues.Left, 20, true, true);
                         AddParagraph(body, "Servicio 10.43.                                 Tipo de Rescate.                          Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1-Rescate: <rescate>                       1-En Vivienda: <vivienda>          1-Ileso/s: <ileso43>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2-Recuperación: <recup>                2-Profundidad:<prof>                 2-Herido/s:<herido43>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3-Animales/Alimañas: <aniali>       3-Altura:<altura>                         3-Fallecidos/s:<fall43>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4-Cobertura:<cobert>                      4-Derrumbe:<derrum>        ", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5-Curso/Charla: <curso>                  5-Raudal/naufragio:<raud>       4-Combustible:<combus43>", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "6-Transporte: <transp>                    6-Amenaza Bomba:<bomba>    5-Nomina:" + nomina43 + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "                                                              7-Intento de suicidio:<suicidio>", JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "1-Rescate: " + rescate + "                                     1-En Vivienda: " + vivienda + "                             1-Ileso/s: " + ileso43, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "2-Recuperación: " + recuperacion + "                          2-Profundidad: " + profundidad + "                          2-Herido/s: " + herido43, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "3-Animales/Alimañas: " + aniali + "                3-Altura: " + altura + "                                     3-Fallecidos/s: " + fallecido43, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "4-Cobertura: " + cobertura + "                                4-Derrumbe: " + derrumbe, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "5-Curso/Charla: " + curso + "                           5-Raudal/naufragio: " + naufragio + "                 4-Combustible: " + combus43, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "6-Transporte: " + transporte + "                              6-Amenaza Bomba: " + bomba + "                   5-Nomina:" + nomina43, JustificationValues.Left, 20, false, true);
+                        AddParagraph(body, "                                                             7-Intento de suicidio: " + suicidio, JustificationValues.Left, 20, false, true);
+
 
                     }
-                   
+
 
 
                     SaveFileDialog dialogoGuardar = new SaveFileDialog();
