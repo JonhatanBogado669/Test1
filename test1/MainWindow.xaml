@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:test1.models"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="712.5" Width="1301.5" WindowStartupLocation="CenterScreen" HorizontalAlignment="Left" VerticalAlignment="Bottom">
     <Grid>
@@ -300,14 +301,35 @@
             <TabItem Header="Estadisticas de Servicios">
                 <Grid Background="#FFE5E5E5">
                     <Label x:Name="label26" Content="Esquema de Servicios Año" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="textBox11" HorizontalAlignment="Left" Height="20" Margin="168,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
-                    <Button x:Name="button1" Content="Ver" HorizontalAlignment="Left" Margin="207,13,0,0" VerticalAlignment="Top" Width="33"/>
-                    <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Height="357" Margin="10,41,0,0" VerticalAlignment="Top" Width="814"/>
-                    <Label x:Name="label27" Content="Total de Servicios por Año" HorizontalAlignment="Left" Margin="10,403,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <DataGrid x:Name="dataGrid2" HorizontalAlignment="Left" Height="48" Margin="10,434,0,0" VerticalAlignment="Top" Width="568"/>
+                    <TextBox x:Name="filtroañotextBox" HorizontalAlignment="Left" Height="20" Margin="168,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
+                    <Button x:Name="button1" Content="Ver" HorizontalAlignment="Left" Margin="207,13,0,0" VerticalAlignment="Top" Width="33" Click="VerButton_Click"/>
+                    <DataGrid x:Name="esquemadataGrid" HorizontalAlignment="Left" Height="288" Margin="10,41,0,0" VerticalAlignment="Top" Width="814"/>
+                    <Label x:Name="label27" Content="Total de Servicios por Año" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <DataGrid x:Name="esquema2dataGrid" HorizontalAlignment="Left" Height="48" Margin="10,365,0,0" VerticalAlignment="Top" Width="568"/>
                     <Label x:Name="label26_Copy" Content="Gráfico de Servicios" HorizontalAlignment="Left" Margin="836,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <Image x:Name="Image1_png" Margin="836,41,34,375" Source="Image1.png" Stretch="Fill"/>
-                    <Image x:Name="Image2_png" Margin="10,500,776,35" Source="Image2.png" Stretch="Fill"/>
+                    <lvc:CartesianChart Width="688" Height="225" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,418,0,0">
+                        <lvc:CartesianChart.Series>
+                            <lvc:ColumnSeries Title="Serie 1" Values="3, 6, 2, 8, 5" Fill="#2196F3"/>
+                            <lvc:ColumnSeries Title="Serie 2" Values="5, 2, 7, 4, 9" Fill="#4CAF50"/>
+                            <lvc:ColumnSeries Title="Serie 3" Values="1, 4, 6, 3, 7" Fill="#FFC107"/>
+                        </lvc:CartesianChart.Series>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Categorías" Labels="Categoría 1, Categoría 2, Categoría 3, Categoría 4, Categoría 5"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Valores"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                    <lvc:PieChart Name="pieChart" Width="449" Height="388" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="829,41,10,224">
+                        <lvc:PieChart.Series>
+                            <lvc:PieSeries Title="Serie 1" Values="1" Fill="DeepSkyBlue" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 2" Values="48" Fill="Orange" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 3" Values="28" Fill="Blue" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 4" Values="2" Fill="Red" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 5" Values="16" Fill="Green" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 6" Values="5" Fill="DarkViolet" DataLabels="True"/>
+                        </lvc:PieChart.Series>
+                    </lvc:PieChart>
                 </Grid>
 
             </TabItem>

@@ -21,6 +21,8 @@ using Microsoft.Win32;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using LiveCharts;
+using LiveCharts.Wpf;
 using System.Collections.ObjectModel;
 using System.Collections;
 using test1.models;
@@ -580,23 +582,11 @@ namespace test1
                 MySqlCommand command = new MySqlCommand(consulta, Conexion.conectar());
                 MySqlDataReader reader = command.ExecuteReader();
 
-                // Obtener el MainDocumenPart existente o agregar uno nuevo si no existe
-                /*MainDocumentPart mainPart = doc.MainDocumentPart ?? doc.AddMainDocumentPart();
-                if (mainPart.Document == null)
-                {
-                    mainPart.Document = new Document();
-                }
-                Body body = mainPart.Document.Body;*/
-
                 // Agregar una tabla al documento
                 Table wordTable = body.AppendChild(new Table());
                 TableRow headerRow = new TableRow();
                 // Agregar bordes a la tabla
                 TableProperties tableProperties = new TableProperties(
-                // new TableLayout() { Type = TableLayoutValues.Autofit },
-                //new TableWidth() { Type = TableWidthUnitValues.Auto },
-                //new TableIndentation() { Width = 0, Type = TableWidthUnitValues.Dxa },
-                //new TableJustification() { Val = TableRowAlignmentValues.Left },
                 new TableBorders(
                      new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
                      new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
@@ -752,99 +742,6 @@ namespace test1
         }
         private void GenerarWordServButton_Click(object sender, RoutedEventArgs e)
         {
-            // Obtener los datos de la base de datos
-            /*string fechaenv = "";
-            string hora = "";
-            string mes = "";
-            string año = "";
-            string cantest = "";
-            string autor = "";
-            string telf = "";
-            string lugar = "";
-            string fax = "";
-            string fechacierre = "";
-            string cantserv = "";
-            string cant1040 = "";
-            string hs40 = "";
-            string estructural = "";
-            string vehicular = "";
-            string basural = "";
-            string forestal = "";
-            string pastizal = "";
-            string desconocidas = "";
-            string premeditadas = "";
-            string accidental = "";
-            string corto = "";
-            string limpieza = "";
-            string principio = "";
-            string pequena = "";
-            string mediana = "";
-            string grande = "";
-            string emergral = "";
-            string agua = "";
-            string pqsco2 = "";
-            string combus40 = "";
-            string bomber40 = "";
-            string tt40 = "";
-            string ileso40 = "";
-            string herido40 = "";
-            string fallecido40 = "";
-            string rescate40 = "";
-            string totalkm = "";
-            string nomina40 = "";
-
-            string cant41 = "";
-            string hs41 = "";
-            string arrollamiento = "";
-            string choque = "";
-            string vuelco = "";
-            string caida = "";
-            string aeronave = "";
-            string peaton = "";
-            string moto = "";
-            string vehliviano = "";
-            string vehpesado = "";
-            string bus = "";
-            string danomat = "";
-            string conherido = "";
-            string conatrap = "";
-            string coninc = "";
-            string matpel = "";
-            string cintcond = "";
-            string cintacomp = "";
-            string cascocond = "";
-            string cascoacomp = "";
-            string ileso41 = "";
-            string herido41 = "";
-            string fallecido41 = "";
-            string rescate41 = "";
-            string combus41 = "";
-            string bomber41 = "";
-            string kmrecorrido = "";
-            string tt41 = "";
-            string nomina41 = "";
-
-            string cant43 = "";
-            string hs43 = "";
-            string rescate = "";
-            string recuperacion = "";
-            string aniali = "";
-            string cobertura = "";
-            string curso = "";
-            string transporte = "";
-            string vivienda = "";
-            string profundidad = "";
-            string altura = "";
-            string derrumbe = "";
-            string naufragio = "";
-            string bomba = "";
-            string suicidio = "";
-            string ileso43 = "";
-            string herido43 = "";
-            string fallecido43 = "";
-            string combus43 = "";
-           // string nomina43 = "";*/
-
             string header = "SELECT i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv, s.cant1040, s.horaserv AS hserv40,s.estructural,s.vehicular,s.basural,s.forestal,s.pastizal,s.desconocida,s.premeditada,s.accidental,s.corto,s.findelimpieza,s.principio,s.pequena,s.mediana,s.grande,s.emergral,s.agua,s.pqsco2,s.combustible AS combus40,s.bombero AS bomber40,s.tiempototal AS tt40,s.ileso AS ileso40,s.herido AS herido40,s.fallecido AS fallecido40,s.rescate AS rescate40,s.totalkm,s.nomina AS nomina40,ss.cant1041,ss.horaserv AS hserv41,ss.arrollamiento,ss.choque,ss.vuelco,ss.caida,ss.aeronave,ss.peaton,ss.moto,ss.vehliviano,ss.vehpesado,ss.bus,ss.danomat,ss.conherido,ss.conatrap,ss.coninc,ss.matpel,ss.cintcond,ss.cintacomp,ss.cascocond,ss.cascoacomp,ss.ileso AS ileso41,ss.herido AS herido41,ss.fallecido AS fallecido41,ss.rescate AS rescate41,ss.combustible AS combus41,ss.bombero AS bomber41,ss.kmrecorrido,ss.tiempototal AS tt41,ss.nomina AS nomina41, sss.cant1043, sss.horaserv AS hserv43, sss.rescate,sss.recuperacion, sss.aniali,sss.cobertura,sss.curso,sss.transporte,sss.vivienda,sss.profundidad,sss.altura,sss.derrumbe,sss.naufragio,sss.bomba,sss.suicidio,sss.ileso AS ileso43,sss.herido AS herido43,sss.fallecido AS fallecido43,sss.combustible AS combus43,sss.nomina AS nomina43 FROM informe  i, serv1040 s,serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043 AND i.idinforme= " + codrestextBox.Text + "";
             MySqlCommand cmd = new MySqlCommand(header, Conexion.conectar());
             using (MySqlDataReader r = cmd.ExecuteReader())
@@ -1029,213 +926,19 @@ namespace test1
                     }
                 }
             }
-
-
-            //string filePath = "C:/Users/usuario/Desktop/DocumentoServ.docx";
-            /*
-                            foreach (var text in doc.MainDocumentPart.Document.Descendants<Text>())
-                            {
-                                if (text.Text.Contains("<fechaenv>"))
-                                    text.Text = text.Text.Replace("<fechaenv>", fechaenv);
-                                if (text.Text.Contains("<hora>"))
-                                    text.Text = text.Text.Replace("<hora>", hora);
-                                if (text.Text.Contains("<mes>"))
-                                    text.Text = text.Text.Replace("<mes>", mes);
-                                if (text.Text.Contains("<año>"))
-                                    text.Text = text.Text.Replace("<año>", año);
-                                if (text.Text.Contains("<cantest>"))
-                                    text.Text = text.Text.Replace("<cantest>", cantest);
-                                if (text.Text.Contains("<autor>"))
-                                    text.Text = text.Text.Replace("<autor>", autor);
-                                if (text.Text.Contains("<telf>"))
-                                    text.Text = text.Text.Replace("<telf>", telf);
-                                if (text.Text.Contains("<lugar>"))
-                                    text.Text = text.Text.Replace("<lugar>", lugar);
-                                if (text.Text.Contains("<fax>"))
-                                    text.Text = text.Text.Replace("<fax>", fax);
-                                if (text.Text.Contains("<fechacierre>"))
-                                    text.Text = text.Text.Replace("<fechacierre>", fechacierre);
-                                if (text.Text.Contains("<cantserv>"))
-                                    text.Text = text.Text.Replace("<cantserv>", cantserv);
-
-
-                                if (text.Text.Contains("<cant40>"))
-                                    text.Text = text.Text.Replace("<cant40>", cant1040);
-                                if (text.Text.Contains("<hs40>"))
-                                    text.Text = text.Text.Replace("<hs40>", hs40);
-                                if (text.Text.Contains("<estructural>"))
-                                    text.Text = text.Text.Replace("<estructural>", estructural);
-                                if (text.Text.Contains("<vehicular>"))
-                                    text.Text = text.Text.Replace("<vehicular>", vehicular);
-                                if (text.Text.Contains("<basural>"))
-                                    text.Text = text.Text.Replace("<basural>", basural);
-                                if (text.Text.Contains("<forestal>"))
-                                    text.Text = text.Text.Replace("<forestal>", forestal);
-                                if (text.Text.Contains("<pastizal>"))
-                                    text.Text = text.Text.Replace("<pastizal>", pastizal);
-                                if (text.Text.Contains("<desconocidas>"))
-                                    text.Text = text.Text.Replace("<desconocidas>", desconocidas);
-                                if (text.Text.Contains("<premeditadas>"))
-                                    text.Text = text.Text.Replace("<premeditadas>", premeditadas);
-                                if (text.Text.Contains("<accidentales>"))
-                                    text.Text = text.Text.Replace("<accidentales>", accidental);
-                                if (text.Text.Contains("<corto>"))
-                                    text.Text = text.Text.Replace("<corto>", accidental);
-                                if (text.Text.Contains("<limpieza>"))
-                                    text.Text = text.Text.Replace("<limpieza>", limpieza);
-                                if (text.Text.Contains("<principio>"))
-                                    text.Text = text.Text.Replace("<principio>", principio);
-                                if (text.Text.Contains("<pemag>"))
-                                    text.Text = text.Text.Replace("<pemag>", pequena);
-                                if (text.Text.Contains("<memag>"))
-                                    text.Text = text.Text.Replace("<memag>", mediana);
-                                if (text.Text.Contains("<grmag>"))
-                                    text.Text = text.Text.Replace("<grmag>", grande);
-                                if (text.Text.Contains("<emergrl>"))
-                                    text.Text = text.Text.Replace("<emergrl>", emergral);
-                                if (text.Text.Contains("<agua>"))
-                                    text.Text = text.Text.Replace("<agua>", agua);
-                                if (text.Text.Contains("<pqsco2>"))
-                                    text.Text = text.Text.Replace("<pqsco2>", pqsco2);
-                                if (text.Text.Contains("<combus40>"))
-                                    text.Text = text.Text.Replace("<combus40>", combus40);
-                                if (text.Text.Contains("<bomber40>"))
-                                    text.Text = text.Text.Replace("<bomber40>", bomber40);
-                                if (text.Text.Contains("<tt40>"))
-                                    text.Text = text.Text.Replace("<tt40>", tt40);
-                                if (text.Text.Contains("<ileso40>"))
-                                    text.Text = text.Text.Replace("<ileso40>", ileso40);
-                                if (text.Text.Contains("<herido40>"))
-                                    text.Text = text.Text.Replace("<herido40>", herido40);
-                                if (text.Text.Contains("<fall40>"))
-                                    text.Text = text.Text.Replace("<fall40>", fallecido40);
-                                if (text.Text.Contains("<res40>"))
-                                    text.Text = text.Text.Replace("<res40>", rescate40);
-                                if (text.Text.Contains("<totalkm>"))
-                                    text.Text = text.Text.Replace("<totalkm>", totalkm);
-                                if (text.Text.Contains("<nomina40>"))
-                                    text.Text = text.Text.Replace("<nomina40>", nomina40);
-
-
-                                if (text.Text.Contains("<cant41>"))
-                                    text.Text = text.Text.Replace("<cant41>", cant41);
-                                if (text.Text.Contains("<hs41>"))
-                                    text.Text = text.Text.Replace("<hs41>", hs41);
-                                if (text.Text.Contains("<arroll>"))
-                                    text.Text = text.Text.Replace("<arroll>", arrollamiento);
-                                if (text.Text.Contains("<choque>"))
-                                    text.Text = text.Text.Replace("<choque>", choque);
-                                if (text.Text.Contains("<vuelco>"))
-                                    text.Text = text.Text.Replace("<vuelco>", vuelco);
-                                if (text.Text.Contains("<caida>"))
-                                    text.Text = text.Text.Replace("<caida>", caida);
-                                if (text.Text.Contains("<aero>"))
-                                    text.Text = text.Text.Replace("<aero>", aeronave);
-                                if (text.Text.Contains("<peat>"))
-                                    text.Text = text.Text.Replace("<peat>", peaton);
-                                if (text.Text.Contains("<moto>"))
-                                    text.Text = text.Text.Replace("<moto>", moto);
-                                if (text.Text.Contains("<vehliv>"))
-                                    text.Text = text.Text.Replace("<vehliv>", vehliviano);
-                                if (text.Text.Contains("<vehpes>"))
-                                    text.Text = text.Text.Replace("<vehpes>", vehpesado);
-                                if (text.Text.Contains("<bus>"))
-                                    text.Text = text.Text.Replace("<bus>", bus);
-                                if (text.Text.Contains("<daño>"))
-                                    text.Text = text.Text.Replace("<daño>", danomat);
-                                if (text.Text.Contains("<conhe>"))
-                                    text.Text = text.Text.Replace("<conhe>", conherido);
-                                if (text.Text.Contains("<conhera>"))
-                                    text.Text = text.Text.Replace("<conhera>", conatrap);
-                                if (text.Text.Contains("<coninc>"))
-                                    text.Text = text.Text.Replace("<coninc>", coninc);
-                                if (text.Text.Contains("<matpel>"))
-                                    text.Text = text.Text.Replace("<matpel>", matpel);
-                                if (text.Text.Contains("<cintcond>"))
-                                    text.Text = text.Text.Replace("<cintcond>", cintcond);
-                                if (text.Text.Contains("<cintacomp>"))
-                                    text.Text = text.Text.Replace("<cintacomp>", cintacomp);
-                                if (text.Text.Contains("<cascond>"))
-                                    text.Text = text.Text.Replace("<cascond>", cascocond);
-                                if (text.Text.Contains("<casacomp>"))
-                                    text.Text = text.Text.Replace("<casacomp>", cascoacomp);
-                                if (text.Text.Contains("<ileso41>"))
-                                    text.Text = text.Text.Replace("<ileso41>", ileso41);
-                                if (text.Text.Contains("<herido41>"))
-                                    text.Text = text.Text.Replace("<herido41>", herido41);
-                                if (text.Text.Contains("<fall41>"))
-                                    text.Text = text.Text.Replace("<fall41>", fallecido41);
-                                if (text.Text.Contains("<res41>"))
-                                    text.Text = text.Text.Replace("<res41>", rescate41);
-                                if (text.Text.Contains("<combus41>"))
-                                    text.Text = text.Text.Replace("<combus41>", combus41);
-                                if (text.Text.Contains("<bomber41>"))
-                                    text.Text = text.Text.Replace("<bomber41>", bomber41);
-                                if (text.Text.Contains("<kmre>"))
-                                    text.Text = text.Text.Replace("<kmre>", kmrecorrido);
-                                if (text.Text.Contains("<tt41>"))
-                                    text.Text = text.Text.Replace("<tt41>", tt41);
-                                if (text.Text.Contains("<nomina41>"))
-                                    text.Text = text.Text.Replace("<nomina41>", nomina41);
-
-
-                                if (text.Text.Contains("<cant43>"))
-                                    text.Text = text.Text.Replace("<cant43>", cant43);
-                                if (text.Text.Contains("<hs43>"))
-                                    text.Text = text.Text.Replace("<hs43>", hs43);
-                                if (text.Text.Contains("<rescate>"))
-                                    text.Text = text.Text.Replace("<rescate>", rescate);
-                                if (text.Text.Contains("<recup>"))
-                                    text.Text = text.Text.Replace("<recup>", recuperacion);
-                                if (text.Text.Contains("<aniali>"))
-                                    text.Text = text.Text.Replace("<aniali>", aniali);
-                                if (text.Text.Contains("<cobert>"))
-                                    text.Text = text.Text.Replace("<cobert>", cobertura);
-                                if (text.Text.Contains("<curso>"))
-                                    text.Text = text.Text.Replace("<curso>", curso);
-                                if (text.Text.Contains("<transp>"))
-                                    text.Text = text.Text.Replace("<transp>", transporte);
-                                if (text.Text.Contains("<vivienda>"))
-                                    text.Text = text.Text.Replace("<vivienda>", vivienda);
-                                if (text.Text.Contains("<prof>"))
-                                    text.Text = text.Text.Replace("<prof>", profundidad);
-                                if (text.Text.Contains("<altura>"))
-                                    text.Text = text.Text.Replace("<altura>", altura);
-                                if (text.Text.Contains("<derrum>"))
-                                    text.Text = text.Text.Replace("<derrum>", derrumbe);
-                                if (text.Text.Contains("<raud>"))
-                                    text.Text = text.Text.Replace("<raud>", naufragio);
-                                if (text.Text.Contains("<bomba>"))
-                                    text.Text = text.Text.Replace("<bomba>", bomba);
-                                if (text.Text.Contains("<suicidio>"))
-                                    text.Text = text.Text.Replace("<suicidio>", suicidio);
-                                if (text.Text.Contains("<ileso43>"))
-                                    text.Text = text.Text.Replace("<ileso43>", ileso43);
-                                if (text.Text.Contains("<herido43>"))
-                                    text.Text = text.Text.Replace("<herido43>", herido43);
-                                if (text.Text.Contains("<fall43>"))
-                                    text.Text = text.Text.Replace("<fall43>", fallecido43);
-                                if (text.Text.Contains("<combus43>"))
-                                    text.Text = text.Text.Replace("<combus43>", combus43);
-                                if (text.Text.Contains("<nomina43>"))
-                                    text.Text = text.Text.Replace("<nomina43>", nomina43);
-                            }
-
-            mainPart.Document.Save();
-
-
-            SaveFileDialog dialogoGuardar = new SaveFileDialog();
-            dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
-            dialogoGuardar.DefaultExt = "docx";
-
-            if (dialogoGuardar.ShowDialog() == true)
-            {
-                string rutaArchivo = dialogoGuardar.FileName;
-                File.Move(filePath, rutaArchivo);
-                MessageBox.Show("Documento guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
-            }*/
         }
-    
+
+        private void VerButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string esquema = "";
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
 
