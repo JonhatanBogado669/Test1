@@ -351,7 +351,7 @@
                     <Label x:Name="label1_Copy1" Content="Contraseña:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="UsuariotextBox_Copy" HorizontalAlignment="Left" Height="23" Margin="82,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
                     <Label x:Name="label1_Copy2" Content="Rol:" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="UsuariotextBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="39,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204"/>
+                    <TextBox x:Name="UsuariotextBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="44,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
                 </Grid>
             </TabItem>
         </TabControl>
