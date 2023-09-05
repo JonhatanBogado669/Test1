@@ -23,6 +23,9 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Firebase.Database;
+using Firebase.Database.Query;
+using Firebase.Auth;
 using System.Collections.ObjectModel;
 using System.Collections;
 using test1.models;
@@ -37,12 +40,14 @@ namespace test1
     public partial class MainWindow : Window
     {
         ObservableCollection<Vehiculo> listvehiculo = new ObservableCollection<Vehiculo>();
-
+        ObservableCollection<Mes> listmes = new ObservableCollection<Mes>();
+        private FirebaseClient firebaseClient;
 
         public MainWindow()
         {
             InitializeComponent();
             vehiculocomboBox.ItemsSource = listvehiculo;
+            MescomboBox.ItemsSource = listmes;
             Conexion.conectar();
 
             Mostrar();
@@ -74,7 +79,6 @@ namespace test1
             //resumen de servicios
             horatextBox.Text = "";
             FechaServ.Text = "";
-            MestextBox.Text = "";
             AnhotextBox.Text = "";
             autortextBox.Text = "";
             teleftextBox.Text = "";
@@ -188,27 +192,75 @@ namespace test1
                 v.IdTipoCombus = r.GetValue(3).ToString();
                 listvehiculo.Add(v);
             }
+            string mes = "select idmes, descripcion from mes";
+            MySqlCommand cmd1 = new MySqlCommand(mes, Conexion.conectar());
+            MySqlDataReader r1 = cmd1.ExecuteReader();
+            while (r1.Read())
+            {
+                Mes m = new Mes();
+                m.IdMes = r1.GetValue(0).ToString();
+                m.Descripcion = r1.GetValue(1).ToString();
+                listmes.Add(m);
+            }
         }
         private void LimpiarCombusButton_Click(object sender, RoutedEventArgs e)
         {
             LimpiarCombus();
         }
-        private void SaveCombus_ButtonClick(object sender, RoutedEventArgs e)
+
+
+        private async Task<string> LoginWithPredefinedCredentials()
+        {
+            string predefinedEmail = "jonhatanbogado@gmail.com";
+            string predefinedPassword = "Guarakaloco";
+
+            try
+            {
+                var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyBmUEbcJgYBDy-lbg7qRuXMNS7xINQhp0c"));
+                var auth = await authProvider.SignInWithEmailAndPasswordAsync(predefinedEmail, predefinedPassword);
+                return auth.FirebaseToken;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al iniciar sesión con las credenciales predefinidas: " + ex.Message);
+                throw;
+            }
+        }
+
+        private async void SaveCombus_ButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
+                
                 Vehiculo v = (Vehiculo)vehiculocomboBox.SelectedValue;
                 string guardar = "insert into plan_combus(periodo,idvehiculo,fecha,ci,nombre,lugar_sal,km_salida,lugar_dest,km_llegada,km_recorrido,motivo,lts_carg,nro_fact,imp_total)values('" +
                 periodotextBox.Text + "'," + v.IdVehiculo + ",'" + FechaCombus.Text + "','" + CItextBox.Text + "','" + nombretextBox.Text + "','" + salidatextBox.Text + "'," + kmsalidatextBox.Text + ",'" +
                 destinotextBox.Text + "'," + kmllegadatextBox.Text + "," + kmrecorridotextBox.Text + ",'" + motivotextBox.Text + "'," + ltscargadotextBox.Text + ",'" + facturatextBox.Text + "'," + importetextBox.Text + ")";
                 MySqlCommand cmd = new MySqlCommand(guardar, Conexion.conectar());
                 cmd.ExecuteNonQuery();
+
+                if (firebaseClient == null)
+                {
+                    string authToken = await LoginWithPredefinedCredentials();
+
+                    firebaseClient = new FirebaseClient(
+                        "https://appbombero-b5017-default-rtdb.firebaseio.com/",
+                        new FirebaseOptions
+                        {
+                            AuthTokenAsyncFactory = () => Task.FromResult(authToken)
+                        }
+                    );
+                }
+
+                MessageBox.Show("Datos guardados en ambas bases de datos.");
                 Limpiar();
                 Mostrar();
+
+                MessageBox.Show("Datos guardados en la nube con éxito.");
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message);
+                MessageBox.Show("Error al guardar datos en la nube: " + ex.Message);
             }
         }
 
@@ -295,7 +347,8 @@ namespace test1
                     long idTabla1 = cmd.LastInsertedId;
                     long idTabla2 = cmd1.LastInsertedId;
                     long idTabla3 = cmd2.LastInsertedId;
-                    string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040,idserv1041,idserv1043)values('" + FechaServ.Text + "','" + horatextBox.Text + "','" + MestextBox.Text + "','" + AnhotextBox.Text + "'," + cantciaesttextBox.Text + ",'" + autortextBox.Text + "','" + teleftextBox.Text
+                    Mes m = (Mes)MescomboBox.SelectedValue;
+                    string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040,idserv1041,idserv1043)values('" + FechaServ.Text + "','" + horatextBox.Text + "'," + m.IdMes + ",'" + AnhotextBox.Text + "'," + cantciaesttextBox.Text + ",'" + autortextBox.Text + "','" + teleftextBox.Text
                     + "','" + lugartextBox.Text + "','" + faxtextBox.Text + "','" + FechaCierre.Text + "'," + totalservtextBox.Text + "," + idTabla1 + "," + idTabla2 + "," + idTabla3 + ")";
                     MySqlCommand cmd3 = new MySqlCommand(guardarres, Conexion.conectar());
                     cmd3.ExecuteNonQuery();
@@ -371,7 +424,8 @@ namespace test1
                 }
 
                 //informe
-                string mod1 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes='" + MestextBox.Text + "', anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" +
+                Mes m = (Mes)MescomboBox.SelectedValue;
+                string mod1 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes=" + m.IdMes + ", anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" +
                 autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" +
                 codrestextBox.Text + "";
                 MySqlCommand cmd1 = new MySqlCommand(mod1, Conexion.conectar());
@@ -445,7 +499,7 @@ namespace test1
                 codrestextBox.Text = idinforme.ToString();
                 FechaServ.Text = fechaenv;
                 horatextBox.Text = hora;
-                MestextBox.Text = mes;
+                MescomboBox.Text = mes;
                 AnhotextBox.Text = anho;
                 cantciaesttextBox.Text = cantcia_est.ToString();
                 autortextBox.Text = autor;
@@ -932,7 +986,7 @@ namespace test1
         {
             try
             {
-                string esquema = "";
+                //string esquema = "";
             }
             catch(Exception ex)
             {

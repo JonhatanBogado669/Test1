@@ -89,24 +89,35 @@
                     <Label x:Name="label10" Content="Hora:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="horatextBox" HorizontalAlignment="Left" Height="23" Margin="48,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39"/>
                     <Label x:Name="label11" Content="Mes:" HorizontalAlignment="Left" Margin="87,36,0,0" VerticalAlignment="Top"/>
-                    <DatePicker x:Name="FechaServ" HorizontalAlignment="Left" Margin="102,12,0,0" VerticalAlignment="Top" Width="166" FontSize="11"/>
-                    <TextBox x:Name="MestextBox" HorizontalAlignment="Left" Height="23" Margin="122,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73" />
-                    <Label x:Name="label11_Copy" Content="Año:" HorizontalAlignment="Left" Margin="195,35,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="AnhotextBox" HorizontalAlignment="Left" Height="23" Margin="229,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39"/>
-                    <Label x:Name="label14" Content="Elaborado por:" HorizontalAlignment="Left" Margin="273,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="autortextBox" HorizontalAlignment="Left" Height="23" Margin="361,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259"/>
+                    <DatePicker x:Name="FechaServ" HorizontalAlignment="Left" Margin="102,12,0,0" VerticalAlignment="Top" Width="189" FontSize="11"/>
+                    <ComboBox x:Name="MescomboBox" HorizontalAlignment="Left" Height="23" Margin="122,39,0,0" VerticalAlignment="Top" Width="91">
+                        <ComboBox.DataContext>
+                            <local:Mes/>
+                        </ComboBox.DataContext>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding Descripcion}"/>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Label x:Name="label11_Copy" Content="Año:" HorizontalAlignment="Left" Margin="218,35,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="AnhotextBox" HorizontalAlignment="Left" Height="23" Margin="252,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39"/>
+                    <Label x:Name="label14" Content="Elaborado por:" HorizontalAlignment="Left" Margin="296,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="autortextBox" HorizontalAlignment="Left" Height="23" Margin="384,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="258"/>
                     <Label x:Name="label15" Content="Cantidad Cía. /Estaciones:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label16" Content="Tel.:" HorizontalAlignment="Left" Margin="273,65,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="teleftextBox" HorizontalAlignment="Left" Height="23" Margin="303,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
-                    <TextBox x:Name="cantciaesttextBox" HorizontalAlignment="Left" Height="23" Margin="155,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113" Text="0"/>
-                    <Label x:Name="label17" Content="Enviado desde:" HorizontalAlignment="Left" Margin="273,36,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="lugartextBox" HorizontalAlignment="Left" Height="23" Margin="362,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="258"/>
-                    <Label x:Name="label18" Content="Fax habilitado (para posible reenvío):" HorizontalAlignment="Left" Margin="628,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="faxtextBox" HorizontalAlignment="Left" Height="23" Margin="832,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
-                    <Label x:Name="label19" Content="Fecha  de cierre del informe:" HorizontalAlignment="Left" Margin="628,36,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label20" Content="CANTIDAD TOTAL DE SERVICIO:" HorizontalAlignment="Left" Margin="628,62,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="totalservtextBox" HorizontalAlignment="Left" Height="23" Margin="818,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Text="0"/>
-                    <DatePicker x:Name="FechaCierre" HorizontalAlignment="Left" Margin="788,38,0,0" VerticalAlignment="Top" Width="166" FontSize="11"/>
+                    <Label x:Name="label16" Content="Tel.:" HorizontalAlignment="Left" Margin="296,65,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="teleftextBox" HorizontalAlignment="Left" Height="23" Margin="326,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+                    <TextBox x:Name="cantciaesttextBox" HorizontalAlignment="Left" Height="23" Margin="155,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Text="0"/>
+                    <Label x:Name="label17" Content="Enviado desde:" HorizontalAlignment="Left" Margin="296,36,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="lugartextBox" HorizontalAlignment="Left" Height="23" Margin="384,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="258"/>
+                    <Label x:Name="label18" Content="Fax habilitado (para posible reenvío):" HorizontalAlignment="Left" Margin="650,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="faxtextBox" HorizontalAlignment="Left" Height="23" Margin="854,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+                    <Label x:Name="label19" Content="Fecha  de cierre del informe:" HorizontalAlignment="Left" Margin="650,36,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label20" Content="CANTIDAD TOTAL DE SERVICIO:" HorizontalAlignment="Left" Margin="650,62,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBox x:Name="totalservtextBox" HorizontalAlignment="Left" Height="23" Margin="840,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Text="0"/>
+                    <DatePicker x:Name="FechaCierre" HorizontalAlignment="Left" Margin="810,38,0,0" VerticalAlignment="Top" Width="166" FontSize="11"/>
                     <Button x:Name="guardarres" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="75" Height="22" Background="#FF40C52B" Foreground="White" Click="SaveResumen_ButtonClick"/>
                     <Button x:Name="modificarres" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifyresButton_Click" Height="22"/>
                     <Button x:Name="borrarres" Content="Borrar" HorizontalAlignment="Left" Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeleteresButton_Click" Height="22"/>
@@ -333,7 +344,16 @@
                 </Grid>
 
             </TabItem>
-
+            <TabItem Header="Registro de usuarios">
+                <Grid Background="#FFE5E5E5">
+                    <Label x:Name="label1_Copy" Content="Usuario:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="UsuariotextBox" HorizontalAlignment="Left" Height="23" Margin="63,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
+                    <Label x:Name="label1_Copy1" Content="Contraseña:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="UsuariotextBox_Copy" HorizontalAlignment="Left" Height="23" Margin="82,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
+                    <Label x:Name="label1_Copy2" Content="Rol:" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="UsuariotextBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="39,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204"/>
+                </Grid>
+            </TabItem>
         </TabControl>
         <Button x:Name="button3" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="1188,34,0,0" VerticalAlignment="Top" Width="85" Background="#FF555555" Foreground="White" Click="LogOutButton_Clikc"/>
 
