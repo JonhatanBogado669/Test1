@@ -150,8 +150,8 @@ namespace test1
             }
             if (username != null && email != null)
             {
-                //LoginGrid.Visibility = Visibility.Collapsed;
                 
+
                 ResetPassword respass = new ResetPassword();
                 respass.Show();
             }
