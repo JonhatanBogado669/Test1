@@ -131,7 +131,7 @@ namespace test1
             }
         }
 
-        /////////////////////////Reseteo de Contraseña///////////////////////////
+        /////////////////////////Reseteo de Contraseña/////////////////////////////
         private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernametextBox.Text;
@@ -151,7 +151,7 @@ namespace test1
             if (username != null && email != null)
             {
                 //LoginGrid.Visibility = Visibility.Collapsed;
-                //tabControl.Visibility = Visibility.Collapsed;
+                
                 ResetPassword respass = new ResetPassword();
                 respass.Show();
             }

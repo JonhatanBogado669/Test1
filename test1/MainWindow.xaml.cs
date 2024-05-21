@@ -166,6 +166,13 @@ namespace test1
             nomina43textBox.Text = "";
             FechaCierre.Text = "";
             codrestextBox.Text = "";
+            ///registro usuarios///
+            UsuariotextBox.Text = "";
+            UserpasstextBox.Password = "";
+            RoltextBox.Text = "";
+            UsercitextBox.Text = "";
+            UsercorreotextBox.Text = "";
+            UserteleftextBox.Text = "";
         }
         public void Mostrar()
         {
@@ -177,6 +184,10 @@ namespace test1
             string mostrarinf = "SELECT i.idinforme AS código,i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv,s.cant1040,ss.cant1041,sss.cant1043 FROM informe  i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043";
             MySqlCommand cmd1 = new MySqlCommand(mostrarinf, Conexion.conectar());
             InfdataGrid.ItemsSource = cmd1.ExecuteReader();
+
+            string mostrarusers = "select u.id as codigo, u.username as usuario,u.role as rol,u.CI,u.correo,u.phone as telef from users u";
+            MySqlCommand cmd2 = new MySqlCommand(mostrarusers, Conexion.conectar());
+            UserdataGrid.ItemsSource = cmd2.ExecuteReader();
         }
         public void Cargar()
         {

@@ -349,9 +349,22 @@
                     <Label x:Name="label1_Copy" Content="Usuario:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="UsuariotextBox" HorizontalAlignment="Left" Height="23" Margin="63,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
                     <Label x:Name="label1_Copy1" Content="Contraseña:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="UsuariotextBox_Copy" HorizontalAlignment="Left" Height="23" Margin="82,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
-                    <Label x:Name="label1_Copy2" Content="Rol:" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="UsuariotextBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="44,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
+                    <PasswordBox x:Name="UserpasstextBox" HorizontalAlignment="Left" Height="23" Margin="82,41,0,0" VerticalAlignment="Top" Width="161"/>
+                    <Label x:Name="label1_Copy2" Content="Rol:" HorizontalAlignment="Left" Margin="248,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="RoltextBox" HorizontalAlignment="Left" Height="23" Margin="282,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
+                    <Label x:Name="label1_Copy3" Content="C.I.:" HorizontalAlignment="Left" Margin="248,38,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="UsercitextBox" HorizontalAlignment="Left" Height="23" Margin="282,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
+                    <Label x:Name="label1_Copy4" Content="Correo:" HorizontalAlignment="Left" Margin="486,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="UsercorreotextBox" HorizontalAlignment="Left" Height="23" Margin="535,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="184"/>
+                    <Label x:Name="label1_Copy5" Content="Telf.:" HorizontalAlignment="Left" Margin="486,38,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="UserteleftextBox" HorizontalAlignment="Left" Height="23" Margin="520,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <Label x:Name="label1_Copy6" Content="Lista de Usuarios del Cuartel:" HorizontalAlignment="Left" Margin="13,69,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <DataGrid x:Name="UserdataGrid" HorizontalAlignment="Left" Height="514" Margin="13,100,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="100" SelectionChanged="CombusdataGrid_SelectionChanged" RenderTransformOrigin="0.5,0.5"/>
+                    <Button x:Name="button_Copy5" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveCombus_ButtonClick" Height="22"/>
+                    <Button x:Name="button_Copy6" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click" Height="22"/>
+                    <Button x:Name="button_Copy7" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeletecombusButton_Click" Height="22"/>
+                    <Label x:Name="label_Copy2" Content="Código:" HorizontalAlignment="Left" Margin="954,619,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="codusertextBox" HorizontalAlignment="Left" Height="23" Margin="1010,622,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30"/>
                 </Grid>
             </TabItem>
         </TabControl>
