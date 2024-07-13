@@ -1004,6 +1004,43 @@ namespace test1
                 MessageBox.Show(ex.Message);
             }
         }
+        private void SaveUsers_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            string saveuser = "insert into users(username, password, role, CI, correo ,phone)values('" + UsuariotextBox.Text + "','" + UserpasstextBox.Password + "','" + RoltextBox.Text + "'," + UsercitextBox.Text + ",'" + UsercorreotextBox.Text + "','" + UserteleftextBox.Text + "')";
+            MySqlCommand cmd = new MySqlCommand(saveuser, Conexion.conectar());
+            cmd.ExecuteNonQuery();
+            Limpiar();
+            Mostrar();
+        }
+
+        private void ModifyUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            string iduser = "select u.id from users u where u.id=" + codusertextBox.Text + "";
+            MySqlCommand cm = new MySqlCommand(iduser, Conexion.conectar());
+            using (MySqlDataReader reader = cm.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+
+                    int id = reader.GetInt32(0);
+                    string modifyuser = "update users set username='" + UsuariotextBox.Text + "', password='" + UserpasstextBox.Password + "', role='" + RoltextBox.Text + "', CI=" + UsercitextBox.Text + ", correo='" + UsercorreotextBox.Text + "', phone='" + UserteleftextBox.Text + "' where id=" + id + "";
+                    MySqlCommand cmd = new MySqlCommand(modifyuser, Conexion.conectar());
+                    cmd.ExecuteNonQuery();
+                    Limpiar();
+                    Mostrar();
+                }
+            }
+
+        }
+
+        private void DeleteUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            string deleteuser = "delete from users where id=" + codusertextBox.Text + "";
+            MySqlCommand cmd = new MySqlCommand(deleteuser, Conexion.conectar());
+            cmd.ExecuteNonQuery();
+            Limpiar();
+            Mostrar();
+        }
     }
 }
 

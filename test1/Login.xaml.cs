@@ -67,6 +67,25 @@ namespace test1
                         break;
                     case "Usuario":
                         // Lógica para el rol de usuario normal
+                        UsernametextBox.Text = null;
+                        PasswordtextBox.Password = null;
+                        MainWindow main2 = new MainWindow();
+                        main2.Show();
+                        main2.label1.Visibility = Visibility.Collapsed;
+                        main2.label2.Visibility = Visibility.Collapsed;
+                        main2.periodotextBox.Visibility = Visibility.Collapsed;
+                        main2.vehiculocomboBox.Visibility = Visibility.Collapsed;
+                        main2.button2.Visibility = Visibility.Collapsed;
+                        main2.button4.Visibility = Visibility.Collapsed;
+                        main2.label.Visibility = Visibility.Collapsed;
+                        main2.codtextBox.Visibility = Visibility.Collapsed;
+                        main2.button.Visibility = Visibility.Collapsed;
+                        main2.buttonmody.Visibility = Visibility.Collapsed;
+                        main2.buttondelete1.Visibility = Visibility.Collapsed;
+                        main2.guardarres.Visibility = Visibility.Collapsed;
+                        main2.modificarres.Visibility = Visibility.Collapsed;
+                        main2.borrarres.Visibility = Visibility.Collapsed;
+                        main2.reg.Visibility = Visibility.Collapsed;
                         MessageBox.Show("¡Inicio de sesión exitoso como usuario!", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                     default:

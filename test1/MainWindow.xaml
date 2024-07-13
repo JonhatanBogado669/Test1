@@ -13,8 +13,8 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="CombustibledataGrid" HorizontalAlignment="Left" Height="457" Margin="13,157,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="100" SelectionChanged="CombusdataGrid_SelectionChanged" RenderTransformOrigin="0.5,0.5"/>
                     <Button x:Name="button" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveCombus_ButtonClick" Height="22"/>
-                    <Button x:Name="button_Copy" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click" Height="22"/>
-                    <Button x:Name="button_Copy1" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeletecombusButton_Click" Height="22"/>
+                    <Button x:Name="buttonmody" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click" Height="22"/>
+                    <Button x:Name="buttondelete1" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeletecombusButton_Click" Height="22"/>
                     <Label x:Name="label1" Content="Periodo y Ejercicio:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="periodotextBox" HorizontalAlignment="Left" Height="23" Margin="119,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"/>
                     <Label x:Name="label2" Content="Vehiculo:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="59"/>
@@ -344,7 +344,7 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Registro de usuarios">
+            <TabItem Header="Registro de usuarios" x:Name="reg">
                 <Grid Background="#FFE5E5E5">
                     <Label x:Name="label1_Copy" Content="Usuario:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="UsuariotextBox" HorizontalAlignment="Left" Height="23" Margin="63,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
@@ -360,9 +360,9 @@
                     <TextBox x:Name="UserteleftextBox" HorizontalAlignment="Left" Height="23" Margin="520,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
                     <Label x:Name="label1_Copy6" Content="Lista de Usuarios del Cuartel:" HorizontalAlignment="Left" Margin="13,69,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <DataGrid x:Name="UserdataGrid" HorizontalAlignment="Left" Height="514" Margin="13,100,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="100" SelectionChanged="CombusdataGrid_SelectionChanged" RenderTransformOrigin="0.5,0.5"/>
-                    <Button x:Name="button_Copy5" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveCombus_ButtonClick" Height="22"/>
-                    <Button x:Name="button_Copy6" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click" Height="22"/>
-                    <Button x:Name="button_Copy7" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeletecombusButton_Click" Height="22"/>
+                    <Button x:Name="button_Copy5" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveUsers_ButtonClick" Height="22"/>
+                    <Button x:Name="button_Copy6" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifyUserButton_Click" Height="22"/>
+                    <Button x:Name="button_Copy7" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeleteUserButton_Click" Height="22"/>
                     <Label x:Name="label_Copy2" Content="Código:" HorizontalAlignment="Left" Margin="954,619,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="codusertextBox" HorizontalAlignment="Left" Height="23" Margin="1010,622,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30"/>
                 </Grid>
