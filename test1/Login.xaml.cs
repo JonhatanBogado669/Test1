@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Security.Cryptography;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -71,6 +73,7 @@ namespace test1
                         PasswordtextBox.Password = null;
                         MainWindow main2 = new MainWindow();
                         main2.Show();
+                        Close();
                         main2.label1.Visibility = Visibility.Collapsed;
                         main2.label2.Visibility = Visibility.Collapsed;
                         main2.periodotextBox.Visibility = Visibility.Collapsed;
@@ -103,10 +106,10 @@ namespace test1
             try
             {
                 string hashedPassword = HashPassword(password);
-                Conexion.conectar();
+                ConexionDB.conectar();
 
                 string cadena = "SELECT COUNT(*) FROM users WHERE username = '" + UsernametextBox.Text + "' AND password = '" + PasswordtextBox.Password + "'";
-                MySqlCommand cmd = new MySqlCommand(cadena, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(cadena, ConexionDB.conectar());
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
                 return count > 0;
             }
@@ -121,10 +124,10 @@ namespace test1
         {
             try
             {
-                Conexion.conectar();
+                ConexionDB.conectar();
 
                 string cadena = "SELECT role FROM users WHERE username = '" + UsernametextBox.Text + "'";
-                MySqlCommand cmd = new MySqlCommand(cadena, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(cadena, ConexionDB.conectar());
                 string role = cmd.ExecuteScalar()?.ToString();
                 return role;
             }
@@ -154,7 +157,8 @@ namespace test1
         private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernametextBox.Text;
-
+            ResetPassword respass = new ResetPassword();
+       
             if (string.IsNullOrEmpty(username))
             {
                 MessageBox.Show("Por favor, ingrese su nombre de usuario.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -169,11 +173,19 @@ namespace test1
             }
             if (username != null && email != null)
             {
-                
+                if (respass.Visibility == Visibility.Visible)
+                {
+                    respass.Focus();
+                }
+                else
+                {
+                    respass.Show();
+                }
 
-                ResetPassword respass = new ResetPassword();
-                respass.Show();
             }
+            
+
+
         }
         private string GetEmailByUsername(string username)
         {
@@ -181,7 +193,7 @@ namespace test1
             {
 
                 string query = "SELECT correo FROM users WHERE username = '" + username + "'";
-                MySqlCommand cmd = new MySqlCommand(query, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(query, ConexionDB.conectar());
                 string email = cmd.ExecuteScalar()?.ToString();
                 return email;
             }

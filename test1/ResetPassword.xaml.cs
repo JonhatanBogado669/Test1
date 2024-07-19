@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
+//using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Security.Cryptography;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -44,7 +46,7 @@ namespace test1
             {
                 // Aquí puedes guardar el resetCode en una base de datos o en memoria para su posterior validación
                 string guardarcode = "insert into password_reset(username,reset_code)value('" + username + "'," + resetCode + ")";
-                MySqlCommand cmd = new MySqlCommand(guardarcode, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(guardarcode, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Se ha enviado un código de restablecimiento a su dirección de correo electrónico registrada.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Information);
                 verifyGrid.Visibility = Visibility.Collapsed;
@@ -60,7 +62,7 @@ namespace test1
             {
 
                 string query = "SELECT correo FROM users WHERE username = '" + username + "'";
-                MySqlCommand cmd = new MySqlCommand(query, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(query, ConexionDB.conectar());
                 string email = cmd.ExecuteScalar()?.ToString();
                 return email;
             }
@@ -124,7 +126,7 @@ namespace test1
             {
                 
                 string select = "SELECT COUNT(*) FROM password_reset WHERE username = '" + UsuariotextBox.Text + "' AND reset_code = " + resetcodetextBox.Text + "";
-                MySqlCommand cmd = new MySqlCommand(select, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(select, ConexionDB.conectar());
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -146,12 +148,12 @@ namespace test1
             {
                 
                 string update = "UPDATE users SET password = '" + updatetextBox.Password + "' WHERE username = '" + UsuariotextBox.Text + "'";
-                MySqlCommand cmd1 = new MySqlCommand(update, Conexion.conectar());
+                SQLiteCommand cmd1 = new SQLiteCommand(update, ConexionDB.conectar());
                 cmd1.ExecuteNonQuery();
 
                 // Eliminar el registro de reset_code de la tabla password_reset
                 string delete = "DELETE FROM password_reset WHERE username = '" + UsuariotextBox.Text + "'";
-                MySqlCommand cmd2 = new MySqlCommand(delete, Conexion.conectar());
+                SQLiteCommand cmd2 = new SQLiteCommand(delete, ConexionDB.conectar());
                 cmd2.ExecuteNonQuery();
                 MessageBox.Show("Contraseña actualizada!", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Information);
                 Close();

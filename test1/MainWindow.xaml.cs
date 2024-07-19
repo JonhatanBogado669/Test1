@@ -12,7 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
+//using System.Data.SqlClient;
+//using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -48,7 +50,7 @@ namespace test1
             InitializeComponent();
             vehiculocomboBox.ItemsSource = listvehiculo;
             MescomboBox.ItemsSource = listmes;
-            Conexion.conectar();
+            ConexionDB.conectar();
 
             Mostrar();
             Cargar();
@@ -178,22 +180,24 @@ namespace test1
         {
 
             string mostrarcombus = "select p.idplan_combus as código,p.periodo,v.descripcion as vehiculo,p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo group by código";
-            MySqlCommand cmd = new MySqlCommand(mostrarcombus, Conexion.conectar());
+            SQLiteCommand cmd = new SQLiteCommand(mostrarcombus, ConexionDB.conectar());
             CombustibledataGrid.ItemsSource = cmd.ExecuteReader();
 
-            string mostrarinf = "SELECT i.idinforme AS código,i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv,s.cant1040,ss.cant1041,sss.cant1043 FROM informe  i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043";
-            MySqlCommand cmd1 = new MySqlCommand(mostrarinf, Conexion.conectar());
+            // string mostrarinf = "SELECT i.idinforme AS código,i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv,s.cant1040,ss.cant1041,sss.cant1043 FROM informe  i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043";
+            string mostrarinf = "select * from serv1040";
+            SQLiteCommand cmd1 = new SQLiteCommand(mostrarinf, ConexionDB.conectar());
             InfdataGrid.ItemsSource = cmd1.ExecuteReader();
 
-            string mostrarusers = "select u.id as codigo, u.username as usuario,u.role as rol,u.CI,u.correo,u.phone as telef from users u";
-            MySqlCommand cmd2 = new MySqlCommand(mostrarusers, Conexion.conectar());
+            string mostrarusers = "SELECT u.id as codigo, u.username as usuario,u.role as rol,u.CI,u.correo,u.phone as telef FROM users u";
+            SQLiteCommand cmd2 = new SQLiteCommand(mostrarusers, ConexionDB.conectar());
             UserdataGrid.ItemsSource = cmd2.ExecuteReader();
+
         }
         public void Cargar()
         {
             string cargar = "select v.idvehiculo,v.descripcion, v.chapa, t.descripcion from vehiculo v, tipo_combus t where t.idtipo_combus=v.idtipo_combus";
-            MySqlCommand cmd = new MySqlCommand(cargar, Conexion.conectar());
-            MySqlDataReader r = cmd.ExecuteReader();
+            SQLiteCommand cmd = new SQLiteCommand(cargar, ConexionDB.conectar());
+            SQLiteDataReader r = cmd.ExecuteReader();
             while (r.Read())
             {
                 Vehiculo v = new Vehiculo();
@@ -204,8 +208,8 @@ namespace test1
                 listvehiculo.Add(v);
             }
             string mes = "select idmes, descripcion from mes";
-            MySqlCommand cmd1 = new MySqlCommand(mes, Conexion.conectar());
-            MySqlDataReader r1 = cmd1.ExecuteReader();
+            SQLiteCommand cmd1 = new SQLiteCommand(mes, ConexionDB.conectar());
+            SQLiteDataReader r1 = cmd1.ExecuteReader();
             while (r1.Read())
             {
                 Mes m = new Mes();
@@ -223,7 +227,7 @@ namespace test1
         private async Task<string> LoginWithPredefinedCredentials()
         {
             string predefinedEmail = "jonhatanbogado@gmail.com";
-            string predefinedPassword = "Guarakaloco";
+            string predefinedPassword = "Guarakaloco669";
 
             try
             {
@@ -238,7 +242,7 @@ namespace test1
             }
         }
 
-        private async void SaveCombus_ButtonClick(object sender, RoutedEventArgs e)
+        private void SaveCombus_ButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -247,27 +251,14 @@ namespace test1
                 string guardar = "insert into plan_combus(periodo,idvehiculo,fecha,ci,nombre,lugar_sal,km_salida,lugar_dest,km_llegada,km_recorrido,motivo,lts_carg,nro_fact,imp_total)values('" +
                 periodotextBox.Text + "'," + v.IdVehiculo + ",'" + FechaCombus.Text + "','" + CItextBox.Text + "','" + nombretextBox.Text + "','" + salidatextBox.Text + "'," + kmsalidatextBox.Text + ",'" +
                 destinotextBox.Text + "'," + kmllegadatextBox.Text + "," + kmrecorridotextBox.Text + ",'" + motivotextBox.Text + "'," + ltscargadotextBox.Text + ",'" + facturatextBox.Text + "'," + importetextBox.Text + ")";
-                MySqlCommand cmd = new MySqlCommand(guardar, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
 
-                if (firebaseClient == null)
-                {
-                    string authToken = await LoginWithPredefinedCredentials();
-
-                    firebaseClient = new FirebaseClient(
-                        "https://appbombero-b5017-default-rtdb.firebaseio.com/",
-                        new FirebaseOptions
-                        {
-                            AuthTokenAsyncFactory = () => Task.FromResult(authToken)
-                        }
-                    );
-                }
-
-                MessageBox.Show("Datos guardados en ambas bases de datos.");
+                MessageBox.Show("Datos guardados exitosamente.");
                 Limpiar();
                 Mostrar();
 
-                MessageBox.Show("Datos guardados en la nube con éxito.");
+                //MessageBox.Show("Datos guardados en la nube con éxito.");
             }
             catch (Exception ex)
             {
@@ -290,7 +281,7 @@ namespace test1
                 string modificar = "update plan_combus set periodo='" + periodotextBox.Text + "', idvehiculo=" + v.IdVehiculo + ", fecha='" + FechaCombus + "',ci='" + CItextBox.Text + "', nombre='" +
                 nombretextBox.Text + "', lugar_sal='" + salidatextBox.Text + "', km_salida=" + kmsalidatextBox.Text + ", lugar_dest='" + destinotextBox.Text + "', km_llegada=" + kmllegadatextBox.Text + ", km_recorrido=" + kmrecorridotextBox.Text
                 + ", motivo='" + motivotextBox.Text + "', lts_carg=" + ltscargadotextBox.Text + ", nro_fact='" + facturatextBox.Text + "', imp_total=" + importetextBox.Text + " where idplan_combus=" + codtextBox.Text + "";
-                MySqlCommand cmd = new MySqlCommand(modificar, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(modificar, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
                 Limpiar();
                 LimpiarCombus();
@@ -305,7 +296,7 @@ namespace test1
         private void DeletecombusButton_Click(object sender, RoutedEventArgs e)
         {
             string borrar = "delete from plan_combus where idplan_combus=" + codtextBox.Text + "";
-            MySqlCommand cmd = new MySqlCommand(borrar, Conexion.conectar());
+            SQLiteCommand cmd = new SQLiteCommand(borrar, ConexionDB.conectar());
             cmd.ExecuteNonQuery();
             Limpiar();
             LimpiarCombus();
@@ -319,67 +310,95 @@ namespace test1
         {
             try
             {
-                //serv1040
-                //if (cant1040textBox.Text != null)
-                //{
-                string guardarserv1040 = "insert into serv1040(cant1040,horaserv,estructural,vehicular,basural,forestal,pastizal,desconocida,premeditada,accidental,findelimpieza,principio,pequena,mediana,grande,emergral,agua,pqsco2,combustible,bombero,tiempototal,ileso,herido,fallecido,rescate,totalkm,nomina)values(" +
-                cant1040textBox.Text + "," + horaserv40textBox.Text + "," + estructuraltextBox.Text + "," + vehiculartextBox.Text + "," + basuraltextBox.Text + "," + forestaltextBox.Text + "," + pastizaltextBox.Text + "," + desconocidastextBox.Text + "," + premeditadastextBox.Text + "," + accidentalestextBox.Text + ",corto=" + cortotextBox.Text + "," +
+                
+                string guardarserv1040 = "insert into serv1040(cant1040,horaserv,estructural,vehicular,basural,forestal,pastizal,desconocida,premeditada,accidental,corto,findelimpieza,principio,pequena,mediana,grande,emergral,agua,pqsco2,combustible,bombero,tiempototal,ileso,herido,fallecido,rescate,totalkm,nomina)values(" +
+                cant1040textBox.Text + "," + horaserv40textBox.Text + "," + estructuraltextBox.Text + "," + vehiculartextBox.Text + "," + basuraltextBox.Text + "," + forestaltextBox.Text + "," + pastizaltextBox.Text + "," + desconocidastextBox.Text + "," + premeditadastextBox.Text + "," + accidentalestextBox.Text + "," + cortotextBox.Text + "," +
                 limpiezatextBox.Text + "," + principiotextBox.Text + "," + pqmagtextBox.Text + "," + mdmagtextBox.Text + "," + grmagtextBox.Text + "," + emergraltextBox.Text + "," + aguatextBox.Text + "," + pqsco2textBox.Text + "," + combustible40textBox.Text + "," + bomberostextBox.Text + "," + tiempototaltextBox.Text + "," +
                 ilesostextBox.Text + "," + heridostextBox.Text + "," + fallecidostextBox.Text + "," + rescatestextBox.Text + "," + totalkmtextBox.Text + ",'" + nomina40textBox.Text + "')";
-                MySqlCommand cmd = new MySqlCommand(guardarserv1040, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(guardarserv1040, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
 
-
-                //}
-                //serv1041
-                //if (cant1041textBox.Text != null)
-                //{
                 string guardarserv1041 = "insert into serv1041(cant1041,horaserv,arrollamiento,choque,vuelco,caida,aeronave,peaton,moto,vehliviano,vehpesado,bus,danomat,conherido,conatrap,coninc,matpel,cintcond,cintacomp,cascocond,cascoacomp,ileso,herido,fallecido,rescate,combustible,bombero,kmrecorrido,tiempototal,nomina)values(" +
                 cant1041textBox.Text + "," + horaserv41textBox.Text + "," + arrollamientotextBox.Text + "," + choquetextBox.Text + "," + vuelcotextBox.Text + "," + caidatextBox.Text + "," + aeronavetextBox.Text + ",'" + peatonestextBox.Text + "','" + motostextBox.Text + "','" + vehlivtextBox.Text + "','" + vehpestextBox.Text + "','" +
                 bustextBox.Text + "','" + dañomattextBox.Text + "','" + conheridostextBox.Text + "','" + conatraptextBox.Text + "','" + coninctextBox.Text + "','" + matpeltextBox.Text + "','" + cintcondtextBox.Text + "','" + cintacomptextBox.Text + "','" + cascondtextBox.Text + "','" + casacomptextBox.Text + "'," + ilesos41textBox.Text + "," +
                 heridos41textBox.Text + "," + fallecidos41textBox.Text + "," + rescates41textBox.Text + "," + combustible41textBox.Text + "," + bomberos41textBox.Text + "," + kmrecorrido41textBox.Text + "," + tiempototal41textBox.Text + ",'" + nomina41textBox.Text + "')";
-                MySqlCommand cmd1 = new MySqlCommand(guardarserv1041, Conexion.conectar());
+                SQLiteCommand cmd1 = new SQLiteCommand(guardarserv1041, ConexionDB.conectar());
                 cmd1.ExecuteNonQuery();
 
-                //}
-                //serv1043
-                //if (cant1043textBox.Text != null)
-                //{
+               
                 string guardarserv1043 = "insert into serv1043(cant1043,horaserv,rescate,recuperacion,aniali,cobertura,curso,transporte,vivienda,profundidad,altura,derrumbe,naufragio,bomba,suicidio,ileso,herido,fallecido,combustible,nomina)values(" + cant1043textBox.Text + "," + horaserv43textBox.Text + "," + rescate43textBox.Text + "," + recuperaciontextBox.Text + "," +
                 anialitextBox.Text + "," + coberturatextBox.Text + "," + cursotextBox.Text + "," + transportetextBox.Text + "," + viviendatextBox.Text + "," + profundidadtextBox.Text + "," + alturatextBox.Text + "," + derrumbetextBox.Text + "," + naufragiotextBox.Text + "," + bombatextBox.Text + "," + suicidiotextBox.Text + "," + ilesos43textBox.Text + "," + heridos43textBox.Text + "," + fallecidos43textBox.Text + "," +
                 combustible43textBox.Text + ",'" + nomina43textBox.Text + "')";
-                MySqlCommand cmd2 = new MySqlCommand(guardarserv1043, Conexion.conectar());
+                SQLiteCommand cmd2 = new SQLiteCommand(guardarserv1043, ConexionDB.conectar());
                 cmd2.ExecuteNonQuery();
 
-                //}
-                //informe
+
                 if (guardarserv1040 != null)
                 {
-                    long idTabla1 = cmd.LastInsertedId;
-                    long idTabla2 = cmd1.LastInsertedId;
-                    long idTabla3 = cmd2.LastInsertedId;
+                    long ultimoId1040 = 0;
+                    long ultimoId1041 = 0;
+                    long ultimoId1043 = 0;
+                    long idTabla1 = ultimoId1040;
+                    long idTabla2 = ultimoId1041;
+                    long idTabla3 = ultimoId1043;
+                    using (SQLiteConnection con = new SQLiteConnection())
+                    {
+                        con.Open();
+                        string consulta = "SELECT MAX(id) FROM serv1040";
+                        using (SQLiteCommand cmmd = new SQLiteCommand(consulta, con))
+                        {
+                            object result = cmd.ExecuteScalar();
+                            if (result != null && result != DBNull.Value)
+                            {
+                                ultimoId1040 = Convert.ToInt64(result);
+                            }
+                        }
+
+                        string consulta2 = "SELECT MAX(id) FROM serv1041";
+                        using (SQLiteCommand cmmd = new SQLiteCommand(consulta2, con))
+                        {
+                            object result = cmd.ExecuteScalar();
+                            if (result != null && result != DBNull.Value)
+                            {
+                                ultimoId1041 = Convert.ToInt64(result);
+                            }
+                        }
+
+                        string consulta3 = "SELECT MAX(id) FROM serv1043";
+                        using (SQLiteCommand cmmd = new SQLiteCommand(consulta3, con))
+                        {
+                            object result = cmd.ExecuteScalar();
+                            if (result != null && result != DBNull.Value)
+                            {
+                                ultimoId1043 = Convert.ToInt64(result);
+                            }
+                        }
+                    }
                     Mes m = (Mes)MescomboBox.SelectedValue;
                     string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040,idserv1041,idserv1043)values('" + FechaServ.Text + "','" + horatextBox.Text + "'," + m.IdMes + ",'" + AnhotextBox.Text + "'," + cantciaesttextBox.Text + ",'" + autortextBox.Text + "','" + teleftextBox.Text
                     + "','" + lugartextBox.Text + "','" + faxtextBox.Text + "','" + FechaCierre.Text + "'," + totalservtextBox.Text + "," + idTabla1 + "," + idTabla2 + "," + idTabla3 + ")";
-                    MySqlCommand cmd3 = new MySqlCommand(guardarres, Conexion.conectar());
+                    SQLiteCommand cmd3 = new SQLiteCommand(guardarres, ConexionDB.conectar());
                     cmd3.ExecuteNonQuery();
                     Limpiar();
                     Mostrar();
+
                 }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+       
         private void ModifyresButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //serv1040
                 string id1040 = "select i.idserv1040 from informe i where i.idinforme=" + codrestextBox.Text + "";
-                MySqlCommand cm = new MySqlCommand(id1040, Conexion.conectar());
-                using (MySqlDataReader reader = cm.ExecuteReader())
+                SQLiteCommand cm = new SQLiteCommand(id1040, ConexionDB.conectar());
+                using (SQLiteDataReader reader = cm.ExecuteReader())
                 {
                     if (reader.Read())
                     {
@@ -391,15 +410,15 @@ namespace test1
                         aguatextBox.Text + ", pqsco2=" + pqsco2textBox.Text + ", combustible=" + combustible40textBox.Text + ", bombero=" + bomberostextBox.Text + ", tiempototal=" +
                         tiempototaltextBox.Text + ", ileso=" + ilesostextBox.Text + ", herido=" + heridostextBox.Text + ", fallecido=" + fallecidostextBox.Text + ", rescate=" +
                         rescatestextBox.Text + ", totalkm=" + totalkmtextBox.Text + ", nomina='" + nomina40textBox.Text + "' where idserv1040 = " + id40 + "";
-                        MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
+                        SQLiteCommand cmd = new SQLiteCommand(mod, ConexionDB.conectar());
                         cmd.ExecuteNonQuery();
                     }
                 }
 
                 //serv1041
                 string id1041 = "select i.idserv1041 from informe i where i.idinforme=" + codrestextBox.Text + "";
-                MySqlCommand cm1 = new MySqlCommand(id1041, Conexion.conectar());
-                using (MySqlDataReader reader = cm1.ExecuteReader())
+                SQLiteCommand cm1 = new SQLiteCommand(id1041, ConexionDB.conectar());
+                using (SQLiteDataReader reader = cm1.ExecuteReader())
                 {
                     if (reader.Read())
                     {
@@ -411,15 +430,15 @@ namespace test1
                         cintacomptextBox.Text + "', cascocond='" + cascondtextBox.Text + "', cascoacomp='" + casacomptextBox.Text + "', ileso=" + ilesos41textBox.Text + ", herido=" + heridos41textBox.Text + ", fallecido=" +
                         fallecidos41textBox.Text + ", rescate=" + rescates41textBox.Text + ", combustible=" + combustible41textBox.Text + ", bombero=" + bomberos41textBox.Text + ", kmrecorrido=" +
                         kmrecorrido41textBox.Text + ", tiempototal=" + tiempototal41textBox.Text + ", nomina='" + nomina41textBox.Text + "' where idserv1041=" + id41 + "";
-                        MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
+                        SQLiteCommand cmd = new SQLiteCommand(mod, ConexionDB.conectar());
                         cmd.ExecuteNonQuery();
                     }
                 }
 
                 //serv1043
                 string id1043 = "select i.idserv1043 from informe i where i.idinforme=" + codrestextBox.Text + "";
-                MySqlCommand cm2 = new MySqlCommand(id1043, Conexion.conectar());
-                using (MySqlDataReader reader = cm2.ExecuteReader())
+                SQLiteCommand cm2 = new SQLiteCommand(id1043, ConexionDB.conectar());
+                using (SQLiteDataReader reader = cm2.ExecuteReader())
                 {
                     if (reader.Read())
                     {
@@ -429,7 +448,7 @@ namespace test1
                         profundidadtextBox.Text + ", altura=" + alturatextBox.Text + ", derrumbe=" + derrumbetextBox.Text + ", naufragio=" + naufragiotextBox.Text + ", bomba=" + bombatextBox.Text + ", suicidio=" +
                         suicidiotextBox.Text + ", ileso=" + ilesos43textBox.Text + ", herido=" + heridos43textBox.Text + ", fallecido=" + fallecidos43textBox.Text + ", combustible=" + combustible43textBox.Text + ", nomina='" +
                         nomina43textBox.Text + "' where idserv1043=" + id43 + "";
-                        MySqlCommand cmd = new MySqlCommand(mod, Conexion.conectar());
+                        SQLiteCommand cmd = new SQLiteCommand(mod, ConexionDB.conectar());
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -439,7 +458,7 @@ namespace test1
                 string mod1 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes=" + m.IdMes + ", anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" +
                 autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" +
                 codrestextBox.Text + "";
-                MySqlCommand cmd1 = new MySqlCommand(mod1, Conexion.conectar());
+                SQLiteCommand cmd1 = new SQLiteCommand(mod1, ConexionDB.conectar());
                 cmd1.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -454,7 +473,7 @@ namespace test1
             try
             {
                 string borrarres = "delete from informe where idinforme=" + codrestextBox.Text + "";
-                MySqlCommand cmd = new MySqlCommand(borrarres, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(borrarres, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
                 Limpiar();
                 Mostrar();
@@ -583,8 +602,8 @@ namespace test1
             string chapa = "";
             string tipo = "";
             string header = "select pc.periodo, v.descripcion as vehiculo, v.chapa, tc.descripcion as tipo from plan_combus pc, vehiculo v, tipo_combus tc where  tc.idtipo_combus=v.idtipo_combus and v.idvehiculo=pc.idvehiculo and pc.periodo like '%" + filtrotextBox.Text + "%'";
-            MySqlCommand cmd = new MySqlCommand(header, Conexion.conectar());
-            using (MySqlDataReader r = cmd.ExecuteReader())
+            SQLiteCommand cmd = new SQLiteCommand(header, ConexionDB.conectar());
+            using (SQLiteDataReader r = cmd.ExecuteReader())
             {
                 if (r.Read())
                 {
@@ -595,140 +614,141 @@ namespace test1
                 }
             }
 
-            // Cargar la plantilla de Word
-            //string plantillaWord = "C:/Users/usuario/Desktop/App Bombero/Planilla.docx";
-            //string archivoSalidaWord = "C:/Users/usuario/Desktop/App Bombero/Planilla_Modificada.docx";
-            string filePath = "C:/Users/usuario/Desktop/Documento.docx";
-
-            //File.Copy(plantillaWord, archivoSalidaWord, true);
-
-            using (WordprocessingDocument doc = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
+            try
             {
-                // Configurar la orientación y el tamaño de página
-                MainDocumentPart mainPart = doc.AddMainDocumentPart();
-                mainPart.Document = new Document();
-                Body body = mainPart.Document.AppendChild(new Body());
-                SectionProperties sectionProperties = new SectionProperties();
-                PageSize pageSize = new PageSize()
+                string filePath = "../Documento.docx";
+
+                using (WordprocessingDocument doc = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
                 {
-                    Width = 21590U,
-                    Height = 35560U,
-                    Orient = PageOrientationValues.Landscape
-                };
-                sectionProperties.Append(pageSize);
-                body.AppendChild(sectionProperties);
-
-                // Obtener el cuerpo del documento
-                //Body body = doc.AddBody();
-
-                // Agregar los primeros dos párrafos
-                AddParagraphCombus(body, "PLANILLA DE USO DE COMBUSTIBLE", JustificationValues.Center, 28, true);
-                AddParagraphCombus(body, "CUERPO DE BOMBEROS VOLUNTARIOS DE CORONEL BOGADO", JustificationValues.Center, 28, true);
-                AddParagraphCombus(body, "Entidad: CUERPO DE BOMBEROS VOLUNTARIOS DE CORONEL BOGADO", JustificationValues.Left, 22, true);
-                AddParagraphCombus(body, "Periodo y Ejercicio: " + periodo + "", JustificationValues.Left, 22, true);
-                AddParagraphCombus(body, "Vehículo: vehiculo    Chapa: <chapa>    Tipo de combustible: <tipo>", JustificationValues.Left, 22, true);
-                AddParagraphCombus(body, "PLANILLA DE USO DE COMBUSTIBLE", JustificationValues.Center, 22, true);
+                    // Configurar la orientación y el tamaño de página
+                    MainDocumentPart mainPart = doc.AddMainDocumentPart();
+                    mainPart.Document = new Document();
+                    Body body = mainPart.Document.AppendChild(new Body());
+                    SectionProperties sectionProperties = new SectionProperties();
+                    PageSize pageSize = new PageSize()
+                    {
+                        Width = 21590U,
+                        Height = 35560U,
+                        Orient = PageOrientationValues.Landscape
+                    };
+                    sectionProperties.Append(pageSize);
+                    body.AppendChild(sectionProperties);
 
 
-                // Buscar y reemplazar los valores en el documento
-                foreach (var text in doc.MainDocumentPart.Document.Descendants<Text>())
-                {
-                    if (text.Text.Contains("<periodo>"))
-                        text.Text = text.Text.Replace("<periodo>", periodo);
-                    if (text.Text.Contains("vehiculo"))
-                        text.Text = text.Text.Replace("vehiculo", vehiculo);
-                    if (text.Text.Contains("<chapa>"))
-                        text.Text = text.Text.Replace("<chapa>", chapa);
-                    if (text.Text.Contains("<tipo>"))
-                        text.Text = text.Text.Replace("<tipo>", tipo);
+                    // Agregar los primeros dos párrafos
+                    AddParagraphCombus(body, "PLANILLA DE USO DE COMBUSTIBLE", JustificationValues.Center, 28, true);
+                    AddParagraphCombus(body, "CUERPO DE BOMBEROS VOLUNTARIOS DE CORONEL BOGADO", JustificationValues.Center, 28, true);
+                    AddParagraphCombus(body, "Entidad: CUERPO DE BOMBEROS VOLUNTARIOS DE CORONEL BOGADO", JustificationValues.Left, 22, true);
+                    AddParagraphCombus(body, "Periodo y Ejercicio: " + periodo + "", JustificationValues.Left, 22, true);
+                    AddParagraphCombus(body, "Vehículo: vehiculo    Chapa: <chapa>    Tipo de combustible: <tipo>", JustificationValues.Left, 22, true);
+                    AddParagraphCombus(body, "PLANILLA DE USO DE COMBUSTIBLE", JustificationValues.Center, 22, true);
+
+
+                    // Buscar y reemplazar los valores en el documento
+                    foreach (var text in doc.MainDocumentPart.Document.Descendants<Text>())
+                    {
+                        if (text.Text.Contains("<periodo>"))
+                            text.Text = text.Text.Replace("<periodo>", periodo);
+                        if (text.Text.Contains("vehiculo"))
+                            text.Text = text.Text.Replace("vehiculo", vehiculo);
+                        if (text.Text.Contains("<chapa>"))
+                            text.Text = text.Text.Replace("<chapa>", chapa);
+                        if (text.Text.Contains("<tipo>"))
+                            text.Text = text.Text.Replace("<tipo>", tipo);
+                    }
+
+                    string consulta = "select p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo and p.periodo like '%" + filtrotextBox.Text + "%'";
+                    SQLiteCommand command = new SQLiteCommand(consulta, ConexionDB.conectar());
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    // Agregar una tabla al documento
+                    Table wordTable = body.AppendChild(new Table());
+                    TableRow headerRow = new TableRow();
+                    // Agregar bordes a la tabla
+                    TableProperties tableProperties = new TableProperties(
+                    new TableBorders(
+                         new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                         new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                         new LeftBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                         new RightBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                         new InsideHorizontalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
+                         new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" }
+                        )
+                    );
+                    TableCellProperties cellProperties = new TableCellProperties(
+                    new TableCellWidth() { Type = TableWidthUnitValues.Pct, Width = "10" });
+                    wordTable.AppendChild(tableProperties);
+                    wordTable.AppendChild(cellProperties);
+
+                    headerRow.AppendChild(CreateTableCell("Fecha", true));
+                    headerRow.AppendChild(CreateTableCell("CI", true));
+                    headerRow.AppendChild(CreateTableCell("Nombre", true));
+                    headerRow.AppendChild(CreateTableCell("Lugar Salida", true));
+                    headerRow.AppendChild(CreateTableCell("Km Salida", true));
+                    headerRow.AppendChild(CreateTableCell("Lugar Destino", true));
+                    headerRow.AppendChild(CreateTableCell("Km Llegada", true));
+                    headerRow.AppendChild(CreateTableCell("Km Recorrido", true));
+                    headerRow.AppendChild(CreateTableCell("Motivo", true));
+                    headerRow.AppendChild(CreateTableCell("Litros Cargados", true));
+                    headerRow.AppendChild(CreateTableCell("Factura", true));
+                    headerRow.AppendChild(CreateTableCell("Importe Total", true));
+                    wordTable.AppendChild(headerRow);
+
+
+                    // Leer los resultados de la consulta y agregarlos a la tabla
+                    while (reader.Read())
+                    {
+                        string fecha = reader.GetString(0);
+                        string ci = reader.GetString(1);
+                        string nombre = reader.GetString(2);
+                        string lugarsalida = reader.GetString(3);
+                        string kmsalida = reader.GetInt32(4).ToString();
+                        string lugardestino = reader.GetString(5);
+                        string kmllegada = reader.GetInt32(6).ToString();
+                        string kmrecorrido = reader.GetInt32(7).ToString();
+                        string motivo = reader.GetString(8);
+                        string litros = reader.GetInt32(9).ToString();
+                        string factura = reader.GetString(10);
+                        string importe = reader.GetInt32(11).ToString();
+
+                        TableRow dataRow = new TableRow();
+                        dataRow.AppendChild(CreateTableCell(fecha, false));
+                        dataRow.AppendChild(CreateTableCell(ci, false));
+                        dataRow.AppendChild(CreateTableCell(nombre, false));
+                        dataRow.AppendChild(CreateTableCell(lugarsalida, false));
+                        dataRow.AppendChild(CreateTableCell(kmsalida, false));
+                        dataRow.AppendChild(CreateTableCell(lugardestino, false));
+                        dataRow.AppendChild(CreateTableCell(kmllegada, false));
+                        dataRow.AppendChild(CreateTableCell(kmrecorrido, false));
+                        dataRow.AppendChild(CreateTableCell(motivo, false));
+                        dataRow.AppendChild(CreateTableCell(litros, false));
+                        dataRow.AppendChild(CreateTableCell(factura, false));
+                        dataRow.AppendChild(CreateTableCell(importe, false));
+                        wordTable.AppendChild(dataRow);
+                    }
+
+                    //doc.MainDocumentPart.Document.Save();
+                    mainPart.Document.Save();
+
                 }
+                // Abrir un cuadro de diálogo para guardar el archivo modificado
+                SaveFileDialog dialogoGuardar = new SaveFileDialog();
+                dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
+                dialogoGuardar.DefaultExt = "docx";
 
-                string consulta = "select p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo and p.periodo like '%" + filtrotextBox.Text + "%'";
-                MySqlCommand command = new MySqlCommand(consulta, Conexion.conectar());
-                MySqlDataReader reader = command.ExecuteReader();
-
-                // Agregar una tabla al documento
-                Table wordTable = body.AppendChild(new Table());
-                TableRow headerRow = new TableRow();
-                // Agregar bordes a la tabla
-                TableProperties tableProperties = new TableProperties(
-                new TableBorders(
-                     new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
-                     new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
-                     new LeftBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
-                     new RightBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
-                     new InsideHorizontalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" },
-                     new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000" }
-                    )
-                );
-                TableCellProperties cellProperties = new TableCellProperties(
-                new TableCellWidth() { Type = TableWidthUnitValues.Pct, Width = "10" });
-                wordTable.AppendChild(tableProperties);
-                wordTable.AppendChild(cellProperties);
-
-                headerRow.AppendChild(CreateTableCell("Fecha", true));
-                headerRow.AppendChild(CreateTableCell("CI", true));
-                headerRow.AppendChild(CreateTableCell("Nombre", true));
-                headerRow.AppendChild(CreateTableCell("Lugar Salida", true));
-                headerRow.AppendChild(CreateTableCell("Km Salida", true));
-                headerRow.AppendChild(CreateTableCell("Lugar Destino", true));
-                headerRow.AppendChild(CreateTableCell("Km Llegada", true));
-                headerRow.AppendChild(CreateTableCell("Km Recorrido", true));
-                headerRow.AppendChild(CreateTableCell("Motivo", true));
-                headerRow.AppendChild(CreateTableCell("Litros Cargados", true));
-                headerRow.AppendChild(CreateTableCell("Factura", true));
-                headerRow.AppendChild(CreateTableCell("Importe Total", true));
-                wordTable.AppendChild(headerRow);
-
-
-                // Leer los resultados de la consulta y agregarlos a la tabla
-                while (reader.Read())
+                if (dialogoGuardar.ShowDialog() == true)
                 {
-                    string fecha = reader.GetString(0);
-                    string ci = reader.GetString(1);
-                    string nombre = reader.GetString(2);
-                    string lugarsalida = reader.GetString(3);
-                    string kmsalida = reader.GetString(4);
-                    string lugardestino = reader.GetString(5);
-                    string kmllegada = reader.GetString(6);
-                    string kmrecorrido = reader.GetString(7);
-                    string motivo = reader.GetString(8);
-                    string litros = reader.GetString(9);
-                    string factura = reader.GetString(10);
-                    string importe = reader.GetString(11);
-
-                    TableRow dataRow = new TableRow();
-                    dataRow.AppendChild(CreateTableCell(fecha, false));
-                    dataRow.AppendChild(CreateTableCell(ci, false));
-                    dataRow.AppendChild(CreateTableCell(nombre, false));
-                    dataRow.AppendChild(CreateTableCell(lugarsalida, false));
-                    dataRow.AppendChild(CreateTableCell(kmsalida, false));
-                    dataRow.AppendChild(CreateTableCell(lugardestino, false));
-                    dataRow.AppendChild(CreateTableCell(kmllegada, false));
-                    dataRow.AppendChild(CreateTableCell(kmrecorrido, false));
-                    dataRow.AppendChild(CreateTableCell(motivo, false));
-                    dataRow.AppendChild(CreateTableCell(litros, false));
-                    dataRow.AppendChild(CreateTableCell(factura, false));
-                    dataRow.AppendChild(CreateTableCell(importe, false));
-                    wordTable.AppendChild(dataRow);
+                    string rutaArchivo = dialogoGuardar.FileName;
+                    File.Move(filePath, rutaArchivo);
+                    MessageBox.Show("Documento guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-
-                //doc.MainDocumentPart.Document.Save();
-                mainPart.Document.Save();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            // Abrir un cuadro de diálogo para guardar el archivo modificado
-            SaveFileDialog dialogoGuardar = new SaveFileDialog();
-            dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
-            dialogoGuardar.DefaultExt = "docx";
-
-            if (dialogoGuardar.ShowDialog() == true)
-            {
-                string rutaArchivo = dialogoGuardar.FileName;
-                File.Move(filePath, rutaArchivo);
-                MessageBox.Show("Documento guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
+}
         private void AddParagraphCombus(Body body, string text, JustificationValues justification, int fontSize, bool isBold)
         {
             Paragraph paragraph = body.AppendChild(new Paragraph());
@@ -776,7 +796,7 @@ namespace test1
             try
             {
                 string filtrado = "select p.idplan_combus as código,p.periodo,v.descripcion as vehiculo,p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo and p.periodo like '%" + filtrotextBox.Text + "%'";
-                MySqlCommand cmd = new MySqlCommand(filtrado, Conexion.conectar());
+                SQLiteCommand cmd = new SQLiteCommand(filtrado, ConexionDB.conectar());
                 CombustibledataGrid.ItemsSource = cmd.ExecuteReader();
             }
             catch (Exception ex)
@@ -808,8 +828,8 @@ namespace test1
         private void GenerarWordServButton_Click(object sender, RoutedEventArgs e)
         {
             string header = "SELECT i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv, s.cant1040, s.horaserv AS hserv40,s.estructural,s.vehicular,s.basural,s.forestal,s.pastizal,s.desconocida,s.premeditada,s.accidental,s.corto,s.findelimpieza,s.principio,s.pequena,s.mediana,s.grande,s.emergral,s.agua,s.pqsco2,s.combustible AS combus40,s.bombero AS bomber40,s.tiempototal AS tt40,s.ileso AS ileso40,s.herido AS herido40,s.fallecido AS fallecido40,s.rescate AS rescate40,s.totalkm,s.nomina AS nomina40,ss.cant1041,ss.horaserv AS hserv41,ss.arrollamiento,ss.choque,ss.vuelco,ss.caida,ss.aeronave,ss.peaton,ss.moto,ss.vehliviano,ss.vehpesado,ss.bus,ss.danomat,ss.conherido,ss.conatrap,ss.coninc,ss.matpel,ss.cintcond,ss.cintacomp,ss.cascocond,ss.cascoacomp,ss.ileso AS ileso41,ss.herido AS herido41,ss.fallecido AS fallecido41,ss.rescate AS rescate41,ss.combustible AS combus41,ss.bombero AS bomber41,ss.kmrecorrido,ss.tiempototal AS tt41,ss.nomina AS nomina41, sss.cant1043, sss.horaserv AS hserv43, sss.rescate,sss.recuperacion, sss.aniali,sss.cobertura,sss.curso,sss.transporte,sss.vivienda,sss.profundidad,sss.altura,sss.derrumbe,sss.naufragio,sss.bomba,sss.suicidio,sss.ileso AS ileso43,sss.herido AS herido43,sss.fallecido AS fallecido43,sss.combustible AS combus43,sss.nomina AS nomina43 FROM informe  i, serv1040 s,serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043 AND i.idinforme= " + codrestextBox.Text + "";
-            MySqlCommand cmd = new MySqlCommand(header, Conexion.conectar());
-            using (MySqlDataReader r = cmd.ExecuteReader())
+            SQLiteCommand cmd = new SQLiteCommand(header, ConexionDB.conectar());
+            using (SQLiteDataReader r = cmd.ExecuteReader())
             {
                 if (r.Read())
                 {
@@ -1006,40 +1026,50 @@ namespace test1
         }
         private void SaveUsers_ButtonClick(object sender, RoutedEventArgs e)
         {
-            string saveuser = "insert into users(username, password, role, CI, correo ,phone)values('" + UsuariotextBox.Text + "','" + UserpasstextBox.Password + "','" + RoltextBox.Text + "'," + UsercitextBox.Text + ",'" + UsercorreotextBox.Text + "','" + UserteleftextBox.Text + "')";
-            MySqlCommand cmd = new MySqlCommand(saveuser, Conexion.conectar());
-            cmd.ExecuteNonQuery();
-            Limpiar();
-            Mostrar();
-        }
+            try
+            {
+                string saveuser = "insert into users(username, password, role, CI, correo ,phone)values('" + UsuariotextBox.Text + "','" + UserpasstextBox.Password + "','" + RoltextBox.Text + "'," + UsercitextBox.Text + ",'" + UsercorreotextBox.Text + "','" + UserteleftextBox.Text + "')";
+                SQLiteCommand cmd = new SQLiteCommand(saveuser, ConexionDB.conectar());
+                cmd.ExecuteNonQuery();
+                Limpiar();
+                Mostrar();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+}
 
         private void ModifyUserButton_Click(object sender, RoutedEventArgs e)
         {
-            string iduser = "select u.id from users u where u.id=" + codusertextBox.Text + "";
-            MySqlCommand cm = new MySqlCommand(iduser, Conexion.conectar());
-            using (MySqlDataReader reader = cm.ExecuteReader())
+            try
             {
-                if (reader.Read())
-                {
-
-                    int id = reader.GetInt32(0);
-                    string modifyuser = "update users set username='" + UsuariotextBox.Text + "', password='" + UserpasstextBox.Password + "', role='" + RoltextBox.Text + "', CI=" + UsercitextBox.Text + ", correo='" + UsercorreotextBox.Text + "', phone='" + UserteleftextBox.Text + "' where id=" + id + "";
-                    MySqlCommand cmd = new MySqlCommand(modifyuser, Conexion.conectar());
-                    cmd.ExecuteNonQuery();
-                    Limpiar();
-                    Mostrar();
-                }
+                 string modifyuser = "update users set username='" + UsuariotextBox.Text + "', password='" + UserpasstextBox.Password + "', role='" + RoltextBox.Text + "', CI=" + UsercitextBox.Text + ", correo='" + UsercorreotextBox.Text + "', phone='" + UserteleftextBox.Text + "' where id=" + codusertextBox.Text + "";
+                 SQLiteCommand cmd = new SQLiteCommand(modifyuser, ConexionDB.conectar());
+                 cmd.ExecuteNonQuery();
+                 Limpiar();
+                 Mostrar();
+                    
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
         }
 
         private void DeleteUserButton_Click(object sender, RoutedEventArgs e)
         {
-            string deleteuser = "delete from users where id=" + codusertextBox.Text + "";
-            MySqlCommand cmd = new MySqlCommand(deleteuser, Conexion.conectar());
-            cmd.ExecuteNonQuery();
-            Limpiar();
-            Mostrar();
+            try
+            {
+                string deleteuser = "delete from users where id=" + codusertextBox.Text + "";
+                SQLiteCommand cmd = new SQLiteCommand(deleteuser, ConexionDB.conectar());
+                cmd.ExecuteNonQuery();
+                Limpiar();
+                Mostrar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

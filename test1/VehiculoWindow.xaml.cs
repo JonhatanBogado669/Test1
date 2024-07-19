@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Collections.ObjectModel;
 using System.Collections;
 using test1.models;
@@ -29,7 +31,7 @@ namespace test1
         {
             InitializeComponent();
             TipocomboBox.ItemsSource = listtipocombus;
-            Conexion.conectar();
+            ConexionDB.conectar();
             Carga();
             Mostrar();
         }
@@ -43,14 +45,14 @@ namespace test1
         public void Mostrar()
         {
             string mostrarveh = "select v.idvehiculo as codigo, v.descripcion, v.chapa, t.descripcion as combustible from vehiculo v inner join tipo_combus t where t.idtipo_combus=v.idtipo_combus order by codigo asc";
-            MySqlCommand cmd = new MySqlCommand(mostrarveh, Conexion.conectar());
+            SQLiteCommand cmd = new SQLiteCommand(mostrarveh, ConexionDB.conectar());
             VehiculodataGrid.ItemsSource = cmd.ExecuteReader();
         }
        public void Carga()
         {
             string cargar = "select idtipo_combus,descripcion from tipo_combus";
-            MySqlCommand cmd = new MySqlCommand(cargar, Conexion.conectar());
-            MySqlDataReader r = cmd.ExecuteReader();
+            SQLiteCommand cmd = new SQLiteCommand(cargar, ConexionDB.conectar());
+            SQLiteDataReader r = cmd.ExecuteReader();
             while (r.Read())
             {
                 Tipocombus t = new Tipocombus();
@@ -63,7 +65,7 @@ namespace test1
         {
             Tipocombus tc = (Tipocombus)TipocomboBox.SelectedValue;
             string guardar = "insert into vehiculo(descripcion,chapa,idtipo_combus)values('" + descripvehtextBox.Text + "','" + chapatextBox.Text + "'," + tc.IdTipoCombus + ")";
-            MySqlCommand cmd = new MySqlCommand(guardar, Conexion.conectar());
+            SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
             cmd.ExecuteNonQuery();
             MainWindow main = new MainWindow();
             Mostrar();
@@ -74,7 +76,7 @@ namespace test1
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             string borrar = "delete from vehiculo where idvehiculo="+CodigovehtextBox.Text+"";
-            MySqlCommand cmd = new MySqlCommand(borrar, Conexion.conectar());
+            SQLiteCommand cmd = new SQLiteCommand(borrar, ConexionDB.conectar());
             cmd.ExecuteNonQuery();
             MainWindow main = new MainWindow();
             Limpiar();
