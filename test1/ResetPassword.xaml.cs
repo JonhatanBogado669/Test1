@@ -39,21 +39,27 @@ namespace test1
         }
         private void EnviarButton_Click(object sender, RoutedEventArgs e)
         {
-            string username = UsuariotextBox.Text;
-            string email = GetEmailByUsername(username);
-            string resetCode = GenerateResetCode();
-            if (SendResetCodeByEmail(email, resetCode))
+            try
             {
-                // Aquí puedes guardar el resetCode en una base de datos o en memoria para su posterior validación
-                string guardarcode = "insert into password_reset(username,reset_code)value('" + username + "'," + resetCode + ")";
-                SQLiteCommand cmd = new SQLiteCommand(guardarcode, ConexionDB.conectar());
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Se ha enviado un código de restablecimiento a su dirección de correo electrónico registrada.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Information);
-                verifyGrid.Visibility = Visibility.Collapsed;
-            }
-            else
+                string username = UsuariotextBox.Text;
+                string email = GetEmailByUsername(username);
+                string resetCode = GenerateResetCode();
+                if (SendResetCodeByEmail(email, resetCode))
+                {
+                    // Aquí puedes guardar el resetCode en una base de datos o en memoria para su posterior validación
+                    string guardarcode = "insert into password_reset(username,reset_code)values('" + username + "','" + resetCode + "')";
+                    SQLiteCommand cmd = new SQLiteCommand(guardarcode, ConexionDB.conectar());
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Se ha enviado un código de restablecimiento a su dirección de correo electrónico registrada.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Information);
+                    verifyGrid.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo enviar el código de restablecimiento. Por favor, intente nuevamente más tarde.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }catch(Exception ex)
             {
-                MessageBox.Show("No se pudo enviar el código de restablecimiento. Por favor, intente nuevamente más tarde.", "Restablecimiento de contraseña", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message);
             }
         }
         private string GetEmailByUsername(string username)

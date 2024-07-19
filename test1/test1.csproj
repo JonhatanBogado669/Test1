@@ -319,6 +319,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Clean.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -331,6 +332,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -340,9 +342,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Cleaning-icon-png.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="filter-png.png" />

@@ -11,7 +11,7 @@
         <TabControl x:Name="tabControl">
             <TabItem Header="Uso de Combustible">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="CombustibledataGrid" HorizontalAlignment="Left" Height="457" Margin="13,157,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="100" SelectionChanged="CombusdataGrid_SelectionChanged" RenderTransformOrigin="0.5,0.5"/>
+                    <DataGrid x:Name="CombustibledataGrid" HorizontalAlignment="Left" Height="457" Margin="10,160,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="100" SelectionChanged="CombusdataGrid_SelectionChanged" RenderTransformOrigin="0.5,0.5"/>
                     <Button x:Name="button" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveCombus_ButtonClick" Height="22"/>
                     <Button x:Name="buttonmody" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click" Height="22"/>
                     <Button x:Name="buttondelete1" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeletecombusButton_Click" Height="22"/>
@@ -65,14 +65,17 @@
                     <Label x:Name="label" Content="Código:" HorizontalAlignment="Left" Margin="954,619,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="codtextBox" HorizontalAlignment="Left" Height="23" Margin="1010,622,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30"/>
                     <Button x:Name="button_Copy2" Content="Generar Word" HorizontalAlignment="Left" Margin="869,623,0,0" VerticalAlignment="Top" Width="80" Background="#FF4D4D4D" Foreground="White" Click="GenerarWordButton_Click" Height="22"/>
-                    <Button x:Name="button4" HorizontalAlignment="Left" Margin="398,29,0,0" VerticalAlignment="Top" Width="33" Height="33" Click="LimpiarCombusButton_Click">
+                    <Button x:Name="button4" HorizontalAlignment="Left" Margin="398,39,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="LimpiarCombusButton_Click" BorderBrush="{x:Null}">
+                        <Button.Foreground>
+                            <ImageBrush/>
+                        </Button.Foreground>
                         <Button.Background>
-                            <ImageBrush ImageSource="Cleaning-icon-png.png" Stretch="Uniform"/>
+                            <ImageBrush ImageSource="refresh.png" Stretch="Uniform"/>
                         </Button.Background>
                     </Button>
                     <Label x:Name="label_Copy" Content="Filtrar por periodo:" HorizontalAlignment="Left" Margin="616,619,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="filtrotextBox" HorizontalAlignment="Left" Height="23" Margin="725,622,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
-                    <Button x:Name="button_Copy3" HorizontalAlignment="Left" Margin="842,623,0,0" VerticalAlignment="Top" Width="22" Foreground="White" Click="FiltrarperiodoButton_Click" Height="22">
+                    <Button x:Name="button_Copy3" HorizontalAlignment="Left" Margin="842,623,0,0" VerticalAlignment="Top" Width="22" Foreground="White" Click="FiltrarperiodoButton_Click" Height="22" BorderBrush="{x:Null}">
                         <Button.Background>
                             <ImageBrush ImageSource="filter-png.png" Stretch="Uniform"/>
                         </Button.Background>
