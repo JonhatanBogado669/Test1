@@ -43,7 +43,7 @@ namespace test1
     {
         ObservableCollection<Vehiculo> listvehiculo = new ObservableCollection<Vehiculo>();
         ObservableCollection<Mes> listmes = new ObservableCollection<Mes>();
-        private FirebaseClient firebaseClient;
+        //private FirebaseClient firebaseClient;
 
         public MainWindow()
         {
@@ -183,8 +183,8 @@ namespace test1
             SQLiteCommand cmd = new SQLiteCommand(mostrarcombus, ConexionDB.conectar());
             CombustibledataGrid.ItemsSource = cmd.ExecuteReader();
 
-            // string mostrarinf = "SELECT i.idinforme AS código,i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv,s.cant1040,ss.cant1041,sss.cant1043 FROM informe  i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043";
-            string mostrarinf = "select * from serv1040";
+             //string mostrarinf = "SELECT i.idinforme AS código,i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv,s.cant1040,ss.cant1041,sss.cant1043 FROM informe  i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043";
+            string mostrarinf = "select * from informe";
             SQLiteCommand cmd1 = new SQLiteCommand(mostrarinf, ConexionDB.conectar());
             InfdataGrid.ItemsSource = cmd1.ExecuteReader();
 
@@ -222,12 +222,10 @@ namespace test1
         {
             LimpiarCombus();
         }
-
-
-        private async Task<string> LoginWithPredefinedCredentials()
+        /*private async Task<string> LoginWithPredefinedCredentials()
         {
             string predefinedEmail = "jonhatanbogado@gmail.com";
-            string predefinedPassword = "Guarakaloco669";
+            string predefinedPassword = "";
 
             try
             {
@@ -240,7 +238,7 @@ namespace test1
                 MessageBox.Show("Error al iniciar sesión con las credenciales predefinidas: " + ex.Message);
                 throw;
             }
-        }
+        }*/
 
         private void SaveCombus_ButtonClick(object sender, RoutedEventArgs e)
         {
@@ -335,45 +333,42 @@ namespace test1
 
                 if (guardarserv1040 != null)
                 {
-                    long ultimoId1040 = 0;
-                    long ultimoId1041 = 0;
-                    long ultimoId1043 = 0;
-                    long idTabla1 = ultimoId1040;
-                    long idTabla2 = ultimoId1041;
-                    long idTabla3 = ultimoId1043;
-                    using (SQLiteConnection con = new SQLiteConnection())
+                    
+                    int idTabla1=0;
+                    int idTabla2=0;
+                    int idTabla3=0;
+
+
+                    string consulta = "SELECT MAX(idserv1040) FROM serv1040";
+                    using (SQLiteCommand cmmd = new SQLiteCommand(consulta, ConexionDB.conectar()))
                     {
-                        con.Open();
-                        string consulta = "SELECT MAX(id) FROM serv1040";
-                        using (SQLiteCommand cmmd = new SQLiteCommand(consulta, con))
+                        object result = cmmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
                         {
-                            object result = cmd.ExecuteScalar();
-                            if (result != null && result != DBNull.Value)
-                            {
-                                ultimoId1040 = Convert.ToInt64(result);
-                            }
-                        }
-
-                        string consulta2 = "SELECT MAX(id) FROM serv1041";
-                        using (SQLiteCommand cmmd = new SQLiteCommand(consulta2, con))
-                        {
-                            object result = cmd.ExecuteScalar();
-                            if (result != null && result != DBNull.Value)
-                            {
-                                ultimoId1041 = Convert.ToInt64(result);
-                            }
-                        }
-
-                        string consulta3 = "SELECT MAX(id) FROM serv1043";
-                        using (SQLiteCommand cmmd = new SQLiteCommand(consulta3, con))
-                        {
-                            object result = cmd.ExecuteScalar();
-                            if (result != null && result != DBNull.Value)
-                            {
-                                ultimoId1043 = Convert.ToInt64(result);
-                            }
+                            idTabla1 = Convert.ToInt32(result);
                         }
                     }
+
+                    string consulta2 = "SELECT MAX(idserv1041) FROM serv1041";
+                    using (SQLiteCommand cmmd1 = new SQLiteCommand(consulta2, ConexionDB.conectar()))
+                    {
+                        object result = cmmd1.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            idTabla2 = Convert.ToInt32(result);
+                        }
+                    }
+
+                    string consulta3 = "SELECT MAX(idserv1043) FROM serv1043";
+                    using (SQLiteCommand cmmd2 = new SQLiteCommand(consulta3, ConexionDB.conectar()))
+                    {
+                        object result = cmmd2.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            idTabla3 = Convert.ToInt32(result);
+                        }
+                    }
+
                     Mes m = (Mes)MescomboBox.SelectedValue;
                     string guardarres = "insert into informe(fechaenv,hora,mes,anho,cantcia_est,autor,telefono,lugar,fax,fechacierre,cantserv,idserv1040,idserv1041,idserv1043)values('" + FechaServ.Text + "','" + horatextBox.Text + "'," + m.IdMes + ",'" + AnhotextBox.Text + "'," + cantciaesttextBox.Text + ",'" + autortextBox.Text + "','" + teleftextBox.Text
                     + "','" + lugartextBox.Text + "','" + faxtextBox.Text + "','" + FechaCierre.Text + "'," + totalservtextBox.Text + "," + idTabla1 + "," + idTabla2 + "," + idTabla3 + ")";
@@ -827,189 +822,197 @@ namespace test1
         }
         private void GenerarWordServButton_Click(object sender, RoutedEventArgs e)
         {
-            string header = "SELECT i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv, s.cant1040, s.horaserv AS hserv40,s.estructural,s.vehicular,s.basural,s.forestal,s.pastizal,s.desconocida,s.premeditada,s.accidental,s.corto,s.findelimpieza,s.principio,s.pequena,s.mediana,s.grande,s.emergral,s.agua,s.pqsco2,s.combustible AS combus40,s.bombero AS bomber40,s.tiempototal AS tt40,s.ileso AS ileso40,s.herido AS herido40,s.fallecido AS fallecido40,s.rescate AS rescate40,s.totalkm,s.nomina AS nomina40,ss.cant1041,ss.horaserv AS hserv41,ss.arrollamiento,ss.choque,ss.vuelco,ss.caida,ss.aeronave,ss.peaton,ss.moto,ss.vehliviano,ss.vehpesado,ss.bus,ss.danomat,ss.conherido,ss.conatrap,ss.coninc,ss.matpel,ss.cintcond,ss.cintacomp,ss.cascocond,ss.cascoacomp,ss.ileso AS ileso41,ss.herido AS herido41,ss.fallecido AS fallecido41,ss.rescate AS rescate41,ss.combustible AS combus41,ss.bombero AS bomber41,ss.kmrecorrido,ss.tiempototal AS tt41,ss.nomina AS nomina41, sss.cant1043, sss.horaserv AS hserv43, sss.rescate,sss.recuperacion, sss.aniali,sss.cobertura,sss.curso,sss.transporte,sss.vivienda,sss.profundidad,sss.altura,sss.derrumbe,sss.naufragio,sss.bomba,sss.suicidio,sss.ileso AS ileso43,sss.herido AS herido43,sss.fallecido AS fallecido43,sss.combustible AS combus43,sss.nomina AS nomina43 FROM informe  i, serv1040 s,serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043 AND i.idinforme= " + codrestextBox.Text + "";
-            SQLiteCommand cmd = new SQLiteCommand(header, ConexionDB.conectar());
-            using (SQLiteDataReader r = cmd.ExecuteReader())
+            try
             {
-                if (r.Read())
+                string header = "SELECT i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv, s.cant1040, s.horaserv AS hserv40,s.estructural,s.vehicular,s.basural,s.forestal,s.pastizal,s.desconocida,s.premeditada,s.accidental,s.corto,s.findelimpieza,s.principio,s.pequena,s.mediana,s.grande,s.emergral,s.agua,s.pqsco2,s.combustible AS combus40,s.bombero AS bomber40,s.tiempototal AS tt40,s.ileso AS ileso40,s.herido AS herido40,s.fallecido AS fallecido40,s.rescate AS rescate40,s.totalkm,s.nomina AS nomina40,ss.cant1041,ss.horaserv AS hserv41,ss.arrollamiento,ss.choque,ss.vuelco,ss.caida,ss.aeronave,ss.peaton,ss.moto,ss.vehliviano,ss.vehpesado,ss.bus,ss.danomat,ss.conherido,ss.conatrap,ss.coninc,ss.matpel,ss.cintcond,ss.cintacomp,ss.cascocond,ss.cascoacomp,ss.ileso AS ileso41,ss.herido AS herido41,ss.fallecido AS fallecido41,ss.rescate AS rescate41,ss.combustible AS combus41,ss.bombero AS bomber41,ss.kmrecorrido,ss.tiempototal AS tt41,ss.nomina AS nomina41, sss.cant1043, sss.horaserv AS hserv43, sss.rescate,sss.recuperacion, sss.aniali,sss.cobertura,sss.curso,sss.transporte,sss.vivienda,sss.profundidad,sss.altura,sss.derrumbe,sss.naufragio,sss.bomba,sss.suicidio,sss.ileso AS ileso43,sss.herido AS herido43,sss.fallecido AS fallecido43,sss.combustible AS combus43,sss.nomina AS nomina43 FROM informe  i, serv1040 s,serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043 AND i.idinforme= " + codrestextBox.Text + "";
+                SQLiteCommand cmd = new SQLiteCommand(header, ConexionDB.conectar());
+                using (SQLiteDataReader r = cmd.ExecuteReader())
                 {
-                    string fechaenv = r["fechaenv"].ToString();
-                    string hora = r["hora"].ToString();
-                    string mes = r["mes"].ToString();
-                    string año = r["año"].ToString();
-                    string cantest = r["cantcia_est"].ToString();
-                    string autor = r["autor"].ToString();
-                    string telf = r["telefono"].ToString();
-                    string lugar = r["lugar"].ToString();
-                    string fax = r["fax"].ToString();
-                    string fechacierre = r["fechacierre"].ToString();
-                    string cantserv = r["cantserv"].ToString();
-
-                    string cant40 = r["cant1040"].ToString();
-                    string hs40 = r["hserv40"].ToString();
-                    string estructural = r["estructural"].ToString();
-                    string vehicular = r["vehicular"].ToString();
-                    string basural = r["basural"].ToString();
-                    string forestal = r["forestal"].ToString();
-                    string pastizal = r["pastizal"].ToString();
-                    string desconocidas = r["desconocida"].ToString();
-                    string premeditadas = r["premeditada"].ToString();
-                    string accidental = r["accidental"].ToString();
-                    string corto = r["corto"].ToString();
-                    string limpieza = r["findelimpieza"].ToString();
-                    string principio = r["principio"].ToString();
-                    string pequena = r["pequena"].ToString();
-                    string mediana = r["mediana"].ToString();
-                    string grande = r["grande"].ToString();
-                    string emergral = r["emergral"].ToString();
-                    string agua = r["agua"].ToString();
-                    string pqsco2 = r["pqsco2"].ToString();
-                    string combus40 = r["combus40"].ToString();
-                    string bomber40 = r["bomber40"].ToString();
-                    string tt40 = r["tt40"].ToString();
-                    string ileso40 = r["ileso40"].ToString();
-                    string herido40 = r["herido40"].ToString();
-                    string fallecido40 = r["fallecido40"].ToString();
-                    string rescate40 = r["rescate40"].ToString();
-                    string totalkm = r["totalkm"].ToString();
-                    string nomina40 = r["nomina40"].ToString();
-
-                    string cant41 = r["cant1041"].ToString();
-                    string hs41 = r["hserv41"].ToString();
-                    string arrollamiento = r["arrollamiento"].ToString();
-                    string choque = r["choque"].ToString();
-                    string vuelco = r["vuelco"].ToString();
-                    string caida = r["caida"].ToString();
-                    string aeronave = r["aeronave"].ToString();
-                    string peaton = r["peaton"].ToString();
-                    string moto = r["moto"].ToString();
-                    string vehliviano = r["vehliviano"].ToString();
-                    string vehpesado = r["vehpesado"].ToString();
-                    string bus = r["bus"].ToString();
-                    string danomat = r["danomat"].ToString();
-                    string conherido = r["conherido"].ToString();
-                    string conatrap = r["conatrap"].ToString();
-                    string coninc = r["coninc"].ToString();
-                    string matpel = r["matpel"].ToString();
-                    string cintcond = r["cintcond"].ToString();
-                    string cintacomp = r["cintacomp"].ToString();
-                    string cascocond = r["cascocond"].ToString();
-                    string cascoacomp = r["cascoacomp"].ToString();
-                    string ileso41 = r["ileso41"].ToString();
-                    string herido41 = r["herido41"].ToString();
-                    string fallecido41 = r["fallecido41"].ToString();
-                    string rescate41 = r["rescate41"].ToString();
-                    string combus41 = r["combus41"].ToString();
-                    string bomber41 = r["bomber41"].ToString();
-                    string kmrecorrido = r["kmrecorrido"].ToString();
-                    string tt41 = r["tt41"].ToString();
-                    string nomina41 = r["nomina41"].ToString();
-
-                    string cant43 = r["cant1043"].ToString();
-                    string hs43 = r["hserv43"].ToString();
-                    string rescate = r["rescate"].ToString();
-                    string recuperacion = r["recuperacion"].ToString();
-                    string aniali = r["aniali"].ToString();
-                    string cobertura = r["cobertura"].ToString();
-                    string curso = r["curso"].ToString();
-                    string transporte = r["transporte"].ToString();
-                    string vivienda = r["vivienda"].ToString();
-                    string profundidad = r["profundidad"].ToString();
-                    string altura = r["altura"].ToString();
-                    string derrumbe = r["derrumbe"].ToString();
-                    string naufragio = r["naufragio"].ToString();
-                    string bomba = r["bomba"].ToString();
-                    string suicidio = r["suicidio"].ToString();
-                    string ileso43 = r["ileso43"].ToString();
-                    string herido43 = r["herido43"].ToString();
-                    string fallecido43 = r["fallecido43"].ToString();
-                    string combus43 = r["combus43"].ToString();
-                    string nomina43 = r["nomina43"].ToString();
-
-                    string filePath = "C:/Users/usuario/Desktop/DocumentoServ.docx";
-                    using (WordprocessingDocument doc = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
+                    if (r.Read())
                     {
-                        MainDocumentPart mainPart = doc.AddMainDocumentPart();
-                        mainPart.Document = new Document();
-                        Body body = mainPart.Document.AppendChild(new Body());
+                        string fechaenv = r["fechaenv"].ToString();
+                        string hora = r["hora"].ToString();
+                        string mes = r["mes"].ToString();
+                        string año = r["año"].ToString();
+                        string cantest = r["cantcia_est"].ToString();
+                        string autor = r["autor"].ToString();
+                        string telf = r["telefono"].ToString();
+                        string lugar = r["lugar"].ToString();
+                        string fax = r["fax"].ToString();
+                        string fechacierre = r["fechacierre"].ToString();
+                        string cantserv = r["cantserv"].ToString();
+
+                        string cant40 = r["cant1040"].ToString();
+                        string hs40 = r["hserv40"].ToString();
+                        string estructural = r["estructural"].ToString();
+                        string vehicular = r["vehicular"].ToString();
+                        string basural = r["basural"].ToString();
+                        string forestal = r["forestal"].ToString();
+                        string pastizal = r["pastizal"].ToString();
+                        string desconocidas = r["desconocida"].ToString();
+                        string premeditadas = r["premeditada"].ToString();
+                        string accidental = r["accidental"].ToString();
+                        string corto = r["corto"].ToString();
+                        string limpieza = r["findelimpieza"].ToString();
+                        string principio = r["principio"].ToString();
+                        string pequena = r["pequena"].ToString();
+                        string mediana = r["mediana"].ToString();
+                        string grande = r["grande"].ToString();
+                        string emergral = r["emergral"].ToString();
+                        string agua = r["agua"].ToString();
+                        string pqsco2 = r["pqsco2"].ToString();
+                        string combus40 = r["combus40"].ToString();
+                        string bomber40 = r["bomber40"].ToString();
+                        string tt40 = r["tt40"].ToString();
+                        string ileso40 = r["ileso40"].ToString();
+                        string herido40 = r["herido40"].ToString();
+                        string fallecido40 = r["fallecido40"].ToString();
+                        string rescate40 = r["rescate40"].ToString();
+                        string totalkm = r["totalkm"].ToString();
+                        string nomina40 = r["nomina40"].ToString();
+
+                        string cant41 = r["cant1041"].ToString();
+                        string hs41 = r["hserv41"].ToString();
+                        string arrollamiento = r["arrollamiento"].ToString();
+                        string choque = r["choque"].ToString();
+                        string vuelco = r["vuelco"].ToString();
+                        string caida = r["caida"].ToString();
+                        string aeronave = r["aeronave"].ToString();
+                        string peaton = r["peaton"].ToString();
+                        string moto = r["moto"].ToString();
+                        string vehliviano = r["vehliviano"].ToString();
+                        string vehpesado = r["vehpesado"].ToString();
+                        string bus = r["bus"].ToString();
+                        string danomat = r["danomat"].ToString();
+                        string conherido = r["conherido"].ToString();
+                        string conatrap = r["conatrap"].ToString();
+                        string coninc = r["coninc"].ToString();
+                        string matpel = r["matpel"].ToString();
+                        string cintcond = r["cintcond"].ToString();
+                        string cintacomp = r["cintacomp"].ToString();
+                        string cascocond = r["cascocond"].ToString();
+                        string cascoacomp = r["cascoacomp"].ToString();
+                        string ileso41 = r["ileso41"].ToString();
+                        string herido41 = r["herido41"].ToString();
+                        string fallecido41 = r["fallecido41"].ToString();
+                        string rescate41 = r["rescate41"].ToString();
+                        string combus41 = r["combus41"].ToString();
+                        string bomber41 = r["bomber41"].ToString();
+                        string kmrecorrido = r["kmrecorrido"].ToString();
+                        string tt41 = r["tt41"].ToString();
+                        string nomina41 = r["nomina41"].ToString();
+
+                        string cant43 = r["cant1043"].ToString();
+                        string hs43 = r["hserv43"].ToString();
+                        string rescate = r["rescate"].ToString();
+                        string recuperacion = r["recuperacion"].ToString();
+                        string aniali = r["aniali"].ToString();
+                        string cobertura = r["cobertura"].ToString();
+                        string curso = r["curso"].ToString();
+                        string transporte = r["transporte"].ToString();
+                        string vivienda = r["vivienda"].ToString();
+                        string profundidad = r["profundidad"].ToString();
+                        string altura = r["altura"].ToString();
+                        string derrumbe = r["derrumbe"].ToString();
+                        string naufragio = r["naufragio"].ToString();
+                        string bomba = r["bomba"].ToString();
+                        string suicidio = r["suicidio"].ToString();
+                        string ileso43 = r["ileso43"].ToString();
+                        string herido43 = r["herido43"].ToString();
+                        string fallecido43 = r["fallecido43"].ToString();
+                        string combus43 = r["combus43"].ToString();
+                        string nomina43 = r["nomina43"].ToString();
+
+                        string filePath = "../DocumentoServ.docx";
+                        using (WordprocessingDocument doc = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
+                        {
+                            MainDocumentPart mainPart = doc.AddMainDocumentPart();
+                            mainPart.Document = new Document();
+                            Body body = mainPart.Document.AppendChild(new Body());
 
 
-                        // Agregar los primeros dos párrafos
-                        AddHeader(body, "JUNTA NACIONAL DE CUERPOS DE BOMBEROS VOLUNTARIOS DEL PARAGUAY");
-                        AddHeader(body, "COMANDANCIA NACIONAL");
-                        AddHeader(body, "INFORME MENSUAL DE SERVICIOS");
-                        AddHeader(body, "CBV de CORONEL BOGADO");
-                        AddParagraph(body, "Fecha de Envió: " + fechaenv + "", JustificationValues.Left, 22, true, true);
-                        AddParagraph(body, "Hora: "+hora+"                            Mes: " + mes + "                              Año: " + año + "", JustificationValues.Left, 22, true, true);
-                        AddParagraph(body, "CBV de Cnel. José Félix Bogado                                             Cantidad Cía. /Estaciones: " + cantest + "", JustificationValues.Left, 22, true, true);
-                        AddParagraph(body, "Elaborado por: " + autor + "                                                     Tel.: " + telf + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "Enviado desde: Cuerpo de Bomberos Voluntarios de Cnel. Bogado", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "Fax habilitado (para posible reenvío): " + fax + "		     Fecha de cierre del informe: " + fechacierre + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "CANTIDAD TOTAL DE SERVICIO: " + cantserv + "", JustificationValues.Left, 22, true, true);
-                        AddParagraph(body, "10.40", JustificationValues.Left, 24, true, true);
-                        AddParagraph(body, "10.40", JustificationValues.Center, 20, true, true);
-                        AddParagraph(body, "CANTIDAD GLOBAL DE 10.40: " + cant40 + "     Horas en servicios: " + hs40, JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "Servicio 10.40.                                      Magnitudes.                                Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1-Estructural: " + estructural + "                                    1-Principio: " + principio + "                                1-Ileso/s: " + ileso40 + "", JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2-Vehicular: " + vehicular + "                                       2-Pequeña Magnitud: " + pequena + "             2-Herido/s: " + herido40, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3-Basural: " + basural + "                                           3-Mediana Magnitud: " + mediana + "          3-Fallecidos/s: " + fallecido40, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4-Forestal: " + forestal + "                                          4-Gran Magnitud: " + grande + "                 4-Rescate/s: " + rescate40, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5-Pastizal: " + pastizal + "                                           5-Emergencia Gral.: " + emergral, JustificationValues.Left, 20, false, true);
+                            // Agregar los primeros dos párrafos
+                            AddHeader(body, "JUNTA NACIONAL DE CUERPOS DE BOMBEROS VOLUNTARIOS DEL PARAGUAY");
+                            AddHeader(body, "COMANDANCIA NACIONAL");
+                            AddHeader(body, "INFORME MENSUAL DE SERVICIOS");
+                            AddHeader(body, "CBV de CORONEL BOGADO");
+                            AddParagraph(body, "Fecha de Envió: " + fechaenv + "", JustificationValues.Left, 22, true, true);
+                            AddParagraph(body, "Hora: " + hora + "                            Mes: " + mes + "                              Año: " + año + "", JustificationValues.Left, 22, true, true);
+                            AddParagraph(body, "CBV de Cnel. José Félix Bogado                                             Cantidad Cía. /Estaciones: " + cantest + "", JustificationValues.Left, 22, true, true);
+                            AddParagraph(body, "Elaborado por: " + autor + "                                                     Tel.: " + telf + "", JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "Enviado desde: Cuerpo de Bomberos Voluntarios de Cnel. Bogado", JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "Fax habilitado (para posible reenvío): " + fax + "		     Fecha de cierre del informe: " + fechacierre + "", JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "CANTIDAD TOTAL DE SERVICIO: " + cantserv + "", JustificationValues.Left, 22, true, true);
+                            AddParagraph(body, "10.40", JustificationValues.Left, 24, true, true);
+                            AddParagraph(body, "10.40", JustificationValues.Center, 20, true, true);
+                            AddParagraph(body, "CANTIDAD GLOBAL DE 10.40: " + cant40 + "     Horas en servicios: " + hs40, JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "Servicio 10.40.                                      Magnitudes.                                Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "1-Estructural: " + estructural + "                                    1-Principio: " + principio + "                                1-Ileso/s: " + ileso40 + "", JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "2-Vehicular: " + vehicular + "                                       2-Pequeña Magnitud: " + pequena + "             2-Herido/s: " + herido40, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "3-Basural: " + basural + "                                           3-Mediana Magnitud: " + mediana + "          3-Fallecidos/s: " + fallecido40, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "4-Forestal: " + forestal + "                                          4-Gran Magnitud: " + grande + "                 4-Rescate/s: " + rescate40, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "5-Pastizal: " + pastizal + "                                           5-Emergencia Gral.: " + emergral, JustificationValues.Left, 20, false, true);
 
-                        AddParagraph(body, "Causas Posibles                                    Recursos Utilizados                   Móviles/Km.", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1-Desconocidas: " + desconocidas + "                              1-Agua: " + agua + "                                   1-Total km.: " + totalkm, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2-Premeditadas: " + premeditadas + "                              2-PQS/CO2: " + pqsco2 + "                           2-Nomina: " + nomina40, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3-Accidentales: " + accidental + "                                3-Combustible: " + combus40, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4-Corto Circuito: " + corto + "                                  4-Bomberos: " + bomber40, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5-Fin de Limpieza: " + limpieza + "                           5-Tiempo total: " + tt40, JustificationValues.Left, 20, false, true);
-
-
-                        AddParagraph(body, "", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "10.41", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "CANTIDAD GLOBAL DE 10.41: " + cant41 + "                                                             Horas en servicios: " + hs41, JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "Servicio 10.41.                                     Magnitudes.                               Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1- Arrollamientos: " + arrollamiento + "                           1- Daños Materiales: " + danomat + "               1-Ileso/s: " + danomat, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2- Choque: " + choque + "                                         2- Con Heridos.: " + conherido + "                      2-Herido/s: " + herido41, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3- Vuelcos: " + vuelco + "                                         3- Con Heridos Atrap.: " + conatrap + "         3-Fallecido/s: " + fallecido41, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4- Caída: " + caida + "                                             4- Con Incendio.: " + coninc + "                  4-Rescate/s: " + rescate41, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5- Aeronave: " + aeronave + "                                      5- Con Mat-Pel.: " + matpel, JustificationValues.Left, 20, false, true);
-
-                        AddParagraph(body, "Elementos Involucrados                 Seguridad de Involucrados          Recursos Usados.", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1-Peatones: " + peaton + "                                      1-Cinturón Conductor: " + cintcond + "         1-Combustible: " + combus41, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2-Moto: " + moto + "                                             2-Cinturón Acomp.: " + cintacomp + "              2-Bomberos: " + bomber41, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3-Veh. Livianos: " + vehliviano + "                               3-Casco Conductor: " + cascocond + "               3-Km. recorrido: " + kmrecorrido, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4-Veh. Pesados: " + vehpesado + "                               4-Casco Acompan.: " + cascoacomp + "               4-Tiempo Total: " + tt41, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5-Buses: " + bus, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "Causas Posibles                                    Recursos Utilizados                   Móviles/Km.", JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "1-Desconocidas: " + desconocidas + "                              1-Agua: " + agua + "                                   1-Total km.: " + totalkm, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "2-Premeditadas: " + premeditadas + "                              2-PQS/CO2: " + pqsco2 + "                           2-Nomina: " + nomina40, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "3-Accidentales: " + accidental + "                                3-Combustible: " + combus40, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "4-Corto Circuito: " + corto + "                                  4-Bomberos: " + bomber40, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "5-Fin de Limpieza: " + limpieza + "                           5-Tiempo total: " + tt40, JustificationValues.Left, 20, false, true);
 
 
-                        AddParagraph(body, "", JustificationValues.Left, 10, true, true);
-                        AddParagraph(body, "10.43", JustificationValues.Left, 24, true, true);
-                        AddParagraph(body, "CANTIDAD GLOBAL DE 10.43: " + cant43 + "                                                          Horas en servicios: " + hs43, JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "Servicio 10.43.                                 Tipo de Rescate.                          Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
-                        AddParagraph(body, "1-Rescate: " + rescate + "                                     1-En Vivienda: " + vivienda + "                             1-Ileso/s: " + ileso43, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "2-Recuperación: " + recuperacion + "                          2-Profundidad: " + profundidad + "                          2-Herido/s: " + herido43, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "3-Animales/Alimañas: " + aniali + "                3-Altura: " + altura + "                                     3-Fallecidos/s: " + fallecido43, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "4-Cobertura: " + cobertura + "                                4-Derrumbe: " + derrumbe, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "5-Curso/Charla: " + curso + "                           5-Raudal/naufragio: " + naufragio + "                 4-Combustible: " + combus43, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "6-Transporte: " + transporte + "                              6-Amenaza Bomba: " + bomba + "                   5-Nomina:" + nomina43, JustificationValues.Left, 20, false, true);
-                        AddParagraph(body, "                                                             7-Intento de suicidio: " + suicidio, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "", JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "10.41", JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "CANTIDAD GLOBAL DE 10.41: " + cant41 + "                                                             Horas en servicios: " + hs41, JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "Servicio 10.41.                                     Magnitudes.                               Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "1- Arrollamientos: " + arrollamiento + "                           1- Daños Materiales: " + danomat + "               1-Ileso/s: " + danomat, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "2- Choque: " + choque + "                                         2- Con Heridos.: " + conherido + "                      2-Herido/s: " + herido41, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "3- Vuelcos: " + vuelco + "                                         3- Con Heridos Atrap.: " + conatrap + "         3-Fallecido/s: " + fallecido41, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "4- Caída: " + caida + "                                             4- Con Incendio.: " + coninc + "                  4-Rescate/s: " + rescate41, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "5- Aeronave: " + aeronave + "                                      5- Con Mat-Pel.: " + matpel, JustificationValues.Left, 20, false, true);
+
+                            AddParagraph(body, "Elementos Involucrados                 Seguridad de Involucrados          Recursos Usados.", JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "1-Peatones: " + peaton + "                                      1-Cinturón Conductor: " + cintcond + "         1-Combustible: " + combus41, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "2-Moto: " + moto + "                                             2-Cinturón Acomp.: " + cintacomp + "              2-Bomberos: " + bomber41, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "3-Veh. Livianos: " + vehliviano + "                               3-Casco Conductor: " + cascocond + "               3-Km. recorrido: " + kmrecorrido, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "4-Veh. Pesados: " + vehpesado + "                               4-Casco Acompan.: " + cascoacomp + "               4-Tiempo Total: " + tt41, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "5-Buses: " + bus, JustificationValues.Left, 20, false, true);
 
 
+                            AddParagraph(body, "", JustificationValues.Left, 10, true, true);
+                            AddParagraph(body, "10.43", JustificationValues.Left, 24, true, true);
+                            AddParagraph(body, "CANTIDAD GLOBAL DE 10.43: " + cant43 + "                                                          Horas en servicios: " + hs43, JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "Servicio 10.43.                                 Tipo de Rescate.                          Cantidad de 10.44/10.45", JustificationValues.Left, 20, true, true);
+                            AddParagraph(body, "1-Rescate: " + rescate + "                                     1-En Vivienda: " + vivienda + "                             1-Ileso/s: " + ileso43, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "2-Recuperación: " + recuperacion + "                          2-Profundidad: " + profundidad + "                          2-Herido/s: " + herido43, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "3-Animales/Alimañas: " + aniali + "                3-Altura: " + altura + "                                     3-Fallecidos/s: " + fallecido43, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "4-Cobertura: " + cobertura + "                                4-Derrumbe: " + derrumbe, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "5-Curso/Charla: " + curso + "                           5-Raudal/naufragio: " + naufragio + "                 4-Combustible: " + combus43, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "6-Transporte: " + transporte + "                              6-Amenaza Bomba: " + bomba + "                   5-Nomina:" + nomina43, JustificationValues.Left, 20, false, true);
+                            AddParagraph(body, "                                                             7-Intento de suicidio: " + suicidio, JustificationValues.Left, 20, false, true);
+
+
+                        }
+
+
+
+                        SaveFileDialog dialogoGuardar = new SaveFileDialog();
+                        dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
+                        dialogoGuardar.DefaultExt = "docx";
+
+                        if (dialogoGuardar.ShowDialog() == true)
+                        {
+                            string rutaArchivo = dialogoGuardar.FileName;
+                            File.Move(filePath, rutaArchivo);
+                            MessageBox.Show("Documento guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
                     }
 
-
-
-                    SaveFileDialog dialogoGuardar = new SaveFileDialog();
-                    dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
-                    dialogoGuardar.DefaultExt = "docx";
-
-                    if (dialogoGuardar.ShowDialog() == true)
-                    {
-                        string rutaArchivo = dialogoGuardar.FileName;
-                        File.Move(filePath, rutaArchivo);
-                        MessageBox.Show("Documento guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
