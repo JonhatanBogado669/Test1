@@ -317,10 +317,10 @@
                     <Label x:Name="label26" Content="Esquema de Servicios Año" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <TextBox x:Name="filtroañotextBox" HorizontalAlignment="Left" Height="20" Margin="168,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
                     <Button x:Name="button1" Content="Ver" HorizontalAlignment="Left" Margin="207,13,0,0" VerticalAlignment="Top" Width="33" Click="VerButton_Click"/>
-                    <DataGrid x:Name="esquemadataGrid" HorizontalAlignment="Left" Height="288" Margin="10,41,0,0" VerticalAlignment="Top" Width="814"/>
+                    <DataGrid x:Name="esquemadataGrid" HorizontalAlignment="Left" Height="288" Margin="10,41,0,0" VerticalAlignment="Top" Width="568"/>
                     <Label x:Name="label27" Content="Total de Servicios por Año" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <DataGrid x:Name="esquema2dataGrid" HorizontalAlignment="Left" Height="48" Margin="10,365,0,0" VerticalAlignment="Top" Width="568"/>
-                    <Label x:Name="label26_Copy" Content="Gráfico de Servicios" HorizontalAlignment="Left" Margin="836,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Label x:Name="label26_Copy" Content="Gráfico de Servicios" HorizontalAlignment="Left" Margin="604,7,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="210" FontSize="20"/>
                     <lvc:CartesianChart Width="688" Height="225" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,418,0,0">
                         <lvc:CartesianChart.Series>
                             <lvc:ColumnSeries Title="Serie 1" Values="3, 6, 2, 8, 5" Fill="#2196F3"/>
@@ -334,14 +334,16 @@
                             <lvc:Axis Title="Valores"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
-                    <lvc:PieChart Name="pieChart" Width="449" Height="388" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="829,41,10,224">
+                    <lvc:PieChart Name="pieChart" Width="649" Height="526" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="637,41,2,86" FontSize="25" FontFamily="Arial">
                         <lvc:PieChart.Series>
-                            <lvc:PieSeries Title="Serie 1" Values="1" Fill="DeepSkyBlue" DataLabels="True"/>
-                            <lvc:PieSeries Title="Serie 2" Values="48" Fill="Orange" DataLabels="True"/>
-                            <lvc:PieSeries Title="Serie 3" Values="28" Fill="Blue" DataLabels="True"/>
-                            <lvc:PieSeries Title="Serie 4" Values="2" Fill="Red" DataLabels="True"/>
-                            <lvc:PieSeries Title="Serie 5" Values="16" Fill="Green" DataLabels="True"/>
-                            <lvc:PieSeries Title="Serie 6" Values="5" Fill="DarkViolet" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 1" Values="10" Fill="DeepSkyBlue" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 2" Values="10" Fill="Orange" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 3" Values="10" Fill="Blue" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 4" Values="10" Fill="Red" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 5" Values="10" Fill="Green" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 6" Values="10" Fill="DarkViolet" DataLabels="True"/>
+                            <lvc:PieSeries Title="Serie 7" Values="10" Fill="Salmon" DataLabels="True"/>
+                            
                         </lvc:PieChart.Series>
                     </lvc:PieChart>
                 </Grid>

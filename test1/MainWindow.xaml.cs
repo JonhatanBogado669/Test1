@@ -178,20 +178,24 @@ namespace test1
         }
         public void Mostrar()
         {
+            try
+            {
+                string mostrarcombus = "select p.idplan_combus as código,p.periodo,v.descripcion as vehiculo,p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo group by código";
+                SQLiteCommand cmd = new SQLiteCommand(mostrarcombus, ConexionDB.conectar());
+                CombustibledataGrid.ItemsSource = cmd.ExecuteReader();
 
-            string mostrarcombus = "select p.idplan_combus as código,p.periodo,v.descripcion as vehiculo,p.fecha,p.ci,p.nombre,p.lugar_sal as lugar_salida,p.km_salida,p.lugar_dest as lugar_destino,p.km_llegada,p.km_recorrido,p.motivo,p.lts_carg as litros_cargados,p.nro_fact as factura, p.imp_total as importe_total from plan_combus p inner join vehiculo v where p.idvehiculo= v.idvehiculo group by código";
-            SQLiteCommand cmd = new SQLiteCommand(mostrarcombus, ConexionDB.conectar());
-            CombustibledataGrid.ItemsSource = cmd.ExecuteReader();
+                string mostrarinf = "SELECT i.idinforme AS código,i.fechaenv,i.hora,m.descripcion as mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv,s.cant1040,ss.cant1041,sss.cant1043 FROM informe  i INNER JOIN mes m, serv1040 s, serv1041 ss, serv1043 sss WHERE i.mes=m.idmes AND i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043";
+                //string mostrarinf = "select * from informe";
+                SQLiteCommand cmd1 = new SQLiteCommand(mostrarinf, ConexionDB.conectar());
+                InfdataGrid.ItemsSource = cmd1.ExecuteReader();
 
-             //string mostrarinf = "SELECT i.idinforme AS código,i.fechaenv,i.hora,i.mes,i.anho AS año,i.cantcia_est,i.autor,i.telefono,i.lugar,i.fax,i.fechacierre,i.cantserv,s.cant1040,ss.cant1041,sss.cant1043 FROM informe  i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss WHERE i.idserv1040=s.idserv1040 AND i.idserv1041=ss.idserv1041 AND i.idserv1043=sss.idserv1043";
-            string mostrarinf = "select * from informe";
-            SQLiteCommand cmd1 = new SQLiteCommand(mostrarinf, ConexionDB.conectar());
-            InfdataGrid.ItemsSource = cmd1.ExecuteReader();
-
-            string mostrarusers = "SELECT u.id as codigo, u.username as usuario,u.role as rol,u.CI,u.correo,u.phone as telef FROM users u";
-            SQLiteCommand cmd2 = new SQLiteCommand(mostrarusers, ConexionDB.conectar());
-            UserdataGrid.ItemsSource = cmd2.ExecuteReader();
-
+                string mostrarusers = "SELECT u.id as codigo, u.username as usuario,u.role as rol,u.CI,u.correo,u.phone as telef FROM users u";
+                SQLiteCommand cmd2 = new SQLiteCommand(mostrarusers, ConexionDB.conectar());
+                UserdataGrid.ItemsSource = cmd2.ExecuteReader();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         public void Cargar()
         {
@@ -267,7 +271,7 @@ namespace test1
         private void AgregarVehiculoButton_Click(object sender, RoutedEventArgs e)
         {
             VehiculoWindow v = new VehiculoWindow();
-            v.Show();
+            v.ShowDialog();
 
         }
 
@@ -1020,13 +1024,100 @@ namespace test1
         {
             try
             {
-                //string esquema = "";
+                string esquema = "select m.descripcion, sum(sss.cobertura) as cobertura, sum(ss.cant1041) as accidentes, sum(s.estructural) as estructural,sum(s.vehicular) as vehicular,sum(s.pastizal) as pastizal,sum(sss.rescate) as rescate,sum(sss.aniali) as animales_alimañas from informe i inner join mes m, serv1040 s, serv1041 ss, serv1043 sss where i.mes=m.idmes and i.idserv1040=s.idserv1040 and i.idserv1041=ss.idserv1041 and i.idserv1043=sss.idserv1043 and i.anho=" + filtroañotextBox.Text+" group by m.descripcion";
+                SQLiteCommand cmd = new SQLiteCommand(esquema, ConexionDB.conectar());
+                esquemadataGrid.ItemsSource = cmd.ExecuteReader();
+                string pie = "select sum(sss.cobertura) as cobertura, sum(ss.cant1041) as accidentes, sum(s.estructural) as estructural,sum(s.vehicular) as vehicular,sum(s.pastizal) as pastizal,sum(sss.rescate) as rescate,sum(sss.aniali) as animales_alimañas from informe i inner join serv1040 s, serv1041 ss, serv1043 sss where i.idserv1040=s.idserv1040 and i.idserv1041=ss.idserv1041 and i.idserv1043=sss.idserv1043 and i.anho=" + filtroañotextBox.Text + "";
+                SQLiteCommand cm = new SQLiteCommand(pie, ConexionDB.conectar());
+                SQLiteDataReader r = cm.ExecuteReader();
+                var pieSeriesCollection = new SeriesCollection();
+
+                while (r.Read())
+                {
+                    // Leer los valores globales por año
+                    double cobertura = Convert.ToDouble(r["cobertura"]);
+                    double accidentes = Convert.ToDouble(r["accidentes"]);
+                    double estructural = Convert.ToDouble(r["estructural"]);
+                    double vehicular = Convert.ToDouble(r["vehicular"]);
+                    double pastizal = Convert.ToDouble(r["pastizal"]);
+                    double rescate = Convert.ToDouble(r["rescate"]);
+                    double animalesAlimanas = Convert.ToDouble(r["animales_alimañas"]);
+
+                    // Añadir series a la colección
+                    pieSeriesCollection.Add(new PieSeries
+                    {
+                        Title = "Cobertura",
+                        Values = new ChartValues<double> { cobertura },
+                        Fill = Brushes.DeepSkyBlue,
+                        DataLabels = true
+                    });
+
+                    pieSeriesCollection.Add(new PieSeries
+                    {
+                        Title = "Accidentes",
+                        Values = new ChartValues<double> { accidentes },
+                        Fill = Brushes.Orange,
+                        DataLabels = true
+                    });
+
+                    pieSeriesCollection.Add(new PieSeries
+                    {
+                        Title = "Estructural",
+                        Values = new ChartValues<double> { estructural },
+                        Fill = Brushes.Blue,
+                        DataLabels = true
+                    });
+
+                    pieSeriesCollection.Add(new PieSeries
+                    {
+                        Title = "Vehicular",
+                        Values = new ChartValues<double> { vehicular },
+                        Fill = Brushes.Red,
+                        DataLabels = true
+                    });
+
+                    pieSeriesCollection.Add(new PieSeries
+                    {
+                        Title = "Pastizal",
+                        Values = new ChartValues<double> { pastizal },
+                        Fill = Brushes.Green,
+                        DataLabels = true
+                    });
+
+                    pieSeriesCollection.Add(new PieSeries
+                    {
+                        Title = "Rescate",
+                        Values = new ChartValues<double> { rescate },
+                        Fill = Brushes.DarkViolet,
+                        DataLabels = true
+                    });
+
+                    pieSeriesCollection.Add(new PieSeries
+                    {
+                        Title = "Animales/Alimañas",
+                        Values = new ChartValues<double> { animalesAlimanas },
+                        Fill = Brushes.DeepSkyBlue,
+                        DataLabels = true
+                    });
+                }
+
+                    // Reemplazar las series iniciales con la nueva colección
+                    if (pieChart != null)
+                    {
+                        pieChart.Series.Clear(); // Elimina las series iniciales de marcador de posición
+                        pieChart.Series = pieSeriesCollection; // Asigna la nueva colección de series
+                    }
+                    else
+                    {
+                        MessageBox.Show("El gráfico de pastel no está inicializado.");
+                    }
+                
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+    catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message);
+    }
+}
         private void SaveUsers_ButtonClick(object sender, RoutedEventArgs e)
         {
             try

@@ -34,6 +34,7 @@ namespace test1
             ConexionDB.conectar();
             Carga();
             Mostrar();
+            
         }
         public void Limpiar()
         {

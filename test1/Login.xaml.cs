@@ -173,14 +173,9 @@ namespace test1
             }
             if (username != null && email != null)
             {
-                if (respass.Visibility == Visibility.Visible)
-                {
-                    respass.Focus();
-                }
-                else
-                {
-                    respass.Show();
-                }
+                
+                    respass.ShowDialog();
+                
 
             }
             
