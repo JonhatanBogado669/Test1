@@ -25,14 +25,18 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using LiveCharts;
 using LiveCharts.Wpf;
-using Firebase.Database;
-using Firebase.Database.Query;
-using Firebase.Auth;
+//using Firebase.Database;
+//using Firebase.Database.Query;
+//using Firebase.Auth;
+using MaterialDesignThemes.Wpf;
+using MaterialDesign.Colors;
+
 using System.Collections.ObjectModel;
 using System.Collections;
 using test1.models;
 using test1;
 using System.Windows.Controls.Primitives;
+
 
 namespace test1
 {

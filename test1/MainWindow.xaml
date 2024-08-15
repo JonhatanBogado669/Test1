@@ -6,15 +6,20 @@
         xmlns:local="clr-namespace:test1.models"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="712.5" Width="1301.5" WindowStartupLocation="CenterScreen" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        Title="MainWindow" Height="712.5" Width="1301.5" WindowStartupLocation="CenterScreen" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+
+
+        
+        >
+
     <Grid>
         <TabControl x:Name="tabControl">
             <TabItem Header="Uso de Combustible">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="CombustibledataGrid" HorizontalAlignment="Left" Height="457" Margin="10,160,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="100" SelectionChanged="CombusdataGrid_SelectionChanged" RenderTransformOrigin="0.5,0.5"/>
-                    <Button x:Name="button" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveCombus_ButtonClick" Height="22"/>
-                    <Button x:Name="buttonmody" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click" Height="22"/>
-                    <Button x:Name="buttondelete1" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeletecombusButton_Click" Height="22"/>
+                    <DataGrid x:Name="CombustibledataGrid" HorizontalAlignment="Left" Height="457" Margin="10,160,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="100" SelectionChanged="CombusdataGrid_SelectionChanged" RenderTransformOrigin="0.5,0.5" FontWeight="Bold"/>
+                    <Button x:Name="button" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveCombus_ButtonClick" Height="22" FontWeight="Medium" BorderThickness="1" BorderBrush="{x:Null}" VerticalContentAlignment="Center" Padding="0" HorizontalContentAlignment="Center" FontSize="12"/>
+                    <Button x:Name="buttonmody" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifycombusButton_Click" Height="22" BorderBrush="{x:Null}" Padding="0" Background="#FF787878" VerticalContentAlignment="Center" FontSize="12"/>
+                    <Button x:Name="buttondelete1" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeletecombusButton_Click" Height="22" FontSize="12" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="{x:Null}"/>
                     <Label x:Name="label1" Content="Periodo y Ejercicio:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="periodotextBox" HorizontalAlignment="Left" Height="23" Margin="119,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"/>
                     <Label x:Name="label2" Content="Vehiculo:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="59"/>
@@ -61,11 +66,11 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Button x:Name="button2" Content="Agregar Vehículo +" HorizontalAlignment="Left" Margin="283,39,0,0" VerticalAlignment="Top" Width="110" Height="23" Click="AgregarVehiculoButton_Click"/>
+                    <Button x:Name="button2" Content="Agregar Vehículo +" HorizontalAlignment="Left" Margin="283,36,0,0" VerticalAlignment="Top" Width="115" Height="25" Click="AgregarVehiculoButton_Click" BorderBrush="{x:Null}" FontSize="12" FontWeight="Medium" VerticalContentAlignment="Center" Padding="0" Background="#FF7A55BB"/>
                     <Label x:Name="label" Content="Código:" HorizontalAlignment="Left" Margin="954,619,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="codtextBox" HorizontalAlignment="Left" Height="23" Margin="1010,622,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30"/>
-                    <Button x:Name="button_Copy2" Content="Generar Word" HorizontalAlignment="Left" Margin="869,623,0,0" VerticalAlignment="Top" Width="80" Background="#FF4D4D4D" Foreground="White" Click="GenerarWordButton_Click" Height="22"/>
-                    <Button x:Name="button4" HorizontalAlignment="Left" Margin="398,39,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="LimpiarCombusButton_Click" BorderBrush="{x:Null}">
+                    <Button x:Name="button_Copy2" Content="Generar Word" HorizontalAlignment="Left" Margin="869,623,0,0" VerticalAlignment="Top" Width="85" Background="#FF4D4D4D" Foreground="White" Click="GenerarWordButton_Click" Height="22" FontSize="12" BorderBrush="{x:Null}" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="button4" HorizontalAlignment="Left" Margin="423,39,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="LimpiarCombusButton_Click" BorderBrush="{x:Null}">
                         <Button.Foreground>
                             <ImageBrush/>
                         </Button.Foreground>
@@ -121,11 +126,11 @@
                     <Label x:Name="label20" Content="CANTIDAD TOTAL DE SERVICIO:" HorizontalAlignment="Left" Margin="650,62,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <TextBox x:Name="totalservtextBox" HorizontalAlignment="Left" Height="23" Margin="840,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Text="0"/>
                     <DatePicker x:Name="FechaCierre" HorizontalAlignment="Left" Margin="810,38,0,0" VerticalAlignment="Top" Width="166" FontSize="11"/>
-                    <Button x:Name="guardarres" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="75" Height="22" Background="#FF40C52B" Foreground="White" Click="SaveResumen_ButtonClick"/>
-                    <Button x:Name="modificarres" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifyresButton_Click" Height="22"/>
-                    <Button x:Name="borrarres" Content="Borrar" HorizontalAlignment="Left" Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeleteresButton_Click" Height="22"/>
-                    <Label x:Name="label_Copy1" Content="Código:" HorizontalAlignment="Left" Margin="849,619,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="codrestextBox" HorizontalAlignment="Left" Height="23" Margin="905,623,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
+                    <Button x:Name="guardarres" Content="Guardar" HorizontalAlignment="Left" Margin="1046,623,0,0" VerticalAlignment="Top" Width="74" Height="22" Background="#FF40C52B" Foreground="White" Click="SaveResumen_ButtonClick" Padding="0" FontSize="12" BorderBrush="{x:Null}" VerticalContentAlignment="Center"/>
+                    <Button x:Name="modificarres" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifyresButton_Click" Height="22" Padding="0" FontSize="12" BorderBrush="{x:Null}" VerticalContentAlignment="Center"/>
+                    <Button x:Name="borrarres" Content="Borrar" HorizontalAlignment="Left" Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeleteresButton_Click" Height="22" Padding="0" FontSize="12" BorderBrush="{x:Null}" VerticalContentAlignment="Center"/>
+                    <Label x:Name="label_Copy1" Content="Código:" HorizontalAlignment="Left" Margin="844,619,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="codrestextBox" HorizontalAlignment="Left" Height="23" Margin="900,623,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
                     <Grid x:Name="tabla3" Background="#FFBBBBBB" Margin="10,118,4,275">
                         <Label x:Name="label22_Copy1" Content="Cantidad global de 10.43:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                         <TextBox x:Name="cant1043textBox" HorizontalAlignment="Left" Height="24" Margin="164,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Text="0"/>
@@ -305,19 +310,19 @@
                         <TextBox x:Name="nomina40textBox" HorizontalAlignment="Left" Height="22" Margin="1106,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Text="0" />
                         <Label x:Name="label25_Copy24" Content="2- Nomina de &#xA;Móviles:" HorizontalAlignment="Left" Margin="980,100,0,0" VerticalAlignment="Top"/>
                     </Grid>
-                    <Button x:Name="button43" Content="10.43" HorizontalAlignment="Left" Margin="100,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25" Width="45" Click="serv43ButtonClick"/>
-                    <Button x:Name="button41" Content="10.41" HorizontalAlignment="Left" Margin="55,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25" Width="45" Click="serv41ButtonClick"/>
-                    <Button x:Name="button40" Content="10.40" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25"  Width="45" Click="serv40ButtonClick"/>
-                    <DataGrid x:Name="InfdataGrid" HorizontalAlignment="Left" Height="215" Margin="10,399,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="*" SelectionChanged="InfdataGrid_SelectionChanged"/>
-                    <Button x:Name="button_Copy4" Content="Generar Word" HorizontalAlignment="Left" Margin="960,623,0,0" VerticalAlignment="Top" Width="80" Background="#FF4D4D4D" Foreground="White" Click="GenerarWordServButton_Click" Height="22"/>
+                    <Button x:Name="button43" Content="10.43" HorizontalAlignment="Left" Margin="100,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25" Width="45" Click="serv43ButtonClick" BorderBrush="{x:Null}" Padding="0" Grid.IsSharedSizeScope="True"/>
+                    <Button x:Name="button41" Content="10.41" HorizontalAlignment="Left" Margin="55,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25" Width="45" Click="serv41ButtonClick" BorderBrush="{x:Null}" Padding="0" Grid.IsSharedSizeScope="True"/>
+                    <Button x:Name="button40" Content="10.40" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="Black" Foreground="White" Height="25"  Width="45" Click="serv40ButtonClick" BorderBrush="{x:Null}" Padding="0" FontSize="14" VerticalContentAlignment="Center"/>
+                    <DataGrid x:Name="InfdataGrid" HorizontalAlignment="Left" Height="215" Margin="10,399,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="*" SelectionChanged="InfdataGrid_SelectionChanged" FontWeight="Bold"/>
+                    <Button x:Name="button_Copy4" Content="Generar Word" HorizontalAlignment="Left" Margin="955,623,0,0" VerticalAlignment="Top" Width="85" Background="#FF4D4D4D" Foreground="White" Click="GenerarWordServButton_Click" Height="22" Padding="0" FontSize="12" BorderBrush="{x:Null}" VerticalContentAlignment="Center"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Estadisticas de Servicios">
                 <Grid Background="#FFE5E5E5">
                     <Label x:Name="label26" Content="Esquema de Servicios Año" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBox x:Name="filtroañotextBox" HorizontalAlignment="Left" Height="20" Margin="168,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34"/>
-                    <Button x:Name="button1" Content="Ver" HorizontalAlignment="Left" Margin="207,13,0,0" VerticalAlignment="Top" Width="33" Click="VerButton_Click"/>
-                    <DataGrid x:Name="esquemadataGrid" HorizontalAlignment="Left" Height="288" Margin="10,41,0,0" VerticalAlignment="Top" Width="568"/>
+                    <TextBox x:Name="filtroañotextBox" HorizontalAlignment="Left" Height="23" Margin="168,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34" CaretBrush="{x:Null}" SelectionBrush="{x:Null}"/>
+                    <Button x:Name="button1" Content="Ver" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="33" Click="VerButton_Click" BorderBrush="{x:Null}" Background="#FF7F60B6" Padding="0" Height="23" FontSize="12"/>
+                    <DataGrid x:Name="esquemadataGrid" HorizontalAlignment="Left" Height="288" Margin="10,41,0,0" VerticalAlignment="Top" Width="568" FontWeight="Bold"/>
                     <Label x:Name="label27" Content="Total de Servicios por Año" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <DataGrid x:Name="esquema2dataGrid" HorizontalAlignment="Left" Height="48" Margin="10,365,0,0" VerticalAlignment="Top" Width="568"/>
                     <Label x:Name="label26_Copy" Content="Gráfico de Servicios" HorizontalAlignment="Left" Margin="604,7,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="210" FontSize="20"/>
@@ -343,7 +348,7 @@
                             <lvc:PieSeries Title="Serie 5" Values="10" Fill="Green" DataLabels="True"/>
                             <lvc:PieSeries Title="Serie 6" Values="10" Fill="DarkViolet" DataLabels="True"/>
                             <lvc:PieSeries Title="Serie 7" Values="10" Fill="Salmon" DataLabels="True"/>
-                            
+
                         </lvc:PieChart.Series>
                     </lvc:PieChart>
                 </Grid>
@@ -352,28 +357,28 @@
             <TabItem Header="Registro de usuarios" x:Name="reg">
                 <Grid Background="#FFE5E5E5">
                     <Label x:Name="label1_Copy" Content="Usuario:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="UsuariotextBox" HorizontalAlignment="Left" Height="23" Margin="63,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
+                    <TextBox x:Name="UsuariotextBox" HorizontalAlignment="Left" Height="23" Margin="63,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" CaretBrush="{x:Null}" SelectionBrush="{x:Null}"/>
                     <Label x:Name="label1_Copy1" Content="Contraseña:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
-                    <PasswordBox x:Name="UserpasstextBox" HorizontalAlignment="Left" Height="23" Margin="82,41,0,0" VerticalAlignment="Top" Width="161"/>
+                    <PasswordBox x:Name="UserpasstextBox" HorizontalAlignment="Left" Height="23" Margin="82,41,0,0" VerticalAlignment="Top" Width="161" CaretBrush="{x:Null}" SelectionBrush="{x:Null}"/>
                     <Label x:Name="label1_Copy2" Content="Rol:" HorizontalAlignment="Left" Margin="248,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="RoltextBox" HorizontalAlignment="Left" Height="23" Margin="282,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
+                    <TextBox x:Name="RoltextBox" HorizontalAlignment="Left" Height="23" Margin="282,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" CaretBrush="{x:Null}" SelectionBrush="{x:Null}"/>
                     <Label x:Name="label1_Copy3" Content="C.I.:" HorizontalAlignment="Left" Margin="248,38,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="UsercitextBox" HorizontalAlignment="Left" Height="23" Margin="282,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
+                    <TextBox x:Name="UsercitextBox" HorizontalAlignment="Left" Height="23" Margin="282,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" CaretBrush="{x:Null}" SelectionBrush="{x:Null}"/>
                     <Label x:Name="label1_Copy4" Content="Correo:" HorizontalAlignment="Left" Margin="486,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="UsercorreotextBox" HorizontalAlignment="Left" Height="23" Margin="535,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="184"/>
+                    <TextBox x:Name="UsercorreotextBox" HorizontalAlignment="Left" Height="23" Margin="535,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="184" CaretBrush="{x:Null}" SelectionBrush="{x:Null}"/>
                     <Label x:Name="label1_Copy5" Content="Telf.:" HorizontalAlignment="Left" Margin="486,38,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="UserteleftextBox" HorizontalAlignment="Left" Height="23" Margin="520,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <TextBox x:Name="UserteleftextBox" HorizontalAlignment="Left" Height="23" Margin="520,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" CaretBrush="{x:Null}" SelectionBrush="{x:Null}"/>
                     <Label x:Name="label1_Copy6" Content="Lista de Usuarios del Cuartel:" HorizontalAlignment="Left" Margin="13,69,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <DataGrid x:Name="UserdataGrid" HorizontalAlignment="Left" Height="514" Margin="13,100,0,0" VerticalAlignment="Top" Width="1268" ColumnWidth="100" SelectionChanged="CombusdataGrid_SelectionChanged" RenderTransformOrigin="0.5,0.5"/>
-                    <Button x:Name="button_Copy5" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveUsers_ButtonClick" Height="22"/>
-                    <Button x:Name="button_Copy6" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifyUserButton_Click" Height="22"/>
-                    <Button x:Name="button_Copy7" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeleteUserButton_Click" Height="22"/>
+                    <Button x:Name="button_Copy5" Content="Guardar" HorizontalAlignment="Left" Margin="1045,623,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveUsers_ButtonClick" Height="22" BorderBrush="{x:Null}" Padding="0" FontSize="12"/>
+                    <Button x:Name="button_Copy6" Content="Modificar" HorizontalAlignment="Left" Margin="1125,623,0,0" VerticalAlignment="Top" Width="74" Click="ModifyUserButton_Click" Height="22" BorderBrush="{x:Null}" Padding="0" FontSize="12"/>
+                    <Button x:Name="button_Copy7" Content="Borrar" HorizontalAlignment="Left"  Margin="1204,623,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeleteUserButton_Click" Height="22" BorderBrush="{x:Null}" Padding="0" FontSize="12"/>
                     <Label x:Name="label_Copy2" Content="Código:" HorizontalAlignment="Left" Margin="954,619,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="codusertextBox" HorizontalAlignment="Left" Height="23" Margin="1010,622,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30"/>
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="button3" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="1188,34,0,0" VerticalAlignment="Top" Width="85" Background="#FF555555" Foreground="White" Click="LogOutButton_Clikc"/>
+        <Button x:Name="button3" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="1188,34,0,0" VerticalAlignment="Top" Width="85" Background="#FF555555" Foreground="White" Click="LogOutButton_Clikc" BorderBrush="{x:Null}" Padding="0" FontSize="12" Height="25"/>
 
     </Grid>
 </Window>
