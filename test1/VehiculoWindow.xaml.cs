@@ -26,10 +26,12 @@ namespace test1
     /// </summary>
     public partial class VehiculoWindow : Window
     {
+        private MainWindow _mainWindow;
         ObservableCollection<Tipocombus> listtipocombus = new ObservableCollection<Tipocombus>();
-        public VehiculoWindow()
+        public VehiculoWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            _mainWindow = mainWindow;
             TipocomboBox.ItemsSource = listtipocombus;
             ConexionDB.conectar();
             Carga();
@@ -68,10 +70,11 @@ namespace test1
             string guardar = "insert into vehiculo(descripcion,chapa,idtipo_combus)values('" + descripvehtextBox.Text + "','" + chapatextBox.Text + "'," + tc.IdTipoCombus + ")";
             SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
             cmd.ExecuteNonQuery();
-            MainWindow main = new MainWindow();
+
             Mostrar();
             Limpiar();
-            main.Cargar();
+            _mainWindow.Cargar();
+
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -79,10 +82,10 @@ namespace test1
             string borrar = "delete from vehiculo where idvehiculo="+CodigovehtextBox.Text+"";
             SQLiteCommand cmd = new SQLiteCommand(borrar, ConexionDB.conectar());
             cmd.ExecuteNonQuery();
-            MainWindow main = new MainWindow();
+            
             Limpiar();
             Mostrar();
-            main.Cargar();
+            _mainWindow.Cargar();
         }
     }
 }

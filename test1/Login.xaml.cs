@@ -45,7 +45,7 @@ namespace test1
         {
             string username = UsernametextBox.Text;
             string password = PasswordtextBox.Password;
-
+            
             if (string.IsNullOrEmpty(UsernametextBox.Text) || string.IsNullOrEmpty(PasswordtextBox.Password))
             {
                 MessageBox.Show("Por favor, ingrese su nombre de usuario y contraseña.", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -62,6 +62,7 @@ namespace test1
                         // Lógica para el rol de administrador
                         UsernametextBox.Text = null;
                         PasswordtextBox.Password = null;
+                       
                         MainWindow main = new MainWindow();
                         main.Show();
                         Close();

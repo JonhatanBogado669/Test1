@@ -10,14 +10,14 @@
 
     <Grid>
         <Grid x:Name="LoginGrid" Background="White">
-            <Label x:Name="label12" Content="Usuario:" HorizontalAlignment="Left" Margin="188,215,0,0" VerticalAlignment="Top" FontSize="15" Width="65"/>
-            <TextBox x:Name="UsernametextBox" HorizontalAlignment="Left" Height="30" Margin="253,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" FontSize="15" CaretBrush="{x:Null}" SelectionBrush="{x:Null}"/>
-            <Label x:Name="label12_Copy" Content="Contraseña:" HorizontalAlignment="Left" Margin="165,249,0,0" VerticalAlignment="Top" FontSize="15" Width="88"/>
-            <PasswordBox x:Name="PasswordtextBox" HorizontalAlignment="Left" Height="30" Margin="253,249,0,0" VerticalAlignment="Top" Width="207" FontSize="15" SelectionBrush="{x:Null}" CaretBrush="{x:Null}"/>
-            <Button x:Name="button4"  Content="Iniciar Sesión " HorizontalAlignment="Left" Height="25" Margin="304,299,0,0" VerticalAlignment="Top" Width="100" FontSize="14" Background="#FF45BD45" Foreground="#FFF7F7F7" Click="LoginButton_Click" BorderBrush="{x:Null}" Padding="0"/>
+            <Label x:Name="label12" Content="Usuario:" HorizontalAlignment="Left" Margin="182,215,0,0" VerticalAlignment="Top" FontSize="15" Width="71" FontWeight="Bold"/>
+            <TextBox x:Name="UsernametextBox" HorizontalAlignment="Left" Height="30" Margin="253,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" FontSize="15" CaretBrush="{x:Null}"/>
+            <Label x:Name="label12_Copy" Content="Contraseña:" HorizontalAlignment="Left" Margin="158,249,0,0" VerticalAlignment="Top" FontSize="15" Width="95" FontWeight="Bold"/>
+            <PasswordBox x:Name="PasswordtextBox" HorizontalAlignment="Left" Height="30" Margin="253,249,0,0" VerticalAlignment="Top" Width="207" FontSize="15" CaretBrush="{x:Null}"/>
+            <Button x:Name="button4"  Content="Iniciar Sesión " HorizontalAlignment="Left" Height="25" Margin="301,301,0,0" VerticalAlignment="Top" Width="100" FontSize="14" Background="#FF40C52B" Foreground="#FFF7F7F7" Click="LoginButton_Click" BorderBrush="{x:Null}" Padding="0" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Image x:Name="image"  HorizontalAlignment="Left" Height="150" Margin="275,10,0,0" VerticalAlignment="Top" Width="149" Source="escudo.jpg"/>
-            <Button x:Name="button5" Content="Olvidaste tu contraseña?" HorizontalAlignment="Left" Margin="268,331,0,0" VerticalAlignment="Top" Width="168" Height="32" FontSize="15" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF476BA0" FontStyle="Italic" Click="ForgotPasswordButton_Click" Padding="0"/>
-            <Label x:Name="label3" Content="Cuartel de Bomberos Voluntarios de Coronel Bogado" HorizontalAlignment="Left" Margin="47,165,0,0" VerticalAlignment="Top" Height="50" Width="610" FontSize="24" FontWeight="Bold" BorderBrush="White" Background="White"/>
+            <Button x:Name="button5" Content="Olvidaste tu contraseña?" HorizontalAlignment="Left" Margin="268,331,0,0" VerticalAlignment="Top" Width="168" Height="32" FontSize="12" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF476BA0" FontStyle="Italic" Click="ForgotPasswordButton_Click" Padding="0" FontWeight="Bold"/>
+            <Label x:Name="label3" Content="Cuartel de Bomberos Voluntarios de Coronel Bogado" HorizontalAlignment="Left" Margin="46,158,0,0" VerticalAlignment="Top" Height="50" Width="610" FontSize="24" FontWeight="Bold" BorderBrush="White" Background="White"/>
 
         </Grid>
     </Grid>

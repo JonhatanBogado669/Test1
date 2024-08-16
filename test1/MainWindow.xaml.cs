@@ -59,13 +59,37 @@ namespace test1
             Mostrar();
             Cargar();
         }
+        public void Auditoria()
+        {
+            try
+            {
+                if (button.ClickMode==ClickMode.Press)
+                {
+                    string accion = "Guardado de resumen";
+                    string horafecha = DateTime.Now.ToString("o");
+                    string username = new Login().UsernametextBox.Text;
+                    string iduser = "select id from users where username='" + username + "' ";
+                    string registrar = "insert into auditoria(idusuario,acceso,accion)values(" + iduser + ",'" + horafecha + "','"+ accion + "')";
+                    SQLiteCommand cm = new SQLiteCommand(iduser, ConexionDB.conectar());
+                    cm.ExecuteNonQuery();
+                    SQLiteCommand cmd = new SQLiteCommand(registrar, ConexionDB.conectar());
+                    cmd.ExecuteNonQuery();
+                }
+                
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+
+        }
         public void LimpiarCombus()
         {
             //uso de combustible
             codtextBox.Text = "";
             periodotextBox.Text = "";
             vehiculocomboBox.Text = "";
-
+           
         }
         public void Limpiar()
         {
@@ -196,13 +220,20 @@ namespace test1
                 string mostrarusers = "SELECT u.id as codigo, u.username as usuario,u.role as rol,u.CI,u.correo,u.phone as telef FROM users u";
                 SQLiteCommand cmd2 = new SQLiteCommand(mostrarusers, ConexionDB.conectar());
                 UserdataGrid.ItemsSource = cmd2.ExecuteReader();
-            }catch(Exception ex)
+
+                string mostraraudi = "SELECT a.id as codigo, u.username as usuario,u.role as rol, a.acceso,a.accion FROM auditoria a inner join users u where u.id=a.idusuario";
+                SQLiteCommand cmd3 = new SQLiteCommand(mostraraudi, ConexionDB.conectar());
+                AudidataGrid.ItemsSource = cmd3.ExecuteReader();
+            }
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
         public void Cargar()
         {
+            listvehiculo.Clear();
+            listmes.Clear();
             string cargar = "select v.idvehiculo,v.descripcion, v.chapa, t.descripcion from vehiculo v, tipo_combus t where t.idtipo_combus=v.idtipo_combus";
             SQLiteCommand cmd = new SQLiteCommand(cargar, ConexionDB.conectar());
             SQLiteDataReader r = cmd.ExecuteReader();
@@ -213,6 +244,7 @@ namespace test1
                 v.Descripcion = r.GetValue(1).ToString();
                 v.Chapa = r.GetValue(2).ToString();
                 v.IdTipoCombus = r.GetValue(3).ToString();
+                
                 listvehiculo.Add(v);
             }
             string mes = "select idmes, descripcion from mes";
@@ -259,7 +291,8 @@ namespace test1
                 destinotextBox.Text + "'," + kmllegadatextBox.Text + "," + kmrecorridotextBox.Text + ",'" + motivotextBox.Text + "'," + ltscargadotextBox.Text + ",'" + facturatextBox.Text + "'," + importetextBox.Text + ")";
                 SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
-
+                Auditoria();
+                
                 MessageBox.Show("Datos guardados exitosamente.");
                 Limpiar();
                 Mostrar();
@@ -274,7 +307,7 @@ namespace test1
 
         private void AgregarVehiculoButton_Click(object sender, RoutedEventArgs e)
         {
-            VehiculoWindow v = new VehiculoWindow();
+            VehiculoWindow v = new VehiculoWindow(this);
             v.ShowDialog();
 
         }
