@@ -69,9 +69,8 @@ namespace test1
                     string horafecha = DateTime.Now.ToString("o");
                     string username = new Login().UsernametextBox.Text;
                     string iduser = "select id from users where username='" + username + "' ";
-                    string id= Convert.ToString(iduser);
-                    Convert.ToInt64(id);
-                    string registrar = "insert into auditoria(idusuario,acceso,accion)values(" + id + ",'" + horafecha + "','"+ accion +"')";
+                    Convert.ToInt32(iduser);
+                    string registrar = "insert into auditoria(idusuario,acceso,accion)values(" + iduser + ",'" + horafecha + "','"+ accion + "')";
                     SQLiteCommand cm = new SQLiteCommand(iduser, ConexionDB.conectar());
                     cm.ExecuteNonQuery();
                     SQLiteCommand cmd = new SQLiteCommand(registrar, ConexionDB.conectar());

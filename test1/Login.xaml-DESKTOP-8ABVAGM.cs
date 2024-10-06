@@ -60,8 +60,7 @@ namespace test1
                 {
                     case "Admin":
                         // Lógica para el rol de administrador
-                        UsernametextBox.Text = null;
-                        PasswordtextBox.Password = null;
+                       
                        
                         MainWindow main = new MainWindow();
                         main.Show();
@@ -70,8 +69,7 @@ namespace test1
                         break;
                     case "Usuario":
                         // Lógica para el rol de usuario normal
-                        UsernametextBox.Text = null;
-                        PasswordtextBox.Password = null;
+                      
                         MainWindow main2 = new MainWindow();
                         main2.Show();
                         Close();
@@ -200,6 +198,5 @@ namespace test1
             }
         }
 
-        
     }
 }

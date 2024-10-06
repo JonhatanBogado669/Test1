@@ -1,0 +1,34 @@
+﻿<Window x:Class="test1.VehiculoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:test1.models"
+        mc:Ignorable="d"
+        Title="Vehiculo" Height="309" Width="378.154" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Background="#FFE5E5E5">
+        <Label x:Name="label" Content="Código:" HorizontalAlignment="Left" Margin="100,241,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="CodigovehtextBox" HorizontalAlignment="Left" Height="20" Margin="151,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+        <Label x:Name="label1" Content="Descripción:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="descripvehtextBox" HorizontalAlignment="Left" Height="23" Margin="84,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
+        <Label x:Name="label_Copy" Content="Chapa:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="chapatextBox" HorizontalAlignment="Left" Height="23" Margin="56,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <Label x:Name="label2" Content="Tipo de combustible:" HorizontalAlignment="Left" Margin="162,36,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="TipocomboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Margin="283,36,0,0" Height="26">
+            <ComboBox.DataContext>
+                <local:Tipocombus/>
+            </ComboBox.DataContext>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding Descripcion}"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <DataGrid x:Name="VehiculodataGrid" HorizontalAlignment="Left" Height="170" Margin="10,67,0,0" VerticalAlignment="Top" ColumnWidth="*" Width="339" FontSize="12"/>
+        <Button x:Name="button" Content="Guardar" HorizontalAlignment="Left" Margin="196,242,0,0" VerticalAlignment="Top" Width="74" Background="#FF40C52B" Foreground="White" Click="SaveVehiculoButton_Click" Height="25" BorderBrush="{x:Null}" FontSize="12" Padding="0" />
+        <Button x:Name="button_Copy1" Content="Borrar" HorizontalAlignment="Left" Margin="275,242,0,0" VerticalAlignment="Top" Width="74" Foreground="White" Background="#FFB61F1F" Click="DeleteButton_Click" Height="25" BorderBrush="{x:Null}" FontSize="12" Padding="0"/>
+
+    </Grid>
+</Window>
