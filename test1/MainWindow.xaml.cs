@@ -47,6 +47,7 @@ namespace test1
     {
         ObservableCollection<Vehiculo> listvehiculo = new ObservableCollection<Vehiculo>();
         ObservableCollection<Mes> listmes = new ObservableCollection<Mes>();
+        private Logger logger;
         //private FirebaseClient firebaseClient;
 
         public MainWindow()
@@ -55,7 +56,7 @@ namespace test1
             vehiculocomboBox.ItemsSource = listvehiculo;
             MescomboBox.ItemsSource = listmes;
             ConexionDB.conectar();
-
+            logger = new Logger();
             Mostrar();
             Cargar();
         }
@@ -77,6 +78,8 @@ namespace test1
                     SQLiteCommand cmd = new SQLiteCommand(registrar, ConexionDB.conectar());
                     cmd.ExecuteNonQuery();
                 }
+
+                //jkj//
                 
             }catch(Exception ex)
             {
@@ -85,6 +88,7 @@ namespace test1
             
 
         }
+        
         public void LimpiarCombus()
         {
             //uso de combustible
@@ -286,16 +290,16 @@ namespace test1
         {
             try
             {
-                
+                string username = new Login().UsernametextBox.Text;
                 Vehiculo v = (Vehiculo)vehiculocomboBox.SelectedValue;
                 string guardar = "insert into plan_combus(periodo,idvehiculo,fecha,ci,nombre,lugar_sal,km_salida,lugar_dest,km_llegada,km_recorrido,motivo,lts_carg,nro_fact,imp_total)values('" +
                 periodotextBox.Text + "'," + v.IdVehiculo + ",'" + FechaCombus.Text + "','" + CItextBox.Text + "','" + nombretextBox.Text + "','" + salidatextBox.Text + "'," + kmsalidatextBox.Text + ",'" +
                 destinotextBox.Text + "'," + kmllegadatextBox.Text + "," + kmrecorridotextBox.Text + ",'" + motivotextBox.Text + "'," + ltscargadotextBox.Text + ",'" + facturatextBox.Text + "'," + importetextBox.Text + ")";
                 SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
-                Auditoria();
-                
-                MessageBox.Show("Datos guardados exitosamente.");
+                logger.Log(username,"Guardó un registro de combustible");
+
+                MessageBox.Show("Datos guardados exitosamente");
                 Limpiar();
                 Mostrar();
 
@@ -303,7 +307,7 @@ namespace test1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al guardar datos en la nube: " + ex.Message);
+                MessageBox.Show("Error al guardar datos: " + ex.Message);
             }
         }
 

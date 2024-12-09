@@ -27,5 +27,24 @@ namespace test1.models
 
             return conexionDB;
         }
+        
+        public static void InsertarAuditoria(int idUsuario, string accion)
+        {
+            using (var conexion = conectar())
+            {
+                
+                string query = "INSERT INTO Auditoria (idusuario, acceso, accion) VALUES (@IdUsuario, @Acceso, @Accion)";
+                using (var cmd = new SQLiteCommand(query, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    cmd.Parameters.AddWithValue("@Acceso", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@Accion", accion);
+
+                    cmd.ExecuteNonQuery();
+                }
+                
+            }
+
+        }
     }
 }

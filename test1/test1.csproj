@@ -156,6 +156,7 @@
     <Compile Include="models\Auditoria.cs" />
     <Compile Include="models\ConexionDB.cs" />
     <Compile Include="models\Informe.cs" />
+    <Compile Include="models\Logger.cs" />
     <Compile Include="models\Mes.cs" />
     <Compile Include="models\PasswordReset.cs" />
     <Compile Include="models\Serv1040.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace test1.models
 {
-    class Auditoria
+    public class Auditoria
     {
         private string id;
         private string idusuario;
