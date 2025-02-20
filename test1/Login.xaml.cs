@@ -38,36 +38,14 @@ namespace test1
         public Login()
         {
             InitializeComponent();
-           
+            
         }
-        public static int ObtenerIdUsuario(string username)
-        {
-            username = new Login().UsernametextBox.Text;
-            using (var conexion = ConexionDB.conectar())
-            {
-                string query = "SELECT id FROM users WHERE username = @Username";
-                using (var cmd = new SQLiteCommand(query, conexion))
-                {
-                    cmd.Parameters.AddWithValue("@Username", username);
-                    object result = cmd.ExecuteScalar(); // Usar ExecuteScalar para obtener un solo valor
-
-                    if (result != null)
-                    {
-                        return Convert.ToInt32(result); // Convertir el resultado a int
-                    }
-                    else
-                    {
-                        throw new Exception("Usuario no encontrado");
-                    }
-                }
-            }
-        }
+        
         /////////////////////////////////Login/////////////////////////////////////
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernametextBox.Text;
             string password = PasswordtextBox.Password;
-            
             if (string.IsNullOrEmpty(UsernametextBox.Text) || string.IsNullOrEmpty(PasswordtextBox.Password))
             {
                 MessageBox.Show("Por favor, ingrese su nombre de usuario y contraseña.", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -76,6 +54,7 @@ namespace test1
 
             if (LoginU(UsernametextBox.Text, PasswordtextBox.Password))
             {
+                UserSession.Username = username;
                 // Inicio de sesión exitoso, realizar acciones según el rol del usuario
                 string role = GetUserRole(UsernametextBox.Text);
                 switch (role)
@@ -85,7 +64,6 @@ namespace test1
                         
                         UsernametextBox.Text = null;
                         PasswordtextBox.Password = null;
-                        
                         MainWindow main = new MainWindow();
                         main.Show();
                         Close();
@@ -119,6 +97,8 @@ namespace test1
                         MessageBox.Show("El usuario no tiene un rol válido.", "Inicio de sesión", MessageBoxButton.OK, MessageBoxImage.Warning);
                         break;
                 }
+               
+                
             }
             else
             {

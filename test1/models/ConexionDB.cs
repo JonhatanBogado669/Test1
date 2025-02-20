@@ -28,7 +28,7 @@ namespace test1.models
             return conexionDB;
         }
         
-        public static void InsertarAuditoria(int idUsuario, string accion)
+        /*public static void InsertarAuditoria(int idUsuario, string accion)
         {
             using (var conexion = conectar())
             {
@@ -45,6 +45,6 @@ namespace test1.models
                 
             }
 
-        }
+        }*/
     }
 }

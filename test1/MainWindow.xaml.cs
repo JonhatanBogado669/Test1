@@ -47,18 +47,23 @@ namespace test1
     {
         ObservableCollection<Vehiculo> listvehiculo = new ObservableCollection<Vehiculo>();
         ObservableCollection<Mes> listmes = new ObservableCollection<Mes>();
-        private Logger logger;
+        //private Logger logger;
+        string username = UserSession.Username;
         //private FirebaseClient firebaseClient;
-
+        // public string Username { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            // Username = username;
+            
+            
             vehiculocomboBox.ItemsSource = listvehiculo;
             MescomboBox.ItemsSource = listmes;
             ConexionDB.conectar();
-            logger = new Logger();
+            //logger = new Logger();
             Mostrar();
             Cargar();
+            //Auditoria();
         }
         public void Auditoria()
         {
@@ -66,30 +71,25 @@ namespace test1
             {
                 if (button.ClickMode==ClickMode.Release)
                 {
+                    string name = username;
                     string accion = "Guardado de resumen";
                     string horafecha = DateTime.Now.ToString("o");
-                    string username = new Login().UsernametextBox.Text;
-                    string iduser = "select id from users where username='" + username + "' ";
-                    string id= Convert.ToString(iduser);
-                    Convert.ToInt64(id);
-                    string registrar = "insert into auditoria(idusuario,acceso,accion)values(" + id + ",'" + horafecha + "','"+ accion +"')";
+                    string iduser = "select id from users where username='" + name + "' ";
                     SQLiteCommand cm = new SQLiteCommand(iduser, ConexionDB.conectar());
-                    cm.ExecuteNonQuery();
+                    object id =cm.ExecuteScalar();
+                    Convert.ToInt32(id);
+                    string registrar = "insert into auditoria(idusuario,acceso,accion)values(" + id + ",'" + horafecha + "','" + accion + "')";
                     SQLiteCommand cmd = new SQLiteCommand(registrar, ConexionDB.conectar());
                     cmd.ExecuteNonQuery();
-                }
-
-                //jkj//
-                
+                    return;
+                }  
             }catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
-
         }
-        
-        public void LimpiarCombus()
+
+            public void LimpiarCombus()
         {
             //uso de combustible
             codtextBox.Text = "";
@@ -297,12 +297,12 @@ namespace test1
                 destinotextBox.Text + "'," + kmllegadatextBox.Text + "," + kmrecorridotextBox.Text + ",'" + motivotextBox.Text + "'," + ltscargadotextBox.Text + ",'" + facturatextBox.Text + "'," + importetextBox.Text + ")";
                 SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
-                logger.Log(username,"Guardó un registro de combustible");
-
+                //logger.Log(username,"Guardó un registro de combustible");
+                Auditoria();
                 MessageBox.Show("Datos guardados exitosamente");
                 Limpiar();
                 Mostrar();
-
+                return;
                 //MessageBox.Show("Datos guardados en la nube con éxito.");
             }
             catch (Exception ex)

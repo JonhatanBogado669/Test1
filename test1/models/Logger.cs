@@ -10,11 +10,11 @@ namespace test1.models
 {
     public class Logger
     {
-        public void Log(string username, string accion)
+        /*public void Log(string username, string accion)
         {
                 int idUsuario= Login.ObtenerIdUsuario(username);
                 ConexionDB.InsertarAuditoria(idUsuario, accion);
-        }
+        }*/
     }
 
 }
