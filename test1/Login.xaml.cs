@@ -64,6 +64,7 @@ namespace test1
                         
                         UsernametextBox.Text = null;
                         PasswordtextBox.Password = null;
+                        AuditoriaService.RegistrarAuditoria(username, "Inicio de Sesion");
                         MainWindow main = new MainWindow();
                         main.Show();
                         Close();
@@ -73,6 +74,7 @@ namespace test1
                         // Lógica para el rol de usuario normal
                         UsernametextBox.Text = null;
                         PasswordtextBox.Password = null;
+                        AuditoriaService.RegistrarAuditoria(username, "Inicio de Sesion");
                         MainWindow main2 = new MainWindow();
                         main2.Show();
                         Close();

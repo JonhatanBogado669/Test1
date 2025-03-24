@@ -154,9 +154,9 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="models\Auditoria.cs" />
+    <Compile Include="models\AuditoriaService.cs" />
     <Compile Include="models\ConexionDB.cs" />
     <Compile Include="models\Informe.cs" />
-    <Compile Include="models\Logger.cs" />
     <Compile Include="models\Mes.cs" />
     <Compile Include="models\PasswordReset.cs" />
     <Compile Include="models\Serv1040.cs" />
@@ -212,6 +212,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="bomberoDB.sql" />
+    <Resource Include="Cleaning-icon-png.png" />
     <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

@@ -47,23 +47,17 @@ namespace test1
     {
         ObservableCollection<Vehiculo> listvehiculo = new ObservableCollection<Vehiculo>();
         ObservableCollection<Mes> listmes = new ObservableCollection<Mes>();
-        //private Logger logger;
         string username = UserSession.Username;
-        //private FirebaseClient firebaseClient;
-        // public string Username { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            // Username = username;
-            
-            
+            //ConfigurarBaseDeDatos();
             vehiculocomboBox.ItemsSource = listvehiculo;
             MescomboBox.ItemsSource = listmes;
             ConexionDB.conectar();
-            //logger = new Logger();
             Mostrar();
             Cargar();
-            //Auditoria();
+
         }
         public void Auditoria()
         {
@@ -240,28 +234,34 @@ namespace test1
         {
             listvehiculo.Clear();
             listmes.Clear();
-            string cargar = "select v.idvehiculo,v.descripcion, v.chapa, t.descripcion from vehiculo v, tipo_combus t where t.idtipo_combus=v.idtipo_combus";
-            SQLiteCommand cmd = new SQLiteCommand(cargar, ConexionDB.conectar());
-            SQLiteDataReader r = cmd.ExecuteReader();
-            while (r.Read())
+            try
             {
-                Vehiculo v = new Vehiculo();
-                v.IdVehiculo = r.GetValue(0).ToString();
-                v.Descripcion = r.GetValue(1).ToString();
-                v.Chapa = r.GetValue(2).ToString();
-                v.IdTipoCombus = r.GetValue(3).ToString();
-                
-                listvehiculo.Add(v);
-            }
-            string mes = "select idmes, descripcion from mes";
-            SQLiteCommand cmd1 = new SQLiteCommand(mes, ConexionDB.conectar());
-            SQLiteDataReader r1 = cmd1.ExecuteReader();
-            while (r1.Read())
+                string cargar = "select v.idvehiculo,v.descripcion, v.chapa, t.descripcion from vehiculo v, tipo_combus t where t.idtipo_combus=v.idtipo_combus";
+                SQLiteCommand cmd = new SQLiteCommand(cargar, ConexionDB.conectar());
+                SQLiteDataReader r = cmd.ExecuteReader();
+                while (r.Read())
+                {
+                    Vehiculo v = new Vehiculo();
+                    v.IdVehiculo = r.GetValue(0).ToString();
+                    v.Descripcion = r.GetValue(1).ToString();
+                    v.Chapa = r.GetValue(2).ToString();
+                    v.IdTipoCombus = r.GetValue(3).ToString();
+
+                    listvehiculo.Add(v);
+                }
+                string mes = "select idmes, descripcion from mes";
+                SQLiteCommand cmd1 = new SQLiteCommand(mes, ConexionDB.conectar());
+                SQLiteDataReader r1 = cmd1.ExecuteReader();
+                while (r1.Read())
+                {
+                    Mes m = new Mes();
+                    m.IdMes = r1.GetValue(0).ToString();
+                    m.Descripcion = r1.GetValue(1).ToString();
+                    listmes.Add(m);
+                }
+            }catch(Exception ex)
             {
-                Mes m = new Mes();
-                m.IdMes = r1.GetValue(0).ToString();
-                m.Descripcion = r1.GetValue(1).ToString();
-                listmes.Add(m);
+                MessageBox.Show(ex.Message);
             }
         }
         private void LimpiarCombusButton_Click(object sender, RoutedEventArgs e)
@@ -297,13 +297,11 @@ namespace test1
                 destinotextBox.Text + "'," + kmllegadatextBox.Text + "," + kmrecorridotextBox.Text + ",'" + motivotextBox.Text + "'," + ltscargadotextBox.Text + ",'" + facturatextBox.Text + "'," + importetextBox.Text + ")";
                 SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
-                //logger.Log(username,"Guardó un registro de combustible");
-                Auditoria();
                 MessageBox.Show("Datos guardados exitosamente");
+                AuditoriaService.RegistrarAuditoria(username, "Guardado de registro de Combustible");
                 Limpiar();
                 Mostrar();
                 return;
-                //MessageBox.Show("Datos guardados en la nube con éxito.");
             }
             catch (Exception ex)
             {
@@ -328,6 +326,7 @@ namespace test1
                 + ", motivo='" + motivotextBox.Text + "', lts_carg=" + ltscargadotextBox.Text + ", nro_fact='" + facturatextBox.Text + "', imp_total=" + importetextBox.Text + " where idplan_combus=" + codtextBox.Text + "";
                 SQLiteCommand cmd = new SQLiteCommand(modificar, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
+                AuditoriaService.RegistrarAuditoria(username, "Modificacion de registro de Combustible");
                 Limpiar();
                 LimpiarCombus();
                 Mostrar();
@@ -340,12 +339,19 @@ namespace test1
 
         private void DeletecombusButton_Click(object sender, RoutedEventArgs e)
         {
-            string borrar = "delete from plan_combus where idplan_combus=" + codtextBox.Text + "";
-            SQLiteCommand cmd = new SQLiteCommand(borrar, ConexionDB.conectar());
-            cmd.ExecuteNonQuery();
-            Limpiar();
-            LimpiarCombus();
-            Mostrar();
+            try
+            {
+                string borrar = "delete from plan_combus where idplan_combus=" + codtextBox.Text + "";
+                SQLiteCommand cmd = new SQLiteCommand(borrar, ConexionDB.conectar());
+                cmd.ExecuteNonQuery();
+                AuditoriaService.RegistrarAuditoria(username, "Eliminación de registro de Combustible");
+                Limpiar();
+                LimpiarCombus();
+                Mostrar();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
 
@@ -421,6 +427,7 @@ namespace test1
                     + "','" + lugartextBox.Text + "','" + faxtextBox.Text + "','" + FechaCierre.Text + "'," + totalservtextBox.Text + "," + idTabla1 + "," + idTabla2 + "," + idTabla3 + ")";
                     SQLiteCommand cmd3 = new SQLiteCommand(guardarres, ConexionDB.conectar());
                     cmd3.ExecuteNonQuery();
+                    AuditoriaService.RegistrarAuditoria(username, "Guardado de informe");
                     Limpiar();
                     Mostrar();
 
@@ -502,11 +509,13 @@ namespace test1
                 codrestextBox.Text + "";
                 SQLiteCommand cmd1 = new SQLiteCommand(mod1, ConexionDB.conectar());
                 cmd1.ExecuteNonQuery();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            AuditoriaService.RegistrarAuditoria(username, "Modificacion de informe");
             Limpiar();
             Mostrar();
         }
@@ -517,6 +526,7 @@ namespace test1
                 string borrarres = "delete from informe where idinforme=" + codrestextBox.Text + "";
                 SQLiteCommand cmd = new SQLiteCommand(borrarres, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
+                AuditoriaService.RegistrarAuditoria(username, "Eliminacion de informe");
                 Limpiar();
                 Mostrar();
             }
@@ -546,82 +556,96 @@ namespace test1
 
         private void InfdataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (InfdataGrid.SelectedItem != null)
+            try
             {
-                // Obtener la fila seleccionada
-                dynamic selectedRow = InfdataGrid.SelectedItem;
+                if (InfdataGrid.SelectedItem != null)
+                {
+                    // Obtener la fila seleccionada
+                    dynamic selectedRow = InfdataGrid.SelectedItem;
 
-                // Obtener los datos de las columnas
-                int idinforme = Convert.ToInt32(selectedRow["código"]);
-                string fechaenv = selectedRow["fechaenv"].ToString();
-                string hora = selectedRow["hora"].ToString();
-                string mes = selectedRow["mes"].ToString();
-                string anho = selectedRow["año"].ToString();
-                int cantcia_est = Convert.ToInt32(selectedRow["cantcia_est"]);
-                string autor = selectedRow["autor"].ToString();
-                string telefono = selectedRow["telefono"].ToString();
-                string lugar = selectedRow["lugar"].ToString();
-                string fax = selectedRow["fax"].ToString();
-                string fechacierre = selectedRow["fechacierre"].ToString();
-                int cantserv = Convert.ToInt32(selectedRow["cantserv"]);
-                //int cant1040 = Convert.ToInt32(selectedRow["cant1040"]);
-                //int cant1041 = Convert.ToInt32(selectedRow["cant1041"]);
-                //int cant1043 = Convert.ToInt32(selectedRow["cant1043"]);
-                // Llenar los TextBox correspondientes con los datos obtenidos
-                codrestextBox.Text = idinforme.ToString();
-                FechaServ.Text = fechaenv;
-                horatextBox.Text = hora;
-                MescomboBox.Text = mes;
-                AnhotextBox.Text = anho;
-                cantciaesttextBox.Text = cantcia_est.ToString();
-                autortextBox.Text = autor;
-                teleftextBox.Text = telefono;
-                lugartextBox.Text = lugar;
-                faxtextBox.Text = fax;
-                FechaCierre.Text = fechacierre;
-                totalservtextBox.Text = cantserv.ToString();
-                //cant1040textBox.Text = cant1040.ToString();
-                //cant1041textBox.Text = cant1041.ToString();
-                //cant1043textBox.Text = cant1043.ToString();
+                    // Obtener los datos de las columnas
+                    int idinforme = Convert.ToInt32(selectedRow["código"]);
+                    string fechaenv = selectedRow["fechaenv"].ToString();
+                    string hora = selectedRow["hora"].ToString();
+                    string mes = selectedRow["mes"].ToString();
+                    string anho = selectedRow["año"].ToString();
+                    int cantcia_est = Convert.ToInt32(selectedRow["cantcia_est"]);
+                    string autor = selectedRow["autor"].ToString();
+                    string telefono = selectedRow["telefono"].ToString();
+                    string lugar = selectedRow["lugar"].ToString();
+                    string fax = selectedRow["fax"].ToString();
+                    string fechacierre = selectedRow["fechacierre"].ToString();
+                    int cantserv = Convert.ToInt32(selectedRow["cantserv"]);
+                    //int cant1040 = Convert.ToInt32(selectedRow["cant1040"]);
+                    //int cant1041 = Convert.ToInt32(selectedRow["cant1041"]);
+                    //int cant1043 = Convert.ToInt32(selectedRow["cant1043"]);
+                    // Llenar los TextBox correspondientes con los datos obtenidos
+                    codrestextBox.Text = idinforme.ToString();
+                    FechaServ.Text = fechaenv;
+                    horatextBox.Text = hora;
+                    MescomboBox.Text = mes;
+                    AnhotextBox.Text = anho;
+                    cantciaesttextBox.Text = cantcia_est.ToString();
+                    autortextBox.Text = autor;
+                    teleftextBox.Text = telefono;
+                    lugartextBox.Text = lugar;
+                    faxtextBox.Text = fax;
+                    FechaCierre.Text = fechacierre;
+                    totalservtextBox.Text = cantserv.ToString();
+                    //cant1040textBox.Text = cant1040.ToString();
+                    //cant1041textBox.Text = cant1041.ToString();
+                    //cant1043textBox.Text = cant1043.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void CombusdataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CombustibledataGrid.SelectedItem != null)
+            try
+            { 
+                if (CombustibledataGrid.SelectedItem != null)
+                {
+                    dynamic selectedRow = CombustibledataGrid.SelectedItem;
+
+                    int id = Convert.ToInt32(selectedRow["código"]);
+                    string periodo = selectedRow["periodo"].ToString();
+                    string fecha = selectedRow["fecha"].ToString();
+                    string ci = selectedRow["ci"].ToString();
+                    string nombre = selectedRow["nombre"].ToString();
+                    string lugarsal = selectedRow["lugar_salida"].ToString();
+                    int kmsalida = Convert.ToInt32(selectedRow["km_salida"]);
+                    string lugardes = selectedRow["lugar_destino"].ToString();
+                    int kmllegada = Convert.ToInt32(selectedRow["km_llegada"]);
+                    int kmrecorrido = Convert.ToInt32(selectedRow["km_recorrido"]);
+                    string motivo = selectedRow["motivo"].ToString();
+                    int ltscarg = Convert.ToInt32(selectedRow["litros_cargados"]);
+                    string factura = selectedRow["factura"].ToString();
+                    int imptotal = Convert.ToInt32(selectedRow["importe_total"]);
+
+
+                    codtextBox.Text = id.ToString();
+                    periodotextBox.Text = periodo;
+                    FechaCombus.Text = fecha;
+                    CItextBox.Text = ci;
+                    nombretextBox.Text = nombre;
+                    salidatextBox.Text = lugarsal;
+                    kmsalidatextBox.Text = kmsalida.ToString();
+                    destinotextBox.Text = lugardes;
+                    kmllegadatextBox.Text = kmllegada.ToString();
+                    kmrecorridotextBox.Text = kmrecorrido.ToString();
+                    motivotextBox.Text = motivo;
+                    ltscargadotextBox.Text = ltscarg.ToString();
+                    facturatextBox.Text = factura;
+                    importetextBox.Text = imptotal.ToString();
+                }
+            }
+            catch (Exception ex)
             {
-                dynamic selectedRow = CombustibledataGrid.SelectedItem;
-
-                int id = Convert.ToInt32(selectedRow["código"]);
-                string periodo = selectedRow["periodo"].ToString();
-                string fecha = selectedRow["fecha"].ToString();
-                string ci = selectedRow["ci"].ToString();
-                string nombre = selectedRow["nombre"].ToString();
-                string lugarsal = selectedRow["lugar_salida"].ToString();
-                int kmsalida = Convert.ToInt32(selectedRow["km_salida"]);
-                string lugardes = selectedRow["lugar_destino"].ToString();
-                int kmllegada = Convert.ToInt32(selectedRow["km_llegada"]);
-                int kmrecorrido = Convert.ToInt32(selectedRow["km_recorrido"]);
-                string motivo = selectedRow["motivo"].ToString();
-                int ltscarg = Convert.ToInt32(selectedRow["litros_cargados"]);
-                string factura = selectedRow["factura"].ToString();
-                int imptotal = Convert.ToInt32(selectedRow["importe_total"]);
-
-
-                codtextBox.Text = id.ToString();
-                periodotextBox.Text = periodo;
-                FechaCombus.Text = fecha;
-                CItextBox.Text = ci;
-                nombretextBox.Text = nombre;
-                salidatextBox.Text = lugarsal;
-                kmsalidatextBox.Text = kmsalida.ToString();
-                destinotextBox.Text = lugardes;
-                kmllegadatextBox.Text = kmllegada.ToString();
-                kmrecorridotextBox.Text = kmrecorrido.ToString();
-                motivotextBox.Text = motivo;
-                ltscargadotextBox.Text = ltscarg.ToString();
-                facturatextBox.Text = factura;
-                importetextBox.Text = imptotal.ToString();
+                MessageBox.Show(ex.Message);
             }
         }
         private void LogOutButton_Clikc(object sender, RoutedEventArgs e)
@@ -629,13 +653,14 @@ namespace test1
             MessageBoxResult result = MessageBox.Show("Quieres cerrar sesión?", "Cierre de sesión", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
+                AuditoriaService.RegistrarAuditoria(username, "Cierre de Sesion");
                 Login log = new Login();
                 log.Show();
                 Close();
             }
 
         }
-        /////////////Generar PDF//////////////
+        /////////////Generar Word//////////////
         private void GenerarWordButton_Click(object sender, RoutedEventArgs e)
         {
             // Obtener los datos filtrados de la base de datos
@@ -777,7 +802,7 @@ namespace test1
                 SaveFileDialog dialogoGuardar = new SaveFileDialog();
                 dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
                 dialogoGuardar.DefaultExt = "docx";
-
+                AuditoriaService.RegistrarAuditoria(username, "Generacion de documento Word");
                 if (dialogoGuardar.ShowDialog() == true)
                 {
                     string rutaArchivo = dialogoGuardar.FileName;
@@ -1156,11 +1181,11 @@ namespace test1
                     }
                 
             }
-    catch (Exception ex)
-    {
-        MessageBox.Show(ex.Message);
-    }
-}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void SaveUsers_ButtonClick(object sender, RoutedEventArgs e)
         {
             try
@@ -1168,9 +1193,11 @@ namespace test1
                 string saveuser = "insert into users(username, password, role, CI, correo ,phone)values('" + UsuariotextBox.Text + "','" + UserpasstextBox.Password + "','" + RoltextBox.Text + "'," + UsercitextBox.Text + ",'" + UsercorreotextBox.Text + "','" + UserteleftextBox.Text + "')";
                 SQLiteCommand cmd = new SQLiteCommand(saveuser, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
+                AuditoriaService.RegistrarAuditoria(username, "Guardado de Usuario");
                 Limpiar();
                 Mostrar();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -1183,10 +1210,12 @@ namespace test1
                  string modifyuser = "update users set username='" + UsuariotextBox.Text + "', password='" + UserpasstextBox.Password + "', role='" + RoltextBox.Text + "', CI=" + UsercitextBox.Text + ", correo='" + UsercorreotextBox.Text + "', phone='" + UserteleftextBox.Text + "' where id=" + codusertextBox.Text + "";
                  SQLiteCommand cmd = new SQLiteCommand(modifyuser, ConexionDB.conectar());
                  cmd.ExecuteNonQuery();
-                 Limpiar();
+                AuditoriaService.RegistrarAuditoria(username, "Modificacion de Usuario");
+                Limpiar();
                  Mostrar();
                     
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -1200,6 +1229,7 @@ namespace test1
                 string deleteuser = "delete from users where id=" + codusertextBox.Text + "";
                 SQLiteCommand cmd = new SQLiteCommand(deleteuser, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
+                AuditoriaService.RegistrarAuditoria(username, "Eliminacion de Usuario");
                 Limpiar();
                 Mostrar();
             }

@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Collections.ObjectModel;
@@ -53,39 +53,59 @@ namespace test1
         }
        public void Carga()
         {
-            string cargar = "select idtipo_combus,descripcion from tipo_combus";
-            SQLiteCommand cmd = new SQLiteCommand(cargar, ConexionDB.conectar());
-            SQLiteDataReader r = cmd.ExecuteReader();
-            while (r.Read())
+            try
             {
-                Tipocombus t = new Tipocombus();
-                t.IdTipoCombus = r.GetValue(0).ToString();
-                t.Descripcion = r.GetValue(1).ToString();
-                listtipocombus.Add(t);
+                string cargar = "select idtipo_combus,descripcion from tipo_combus";
+                SQLiteCommand cmd = new SQLiteCommand(cargar, ConexionDB.conectar());
+                SQLiteDataReader r = cmd.ExecuteReader();
+                while (r.Read())
+                {
+                    Tipocombus t = new Tipocombus();
+                    t.IdTipoCombus = r.GetValue(0).ToString();
+                    t.Descripcion = r.GetValue(1).ToString();
+                    listtipocombus.Add(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         private void SaveVehiculoButton_Click(object sender, RoutedEventArgs e)
         {
-            Tipocombus tc = (Tipocombus)TipocomboBox.SelectedValue;
-            string guardar = "insert into vehiculo(descripcion,chapa,idtipo_combus)values('" + descripvehtextBox.Text + "','" + chapatextBox.Text + "'," + tc.IdTipoCombus + ")";
-            SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
-            cmd.ExecuteNonQuery();
+            try
+            {
+                Tipocombus tc = (Tipocombus)TipocomboBox.SelectedValue;
+                string guardar = "insert into vehiculo(descripcion,chapa,idtipo_combus)values('" + descripvehtextBox.Text + "','" + chapatextBox.Text + "'," + tc.IdTipoCombus + ")";
+                SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
+                cmd.ExecuteNonQuery();
 
-            Mostrar();
-            Limpiar();
-            _mainWindow.Cargar();
-
+                Mostrar();
+                Limpiar();
+                _mainWindow.Cargar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            string borrar = "delete from vehiculo where idvehiculo="+CodigovehtextBox.Text+"";
-            SQLiteCommand cmd = new SQLiteCommand(borrar, ConexionDB.conectar());
-            cmd.ExecuteNonQuery();
-            
-            Limpiar();
-            Mostrar();
-            _mainWindow.Cargar();
+            try
+            {
+                string borrar = "delete from vehiculo where idvehiculo=" + CodigovehtextBox.Text + "";
+                SQLiteCommand cmd = new SQLiteCommand(borrar, ConexionDB.conectar());
+                cmd.ExecuteNonQuery();
+
+                Limpiar();
+                Mostrar();
+                _mainWindow.Cargar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
