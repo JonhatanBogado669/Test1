@@ -199,7 +199,7 @@ namespace test1
             ///registro usuarios///
             UsuariotextBox.Text = "";
             UserpasstextBox.Password = "";
-            RoltextBox.Text = "";
+            RolComboBox.Text = "";
             UsercitextBox.Text = "";
             UsercorreotextBox.Text = "";
             UserteleftextBox.Text = "";
@@ -259,7 +259,10 @@ namespace test1
                     m.Descripcion = r1.GetValue(1).ToString();
                     listmes.Add(m);
                 }
-            }catch(Exception ex)
+                RolComboBox.Items.Add("Admin");
+                RolComboBox.Items.Add("Usuario");
+            }
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -1190,7 +1193,8 @@ namespace test1
         {
             try
             {
-                string saveuser = "insert into users(username, password, role, CI, correo ,phone)values('" + UsuariotextBox.Text + "','" + UserpasstextBox.Password + "','" + RoltextBox.Text + "'," + UsercitextBox.Text + ",'" + UsercorreotextBox.Text + "','" + UserteleftextBox.Text + "')";
+                string Rol = RolComboBox.SelectedItem.ToString();
+                string saveuser = "insert into users(username, password, role, CI, correo ,phone)values('" + UsuariotextBox.Text + "','" + UserpasstextBox.Password + "','" + Rol + "'," + UsercitextBox.Text + ",'" + UsercorreotextBox.Text + "','" + UserteleftextBox.Text + "')";
                 SQLiteCommand cmd = new SQLiteCommand(saveuser, ConexionDB.conectar());
                 cmd.ExecuteNonQuery();
                 AuditoriaService.RegistrarAuditoria(username, "Guardado de Usuario");
@@ -1207,7 +1211,8 @@ namespace test1
         {
             try
             {
-                 string modifyuser = "update users set username='" + UsuariotextBox.Text + "', password='" + UserpasstextBox.Password + "', role='" + RoltextBox.Text + "', CI=" + UsercitextBox.Text + ", correo='" + UsercorreotextBox.Text + "', phone='" + UserteleftextBox.Text + "' where id=" + codusertextBox.Text + "";
+                string Rol = RolComboBox.SelectedItem.ToString();
+                string modifyuser = "update users set username='" + UsuariotextBox.Text + "', password='" + UserpasstextBox.Password + "', role='" + Rol + "', CI=" + UsercitextBox.Text + ", correo='" + UsercorreotextBox.Text + "', phone='" + UserteleftextBox.Text + "' where id=" + codusertextBox.Text + "";
                  SQLiteCommand cmd = new SQLiteCommand(modifyuser, ConexionDB.conectar());
                  cmd.ExecuteNonQuery();
                 AuditoriaService.RegistrarAuditoria(username, "Modificacion de Usuario");
