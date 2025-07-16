@@ -51,7 +51,6 @@ namespace test1
         public MainWindow()
         {
             InitializeComponent();
-
             //ConfigurarBaseDeDatos();
             vehiculocomboBox.ItemsSource = listvehiculo;
             MescomboBox.ItemsSource = listmes;
@@ -60,11 +59,6 @@ namespace test1
             Cargar();
 
         }
-        /*public static async Task Main(string[] args)
-        {
-            var backupService = new GoogleDriveBackup();
-            await backupService.BackupDatabaseAsync();
-        }*/
         public void Auditoria()
         {
             try
