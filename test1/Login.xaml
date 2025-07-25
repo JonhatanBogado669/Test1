@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:test1"
         mc:Ignorable="d"
-        Title="Login" Height="538" Width="451" WindowStartupLocation="CenterScreen" HorizontalAlignment="Center" VerticalAlignment="Center" ResizeMode="CanResize" BorderThickness="0,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+        Title="Login" Height="538" Width="451" WindowStartupLocation="CenterScreen" HorizontalAlignment="Center" VerticalAlignment="Center" ResizeMode="NoResize" BorderThickness="0,5,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Icon="1752242249745.png"
        >
 
     <Grid>
-        <Grid x:Name="LoginGrid" Background="#FF16163C" Margin="0,-10,0,0">
+        <Grid x:Name="LoginGrid" Background="#FF16163C" Margin="0,-4,-1,0">
             <Rectangle Fill="#FF0B0B29" HorizontalAlignment="Left" Height="438" Margin="74,32,0,0" Stroke="#FF181832" VerticalAlignment="Top" Width="294" RadiusX="15.5" RadiusY="15.5" Opacity="0.9"/>
             <Label x:Name="label12" Content="Usuario:" HorizontalAlignment="Left" Margin="120,268,0,0" VerticalAlignment="Top" FontSize="15" Width="71" Foreground="#DDFFFFFF" FontWeight="SemiBold"/>
-            <TextBox x:Name="UsernametextBox" HorizontalAlignment="Left" Height="30" Margin="120,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" FontSize="15" Foreground="White" CaretBrush="White" BorderBrush="White"/>
+            <TextBox x:Name="UsernametextBox" TabIndex="0"  HorizontalAlignment="Left" Height="30" Margin="120,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" FontSize="15" Foreground="White" BorderBrush="White" CaretBrush="White"/>
             <Label x:Name="label12_Copy" Content="Contraseña:" HorizontalAlignment="Left" Margin="120,328,0,0" VerticalAlignment="Top" FontSize="15" Width="95" FontWeight="SemiBold" Foreground="#DDFFFFFF"/>
-            <PasswordBox x:Name="PasswordtextBox" HorizontalAlignment="Left" Height="30" Margin="120,358,0,0" VerticalAlignment="Top" Width="199" FontSize="15" CaretBrush="{x:Null}" TouchEnter="LoginButton_Click" Foreground="White" BorderBrush="White"/>
+            <PasswordBox x:Name="PasswordtextBox" HorizontalAlignment="Left" Height="30" Margin="120,358,0,0" VerticalAlignment="Top" Width="199" FontSize="15" TouchEnter="LoginButton_Click" Foreground="White" BorderBrush="White" CaretBrush="White"/>
             <Button x:Name="button4" IsDefault="True"  Content="Iniciar Sesión " HorizontalAlignment="Left" Height="28" Margin="159,394,0,0" VerticalAlignment="Top" Width="111" FontSize="14" Background="#FF00AC08" Foreground="#FFF7F7F7" Click="LoginButton_Click" BorderBrush="{x:Null}" Padding="0" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
             <Button x:Name="button5" Content="¿Olvidaste tu contraseña?" HorizontalAlignment="Left" Margin="134,424,0,0" VerticalAlignment="Top" Width="160" Height="32" FontSize="12" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF345BB0" Click="ForgotPasswordButton_Click" Padding="0" FontWeight="Normal" FontFamily="Arial"/>
             <Image x:Name="image1" HorizontalAlignment="Left" Height="142" Margin="148,39,0,0" VerticalAlignment="Top" Width="150" Source="1752242249745.png"/>

@@ -48,10 +48,12 @@ namespace test1
         ObservableCollection<Vehiculo> listvehiculo = new ObservableCollection<Vehiculo>();
         ObservableCollection<Mes> listmes = new ObservableCollection<Mes>();
         string username = UserSession.Username;
+        private FolderSync sync;
         public MainWindow()
         {
             InitializeComponent();
-
+            string carpeta = @"C:\Program Files\Default Company Name\Setup";
+            sync = new FolderSync(carpeta);
             //ConfigurarBaseDeDatos();
             vehiculocomboBox.ItemsSource = listvehiculo;
             MescomboBox.ItemsSource = listmes;
@@ -230,6 +232,11 @@ namespace test1
                 string mostraraudi = "SELECT a.id as codigo, u.username as usuario,u.role as rol, a.acceso,a.accion FROM auditoria a inner join users u where u.id=a.idusuario";
                 SQLiteCommand cmd3 = new SQLiteCommand(mostraraudi, ConexionDB.conectar());
                 AudidataGrid.ItemsSource = cmd3.ExecuteReader();
+
+                string mostrargraf = " SELECT i.anho as Año, SUM(cant1040 + cant1041 + cant1043) AS total FROM informe i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss Where s.idserv1040 = i.idserv1040 and ss.idserv1041 = i.idserv1041 and sss.idserv1043 = i.idserv1043  GROUP BY i.anho; ";
+                SQLiteCommand cmd4 = new SQLiteCommand(mostrargraf, ConexionDB.conectar());
+                esquema2dataGrid.ItemsSource = cmd4.ExecuteReader();
+               
             }
             catch(Exception ex)
             {
@@ -297,24 +304,32 @@ namespace test1
 
         private void SaveCombus_ButtonClick(object sender, RoutedEventArgs e)
         {
-            try
+            if (periodotextBox.Text != "" && vehiculocomboBox.SelectedValue != null && FechaCombus.Text != "" && CItextBox.Text != "0" && nombretextBox.Text != "" && salidatextBox.Text != "" && kmsalidatextBox.Text != "0" && destinotextBox.Text != "" && kmllegadatextBox.Text != "0" && kmrecorridotextBox.Text != "0" && motivotextBox.Text != "" && ltscargadotextBox.Text != "0" && facturatextBox.Text != "" && importetextBox.Text != "0")
             {
-                string username = new Login().UsernametextBox.Text;
-                Vehiculo v = (Vehiculo)vehiculocomboBox.SelectedValue;
-                string guardar = "insert into plan_combus(periodo,idvehiculo,fecha,ci,nombre,lugar_sal,km_salida,lugar_dest,km_llegada,km_recorrido,motivo,lts_carg,nro_fact,imp_total)values('" +
-                periodotextBox.Text + "'," + v.IdVehiculo + ",'" + FechaCombus.Text + "','" + CItextBox.Text + "','" + nombretextBox.Text + "','" + salidatextBox.Text + "'," + kmsalidatextBox.Text + ",'" +
-                destinotextBox.Text + "'," + kmllegadatextBox.Text + "," + kmrecorridotextBox.Text + ",'" + motivotextBox.Text + "'," + ltscargadotextBox.Text + ",'" + facturatextBox.Text + "'," + importetextBox.Text + ")";
-                SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Datos guardados exitosamente");
-                AuditoriaService.RegistrarAuditoria(username, "Guardado de registro de Combustible");
-                Limpiar();
-                Mostrar();
-                return;
+                try
+                {
+                    string username = new Login().UsernametextBox.Text;
+                    Vehiculo v = (Vehiculo)vehiculocomboBox.SelectedValue;
+                    string guardar = "insert into plan_combus(periodo,idvehiculo,fecha,ci,nombre,lugar_sal,km_salida,lugar_dest,km_llegada,km_recorrido,motivo,lts_carg,nro_fact,imp_total)values('" +
+                    periodotextBox.Text + "'," + v.IdVehiculo + ",'" + FechaCombus.Text + "','" + CItextBox.Text + "','" + nombretextBox.Text + "','" + salidatextBox.Text + "'," + kmsalidatextBox.Text + ",'" +
+                    destinotextBox.Text + "'," + kmllegadatextBox.Text + "," + kmrecorridotextBox.Text + ",'" + motivotextBox.Text + "'," + ltscargadotextBox.Text + ",'" + facturatextBox.Text + "'," + importetextBox.Text + ")";
+                    SQLiteCommand cmd = new SQLiteCommand(guardar, ConexionDB.conectar());
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Datos guardados exitosamente");
+                    AuditoriaService.RegistrarAuditoria(username, "Guardado de registro de Combustible");
+                    Limpiar();
+                    Mostrar();
+                    return;
+                
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar datos: " + ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Error al guardar datos: " + ex.Message);
+                MessageBox.Show("completa todos los campos!");
             }
         }
 
@@ -327,40 +342,82 @@ namespace test1
 
         private void ModifycombusButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (periodotextBox.Text != "" && vehiculocomboBox.SelectedValue != null && FechaCombus.Text != "" && CItextBox.Text != "0" && CItextBox.Text != "" && nombretextBox.Text != "" && salidatextBox.Text != "" && kmsalidatextBox.Text != "0" && kmsalidatextBox.Text != "" && destinotextBox.Text != "" && kmllegadatextBox.Text != "0" && kmllegadatextBox.Text != "" && kmrecorridotextBox.Text != "0" && kmrecorridotextBox.Text != "" && motivotextBox.Text != "" && ltscargadotextBox.Text != "0" && ltscargadotextBox.Text != "" && facturatextBox.Text != "" && importetextBox.Text != "0" && importetextBox.Text != "" && codtextBox.Text!= "" && codtextBox.Text!="0")
             {
-                Vehiculo v = (Vehiculo)vehiculocomboBox.SelectedValue;
-                string modificar = "update plan_combus set periodo='" + periodotextBox.Text + "', idvehiculo=" + v.IdVehiculo + ", fecha='" + FechaCombus + "',ci='" + CItextBox.Text + "', nombre='" +
-                nombretextBox.Text + "', lugar_sal='" + salidatextBox.Text + "', km_salida=" + kmsalidatextBox.Text + ", lugar_dest='" + destinotextBox.Text + "', km_llegada=" + kmllegadatextBox.Text + ", km_recorrido=" + kmrecorridotextBox.Text
-                + ", motivo='" + motivotextBox.Text + "', lts_carg=" + ltscargadotextBox.Text + ", nro_fact='" + facturatextBox.Text + "', imp_total=" + importetextBox.Text + " where idplan_combus=" + codtextBox.Text + "";
-                SQLiteCommand cmd = new SQLiteCommand(modificar, ConexionDB.conectar());
-                cmd.ExecuteNonQuery();
-                AuditoriaService.RegistrarAuditoria(username, "Modificacion de registro de Combustible");
-                Limpiar();
-                LimpiarCombus();
-                Mostrar();
+                try
+                {
+                    Vehiculo v = (Vehiculo)vehiculocomboBox.SelectedValue;
+                    string modificar = "update plan_combus set periodo='" + periodotextBox.Text + "', idvehiculo=" + v.IdVehiculo + ", fecha='" + FechaCombus + "',ci='" + CItextBox.Text + "', nombre='" +
+                    nombretextBox.Text + "', lugar_sal='" + salidatextBox.Text + "', km_salida=" + kmsalidatextBox.Text + ", lugar_dest='" + destinotextBox.Text + "', km_llegada=" + kmllegadatextBox.Text + ", km_recorrido=" + kmrecorridotextBox.Text
+                    + ", motivo='" + motivotextBox.Text + "', lts_carg=" + ltscargadotextBox.Text + ", nro_fact='" + facturatextBox.Text + "', imp_total=" + importetextBox.Text + " where idplan_combus=" + codtextBox.Text + "";
+                    SQLiteCommand cmd = new SQLiteCommand(modificar, ConexionDB.conectar());
+                    cmd.ExecuteNonQuery();
+                    AuditoriaService.RegistrarAuditoria(username, "Modificacion de registro de Combustible");
+                    Limpiar();
+                    LimpiarCombus();
+                    Mostrar();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                System.Windows.MessageBox.Show(ex.Message);
+                if (codtextBox.Text == "")
+                {
+                    MessageBox.Show("ingrese el nro. de código para actualizar los datos!");
+                }
+                else
+                {
+                    if (codtextBox.Text == "0")
+                    {
+
+                        MessageBox.Show("ingrese el nro. de código correcto!");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("completa todos los campos!");
+                    }
+                }
+               
             }
         }
 
         private void DeletecombusButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (codtextBox.Text == "")
             {
-                string borrar = "delete from plan_combus where idplan_combus=" + codtextBox.Text + "";
-                SQLiteCommand cmd = new SQLiteCommand(borrar, ConexionDB.conectar());
-                cmd.ExecuteNonQuery();
-                AuditoriaService.RegistrarAuditoria(username, "Eliminación de registro de Combustible");
-                Limpiar();
-                LimpiarCombus();
-                Mostrar();
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ingrese el nro. de código para eliminar los datos!");
             }
+            else
+            {
+                if (codtextBox.Text == "0")
+                {
+
+                    MessageBox.Show("ingrese el nro. de código correcto!");
+
+                }
+                else
+                {
+                    try
+                    {
+                        string borrar = "delete from plan_combus where idplan_combus=" + codtextBox.Text + "";
+                        SQLiteCommand cmd = new SQLiteCommand(borrar, ConexionDB.conectar());
+                        cmd.ExecuteNonQuery();
+                        AuditoriaService.RegistrarAuditoria(username, "Eliminación de registro de Combustible");
+                        Limpiar();
+                        LimpiarCombus();
+                        Mostrar();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+          
 
         }
 

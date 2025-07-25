@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace test1.models
         public static SQLiteConnection conectar()
         {
             string connectionString = "Data Source= bomberoDB.db;Version=3;";
+            Console.WriteLine("Ruta absoluta: " + Path.GetFullPath("data.sqlite"));
             SQLiteConnection conexionDB = new SQLiteConnection(connectionString);
 
             try
@@ -27,24 +29,5 @@ namespace test1.models
 
             return conexionDB;
         }
-        
-        /*public static void InsertarAuditoria(int idUsuario, string accion)
-        {
-            using (var conexion = conectar())
-            {
-                
-                string query = "INSERT INTO Auditoria (idusuario, acceso, accion) VALUES (@IdUsuario, @Acceso, @Accion)";
-                using (var cmd = new SQLiteCommand(query, conexion))
-                {
-                    cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
-                    cmd.Parameters.AddWithValue("@Acceso", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@Accion", accion);
-
-                    cmd.ExecuteNonQuery();
-                }
-                
-            }
-
-        }*/
     }
 }
