@@ -260,6 +260,9 @@
     <None Include="bin\Release\credentials.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\credentials.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Scripts\jquery-2.1.1.min.map" />
     <Resource Include="escudo.jpg" />
     <Resource Include="Clean.png" />

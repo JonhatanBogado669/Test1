@@ -1,51 +1,55 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace test1
 {
     public class FolderSync
     {
-        private FileSystemWatcher watcher;
-        private DriveUploader uploader;
+        private FileSystemWatcher _watcher;
+        private DriveUploader _uploader;
+        private string _dbPath;
+        private Timer _debounceTimer;
+        private const int DebounceDelayMs = 2000;
 
-        public FolderSync(string folderPath)
+        public FolderSync(string dbPath, DriveUploader uploader)
         {
-            try
+            _dbPath = dbPath ?? throw new ArgumentNullException(nameof(dbPath));
+            _uploader = uploader ?? throw new ArgumentNullException(nameof(uploader));
+
+            string folderPath = Path.GetDirectoryName(dbPath);
+            string fileName = Path.GetFileName(dbPath);
+
+            _watcher = new FileSystemWatcher(folderPath, fileName)
             {
-                uploader = new DriveUploader();
+                NotifyFilter = NotifyFilters.LastWrite
+            };
 
-                watcher = new FileSystemWatcher(folderPath);
-                watcher.IncludeSubdirectories = false;
-                watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
-                watcher.Created += async (s, e) =>
-                {
-                    if (Path.GetFileName(e.FullPath).Equals("bomberoDB.db", StringComparison.OrdinalIgnoreCase))
-                    {
-                        Console.WriteLine("Archivo creado: " + e.FullPath);
-                        await uploader.UploadFile(e.FullPath);
-                    }
-                };
+            _watcher.Changed += OnChanged;
+            _watcher.EnableRaisingEvents = true;
 
-                watcher.Changed += async (s, e) =>
-                {
-                    if (Path.GetFileName(e.FullPath).Equals("bomberoDB.db", StringComparison.OrdinalIgnoreCase))
-                    {
-                        Console.WriteLine("Archivo cambiado: " + e.FullPath);
-                        await uploader.UploadFile(e.FullPath);
-                    }
-                };
+            Console.WriteLine($"Vigilando cambios en {_dbPath}");
+        }
 
-                watcher.EnableRaisingEvents = true;
-            }
-            catch (Exception ex)
+        private void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine($"Evento Changed detectado para archivo: {e.FullPath}");
+
+            _debounceTimer?.Dispose();
+            _debounceTimer = new Timer(async _ =>
             {
-                MessageBox.Show(ex.Message);
-            }
+                Console.WriteLine("Ejecutando subida tras debounce...");
+                try
+                {
+                    await _uploader.UploadOrUpdateFileAsync(_dbPath);
+                    Console.WriteLine("Archivo subido correctamente.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error en subida a Drive: {ex.Message}");
+                }
+            }, null, DebounceDelayMs, Timeout.Infinite);
         }
     }
 }

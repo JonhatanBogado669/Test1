@@ -42,13 +42,19 @@ namespace test1
         ObservableCollection<Vehiculo> listvehiculo = new ObservableCollection<Vehiculo>();
         ObservableCollection<Mes> listmes = new ObservableCollection<Mes>();
         string username = UserSession.Username;
-        ///private FolderSync sync;
+        private DriveUploader _uploader;
+       // private FolderSync _folderSync;
         public MainWindow()
         {
             InitializeComponent();
-            /*string carpeta = @"C:\Program Files\Default Company Name\Setup";
-            sync = new FolderSync(carpeta);*/
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string dbPath = @"C:\Program Files\Default Company Name\Setup\bomberoDB.db";
+            string credentialsPath = @"C:\Program Files\Default Company Name\Setup\credentials.json";
+            string tokenPath = @"C:\Program Files\Default Company Name\Setup\Token";
+
+            InitDriveUploaderAsync(dbPath, credentialsPath, tokenPath);
             //ConfigurarBaseDeDatos();
+
             vehiculocomboBox.ItemsSource = listvehiculo;
             MescomboBox.ItemsSource = listmes;
             ConexionDB.conectar();
@@ -56,11 +62,22 @@ namespace test1
             Cargar();
 
         }
-        /*public static async Task Main(string[] args)
+        private async void InitDriveUploaderAsync(string dbPath, string credentialsPath, string tokenPath)
         {
-            var backupService = new GoogleDriveBackup();
-            await backupService.BackupDatabaseAsync();
-        }*/
+            try
+            {
+                _uploader = new DriveUploader();
+                await _uploader.InitializeAsync(credentialsPath, tokenPath);
+
+                //_folderSync = new FolderSync(dbPath, _uploader);
+
+                Console.WriteLine("Sincronización automática iniciada.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error iniciando sincronización: {ex.Message}");
+            }
+        }
         public void Auditoria()
         {
             try
@@ -1565,6 +1582,26 @@ namespace test1
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }
+        }
+
+        private async void UploadButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string dbPath = @"C:\Program Files\Default Company Name\Setup\bomberoDB.db";
+                if (_uploader == null)
+                {
+                    MessageBox.Show("DriveUploader no está inicializado.");
+                    return;
+                }
+
+                await _uploader.UploadOrUpdateFileAsync(dbPath);
+                MessageBox.Show("Archivo subido correctamente a Google Drive.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al subir archivo: {ex.Message}");
             }
         }
     }

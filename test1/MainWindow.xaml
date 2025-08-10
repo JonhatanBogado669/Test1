@@ -512,7 +512,8 @@
             </TabItem>
 
         </TabControl>
-        <Button x:Name="button3" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="1201,0,0,0" VerticalAlignment="Top" Width="85" Background="#FF0B0B29" Foreground="White" Click="LogOutButton_Clikc" BorderBrush="#FF0B0B29" Padding="0" FontSize="12" Height="22"/>
+        <Button x:Name="button3" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="1201,0,0,0" VerticalAlignment="Top" Width="85" Foreground="White" Click="LogOutButton_Clikc" Padding="0" FontSize="12" Height="22" Background="#FFB53F3F" BorderBrush="#FFB53F3F"/>
+        <Button x:Name="button33" Content="Sync" HorizontalAlignment="Left" Margin="1159,0,0,0" VerticalAlignment="Top" Width="40" Foreground="White" Click="UploadButton_Click" Padding="0" FontSize="12" Height="22"/>
 
     </Grid>
 </Window>
