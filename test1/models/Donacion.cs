@@ -9,7 +9,7 @@ namespace test1.models
     class Donacion
     {
         private string iddonacion;
-        private string nombre;
+        private string donador;
         private string descripcion;
         private string cantidad;
 
@@ -18,10 +18,10 @@ namespace test1.models
             set { iddonacion = value; }
             get { return iddonacion; }
         }
-        public string Nombre
+        public string Donador
         {
-            set { nombre = value; }
-            get { return nombre; }
+            set { donador = value; }
+            get { return donador; }
         }
         public string Descripcion
         {

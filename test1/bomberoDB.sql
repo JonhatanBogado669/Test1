@@ -1,4 +1,20 @@
-﻿-- Creación de la tabla tipo_combus
+﻿-- Tabla de donaciones
+CREATE TABLE donacion (
+    iddonacion INTEGER PRIMARY KEY AUTOINCREMENT,
+    donador TEXT,
+    descripcion TEXT,
+    cantidad INTEGER
+);
+-- Tabla de meses
+CREATE TABLE mes (
+    idmes INTEGER PRIMARY KEY AUTOINCREMENT,
+    descripcion TEXT
+);
+
+INSERT INTO mes(descripcion) VALUES
+('Enero'), ('Febrero'), ('Marzo'), ('Abril'), ('Mayo'), ('Junio'),
+('Julio'), ('Agosto'), ('Septiembre'), ('Octubre'), ('Noviembre'), ('Diciembre');
+-- Creación de la tabla tipo_combus
 CREATE TABLE tipo_combus (
     idtipo_combus INTEGER PRIMARY KEY AUTOINCREMENT,
     descripcion VARCHAR(45)
@@ -32,25 +48,7 @@ CREATE TABLE plan_combus (
     imp_total INTEGER,
     FOREIGN KEY(idvehiculo) REFERENCES vehiculo(idvehiculo)
 );
--- Creación de la tabla mes
-CREATE TABLE mes (
-    idmes INTEGER PRIMARY KEY AUTOINCREMENT,
-    descripcion VARCHAR(24)
-);
 
--- Inserción de datos en la tabla mes
-INSERT INTO mes (descripcion) VALUES ('Enero');
-INSERT INTO mes (descripcion) VALUES ('Febrero');
-INSERT INTO mes (descripcion) VALUES ('Marzo');
-INSERT INTO mes (descripcion) VALUES ('Abril');
-INSERT INTO mes (descripcion) VALUES ('Mayo');
-INSERT INTO mes (descripcion) VALUES ('Junio');
-INSERT INTO mes (descripcion) VALUES ('Julio');
-INSERT INTO mes (descripcion) VALUES ('Agosto');
-INSERT INTO mes (descripcion) VALUES ('Septiembre');
-INSERT INTO mes (descripcion) VALUES ('Octubre');
-INSERT INTO mes (descripcion) VALUES ('Noviembre');
-INSERT INTO mes (descripcion) VALUES ('Diciembre');
 CREATE TABLE serv1040 (
     idserv1040 INTEGER PRIMARY KEY AUTOINCREMENT,
     cant1040 INTEGER,
@@ -174,7 +172,15 @@ CREATE TABLE password_reset (
     reset_code VARCHAR(50) NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username)
 );
-INSERT INTO tipo_combus(descripcion) VALUES ('diesel');
-INSERT INTO tipo_combus(descripcion) VALUES ('nafta');
-INSERT INTO users(username, password, role, CI, correo, phone) VALUES ('Jonhy', 'elmaspija', 'Admin', 5358270, 'megaxonx@gmail.com', '0984354294');
-INSERT INTO users(username, password, role, CI, correo, phone) VALUES ('Joel', 'elmaspijita', 'Usuario', 5334522, 'joelnomas@gmail.com', '0982786766');
+-- Insertar tipos de combustible
+INSERT INTO tipo_combus(descripcion) VALUES ('diesel'), ('nafta');
+INSERT INTO users(username, password, role, CI, correo, phone) VALUES ('Jonhy', 'jonhy123', 'Admin', 5358270, 'jonhatanbogado@gmail.com', '0984354294');
+INSERT INTO users(username, password, role, CI, correo, phone) VALUES ('Joel', 'joel', 'Usuario', 5334522, 'joel@gmail.com', '0982786766');
+-- Tabla de auditoría
+CREATE TABLE auditoria (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    idusuario INTEGER NOT NULL,
+    acceso TEXT NOT NULL,
+    accion TEXT NOT NULL,
+    FOREIGN KEY(idusuario) REFERENCES users(id)
+);

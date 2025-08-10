@@ -42,12 +42,12 @@ namespace test1
         ObservableCollection<Vehiculo> listvehiculo = new ObservableCollection<Vehiculo>();
         ObservableCollection<Mes> listmes = new ObservableCollection<Mes>();
         string username = UserSession.Username;
-        private FolderSync sync;
+        ///private FolderSync sync;
         public MainWindow()
         {
             InitializeComponent();
-            string carpeta = @"C:\Program Files\Default Company Name\Setup";
-            sync = new FolderSync(carpeta);
+            /*string carpeta = @"C:\Program Files\Default Company Name\Setup";
+            sync = new FolderSync(carpeta);*/
             //ConfigurarBaseDeDatos();
             vehiculocomboBox.ItemsSource = listvehiculo;
             MescomboBox.ItemsSource = listmes;
@@ -206,6 +206,11 @@ namespace test1
             UsercorreotextBox.Text = "";
             UserteleftextBox.Text = "";
             codusertextBox.Text = "";
+            ///registro de donaciones///
+            CodDontextBox.Text = "";
+            donadortextBox.Text = "";
+            DescripcionDontextBox.Text = "";
+            CantDontextBox.Text = "";
         }
         public void Mostrar()
         {
@@ -228,12 +233,46 @@ namespace test1
                 SQLiteCommand cmd3 = new SQLiteCommand(mostraraudi, ConexionDB.conectar());
                 AudidataGrid.ItemsSource = cmd3.ExecuteReader();
 
-                string mostrargraf = " SELECT i.anho as Año, SUM(cant1040 + cant1041 + cant1043) AS total FROM informe i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss Where s.idserv1040 = i.idserv1040 and ss.idserv1041 = i.idserv1041 and sss.idserv1043 = i.idserv1043  GROUP BY i.anho; ";
+
+                string mostrardon = "SELECT iddonacion as codigo, donador, descripcion, cantidad FROM donacion";
+                SQLiteCommand cmd5 = new SQLiteCommand(mostrardon, ConexionDB.conectar());
+                DonaciondataGrid.ItemsSource= cmd5.ExecuteReader();
+
+                ///grafico de servicios por año///
+
+                string mostrargraf = " SELECT i.anho as Año, SUM(cantserv) AS total FROM informe i INNER JOIN serv1040 s, serv1041 ss, serv1043 sss Where s.idserv1040 = i.idserv1040 and ss.idserv1041 = i.idserv1041 and sss.idserv1043 = i.idserv1043  GROUP BY i.anho; ";
                 SQLiteCommand cmd4 = new SQLiteCommand(mostrargraf, ConexionDB.conectar());
-                esquema2dataGrid.ItemsSource = cmd4.ExecuteReader();
-               
+                SQLiteDataReader reader = cmd4.ExecuteReader();
+                var cartesianSeries = new SeriesCollection();
+                var labels = new List<string>();
+                var values = new ChartValues<double>();
+
+                while (reader.Read())
+                {
+                    labels.Add(reader["Año"].ToString());
+                    values.Add(Convert.ToDouble(reader["total"]));
+                }
+
+                // Crear una sola serie de columnas
+                cartesianSeries.Add(new ColumnSeries
+                {
+                    Title = "Total Servicios",
+                    Values = values,
+                    Fill = Brushes.Indigo
+                });
+
+                // Asignar datos al chart
+                cartesianChart.Series = cartesianSeries;
+                cartesianChart.AxisX[0].Labels = labels;
+
+                // Forzar que muestre todas las etiquetas
+                cartesianChart.AxisX[0].Separator = new LiveCharts.Wpf.Separator
+                {
+                    Step = 1
+                };
+                cartesianChart.AxisX[0].LabelsRotation = 0; // o 45 si querés inclinarlas
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -298,7 +337,7 @@ namespace test1
                     AuditoriaService.RegistrarAuditoria(username, "Guardado de registro de Combustible");
                     Limpiar();
                     Mostrar();
-                    return;
+                    
                 
                 }
                 catch (Exception ex)
@@ -490,122 +529,126 @@ namespace test1
                 MessageBox.Show(ex.Message);
             }
         }
-       
+
         private void ModifyresButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (MescomboBox.SelectedValue!=null && FechaServ.Text != "" && horatextBox.Text != "" && AnhotextBox.Text != "" && cantciaesttextBox.Text != "" && cantciaesttextBox.Text != "0" && autortextBox.Text != "" && teleftextBox.Text != "" && lugartextBox.Text != "" && faxtextBox.Text != "" && FechaCierre.Text != "" && totalservtextBox.Text != "" && totalservtextBox.Text != "0")
             {
-                if (FechaServ.Text != "" && horatextBox.Text != "" && AnhotextBox.Text != "" && cantciaesttextBox.Text != "" && cantciaesttextBox.Text != "0" && autortextBox.Text != "" && teleftextBox.Text != "" && lugartextBox.Text != "" && faxtextBox.Text != "" && FechaCierre.Text != "" && totalservtextBox.Text != "" && totalservtextBox.Text != "0")
+                try
                 {
+                    using (var conn = ConexionDB.conectar())
+                {
+
                     //serv1040
                     string id1040 = "select i.idserv1040 from informe i where i.idinforme=" + codrestextBox.Text + "";
-                SQLiteCommand cm = new SQLiteCommand(id1040, ConexionDB.conectar());
-                using (SQLiteDataReader reader = cm.ExecuteReader())
-                {
-                    if (reader.Read())
+                    SQLiteCommand cm = new SQLiteCommand(id1040, conn);
+                    using (SQLiteDataReader reader = cm.ExecuteReader())
                     {
-                        int id40 = reader.GetInt32(0);
-                        string mod = "update serv1040 set cant1040=" + cant1040textBox.Text + ", horaserv=" + horaserv40textBox.Text + ", estructural=" + estructuraltextBox.Text + ", vehicular=" +
-                        vehiculartextBox.Text + ", basural=" + basuraltextBox.Text + ", forestal=" + forestaltextBox.Text + ", pastizal=" + pastizaltextBox.Text + ", desconocida=" +
-                        desconocidastextBox.Text + ", premeditada=" + premeditadastextBox.Text + ", accidental=" + accidentalestextBox.Text + ",corto=" + cortotextBox.Text + ", findelimpieza=" + limpiezatextBox.Text + ", principio=" +
-                        principiotextBox.Text + ", pequena=" + pqmagtextBox.Text + ", mediana=" + mdmagtextBox.Text + ", grande=" + grmagtextBox.Text + ", emergral=" + emergraltextBox.Text + ", agua=" +
-                        aguatextBox.Text + ", pqsco2=" + pqsco2textBox.Text + ", combustible=" + combustible40textBox.Text + ", bombero=" + bomberostextBox.Text + ", tiempototal=" +
-                        tiempototaltextBox.Text + ", ileso=" + ilesostextBox.Text + ", herido=" + heridostextBox.Text + ", fallecido=" + fallecidostextBox.Text + ", rescate=" +
-                        rescatestextBox.Text + ", totalkm=" + totalkmtextBox.Text + ", nomina='" + nomina40textBox.Text + "' where idserv1040 = " + id40 + "";
-                        SQLiteCommand cmd = new SQLiteCommand(mod, ConexionDB.conectar());
-                        cmd.ExecuteNonQuery();
+                        if (reader.Read())
+                        {
+                            int id40 = reader.GetInt32(0);
+                            string mod = "update serv1040 set cant1040=" + cant1040textBox.Text + ", horaserv=" + horaserv40textBox.Text + ", estructural=" + estructuraltextBox.Text + ", vehicular=" +
+                            vehiculartextBox.Text + ", basural=" + basuraltextBox.Text + ", forestal=" + forestaltextBox.Text + ", pastizal=" + pastizaltextBox.Text + ", desconocida=" +
+                            desconocidastextBox.Text + ", premeditada=" + premeditadastextBox.Text + ", accidental=" + accidentalestextBox.Text + ",corto=" + cortotextBox.Text + ", findelimpieza=" + limpiezatextBox.Text + ", principio=" +
+                            principiotextBox.Text + ", pequena=" + pqmagtextBox.Text + ", mediana=" + mdmagtextBox.Text + ", grande=" + grmagtextBox.Text + ", emergral=" + emergraltextBox.Text + ", agua=" +
+                            aguatextBox.Text + ", pqsco2=" + pqsco2textBox.Text + ", combustible=" + combustible40textBox.Text + ", bombero=" + bomberostextBox.Text + ", tiempototal=" +
+                            tiempototaltextBox.Text + ", ileso=" + ilesostextBox.Text + ", herido=" + heridostextBox.Text + ", fallecido=" + fallecidostextBox.Text + ", rescate=" +
+                            rescatestextBox.Text + ", totalkm=" + totalkmtextBox.Text + ", nomina='" + nomina40textBox.Text + "' where idserv1040 = " + id40 + "";
+                            SQLiteCommand cmd = new SQLiteCommand(mod, conn);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
-                }
 
-                //serv1041
-                string id1041 = "select i.idserv1041 from informe i where i.idinforme=" + codrestextBox.Text + "";
-                SQLiteCommand cm1 = new SQLiteCommand(id1041, ConexionDB.conectar());
-                using (SQLiteDataReader reader = cm1.ExecuteReader())
-                {
-                    if (reader.Read())
+                    //serv1041
+                    string id1041 = "select i.idserv1041 from informe i where i.idinforme=" + codrestextBox.Text + "";
+                    SQLiteCommand cm1 = new SQLiteCommand(id1041, conn);
+                    using (SQLiteDataReader reader = cm1.ExecuteReader())
                     {
-                        int id41 = reader.GetInt32(0);
-                        string mod = "update serv1041 set cant1041=" + cant1041textBox.Text + ", horaserv=" + horaserv41textBox.Text + ", arrollamiento=" + arrollamientotextBox.Text + ", choque=" +
-                        choquetextBox.Text + ", vuelco=" + vuelcotextBox.Text + ", caida=" + caidatextBox.Text + ", aeronave=" + aeronavetextBox.Text + ", peaton='" + peatonestextBox.Text + "', moto='" +
-                        motostextBox.Text + "', vehliviano='" + vehlivtextBox.Text + "', vehpesado='" + vehpestextBox.Text + "', bus='" + bustextBox.Text + "', danomat='" + dañomattextBox.Text + "', conherido='" +
-                        conheridostextBox.Text + "', conatrap='" + conatraptextBox.Text + "', coninc='" + coninctextBox.Text + "', matpel='" + matpeltextBox.Text + "', cintcond='" + cintcondtextBox.Text + "', cintacomp='" +
-                        cintacomptextBox.Text + "', cascocond='" + cascondtextBox.Text + "', cascoacomp='" + casacomptextBox.Text + "', ileso=" + ilesos41textBox.Text + ", herido=" + heridos41textBox.Text + ", fallecido=" +
-                        fallecidos41textBox.Text + ", rescate=" + rescates41textBox.Text + ", combustible=" + combustible41textBox.Text + ", bombero=" + bomberos41textBox.Text + ", kmrecorrido=" +
-                        kmrecorrido41textBox.Text + ", tiempototal=" + tiempototal41textBox.Text + ", nomina='" + nomina41textBox.Text + "' where idserv1041=" + id41 + "";
-                        SQLiteCommand cmd = new SQLiteCommand(mod, ConexionDB.conectar());
-                        cmd.ExecuteNonQuery();
+                        if (reader.Read())
+                        {
+                            int id41 = reader.GetInt32(0);
+                            string mod = "update serv1041 set cant1041=" + cant1041textBox.Text + ", horaserv=" + horaserv41textBox.Text + ", arrollamiento=" + arrollamientotextBox.Text + ", choque=" +
+                            choquetextBox.Text + ", vuelco=" + vuelcotextBox.Text + ", caida=" + caidatextBox.Text + ", aeronave=" + aeronavetextBox.Text + ", peaton='" + peatonestextBox.Text + "', moto='" +
+                            motostextBox.Text + "', vehliviano='" + vehlivtextBox.Text + "', vehpesado='" + vehpestextBox.Text + "', bus='" + bustextBox.Text + "', danomat='" + dañomattextBox.Text + "', conherido='" +
+                            conheridostextBox.Text + "', conatrap='" + conatraptextBox.Text + "', coninc='" + coninctextBox.Text + "', matpel='" + matpeltextBox.Text + "', cintcond='" + cintcondtextBox.Text + "', cintacomp='" +
+                            cintacomptextBox.Text + "', cascocond='" + cascondtextBox.Text + "', cascoacomp='" + casacomptextBox.Text + "', ileso=" + ilesos41textBox.Text + ", herido=" + heridos41textBox.Text + ", fallecido=" +
+                            fallecidos41textBox.Text + ", rescate=" + rescates41textBox.Text + ", combustible=" + combustible41textBox.Text + ", bombero=" + bomberos41textBox.Text + ", kmrecorrido=" +
+                            kmrecorrido41textBox.Text + ", tiempototal=" + tiempototal41textBox.Text + ", nomina='" + nomina41textBox.Text + "' where idserv1041=" + id41 + "";
+                            SQLiteCommand cmd = new SQLiteCommand(mod, conn);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
-                }
 
-                //serv1043
-                string id1043 = "select i.idserv1043 from informe i where i.idinforme=" + codrestextBox.Text + "";
-                SQLiteCommand cm2 = new SQLiteCommand(id1043, ConexionDB.conectar());
-                using (SQLiteDataReader reader = cm2.ExecuteReader())
-                {
-                    if (reader.Read())
+                    //serv1043
+                    string id1043 = "select i.idserv1043 from informe i where i.idinforme=" + codrestextBox.Text + "";
+                    SQLiteCommand cm2 = new SQLiteCommand(id1043, conn);
+                    using (SQLiteDataReader reader = cm2.ExecuteReader())
                     {
-                        int id43 = reader.GetInt32(0);
-                        string mod = "update serv1043 set cant1043=" + cant1043textBox.Text + ", horaserv=" + horaserv43textBox.Text + ", rescate=" + rescate43textBox.Text + ", recuperacion=" +
-                        recuperaciontextBox.Text + ", aniali=" + anialitextBox.Text + ", cobertura=" + coberturatextBox.Text + ", curso=" + cursotextBox.Text + ",transporte=" + transportetextBox.Text + ", vivienda=" + viviendatextBox.Text + ", profundidad=" +
-                        profundidadtextBox.Text + ", altura=" + alturatextBox.Text + ", derrumbe=" + derrumbetextBox.Text + ", naufragio=" + naufragiotextBox.Text + ", bomba=" + bombatextBox.Text + ", suicidio=" +
-                        suicidiotextBox.Text + ", ileso=" + ilesos43textBox.Text + ", herido=" + heridos43textBox.Text + ", fallecido=" + fallecidos43textBox.Text + ", combustible=" + combustible43textBox.Text + ", nomina='" +
-                        nomina43textBox.Text + "' where idserv1043=" + id43 + "";
-                        SQLiteCommand cmd = new SQLiteCommand(mod, ConexionDB.conectar());
-                        cmd.ExecuteNonQuery();
+                        if (reader.Read())
+                        {
+                            int id43 = reader.GetInt32(0);
+                            string mod = "update serv1043 set cant1043=" + cant1043textBox.Text + ", horaserv=" + horaserv43textBox.Text + ", rescate=" + rescate43textBox.Text + ", recuperacion=" +
+                            recuperaciontextBox.Text + ", aniali=" + anialitextBox.Text + ", cobertura=" + coberturatextBox.Text + ", curso=" + cursotextBox.Text + ",transporte=" + transportetextBox.Text + ", vivienda=" + viviendatextBox.Text + ", profundidad=" +
+                            profundidadtextBox.Text + ", altura=" + alturatextBox.Text + ", derrumbe=" + derrumbetextBox.Text + ", naufragio=" + naufragiotextBox.Text + ", bomba=" + bombatextBox.Text + ", suicidio=" +
+                            suicidiotextBox.Text + ", ileso=" + ilesos43textBox.Text + ", herido=" + heridos43textBox.Text + ", fallecido=" + fallecidos43textBox.Text + ", combustible=" + combustible43textBox.Text + ", nomina='" +
+                            nomina43textBox.Text + "' where idserv1043=" + id43 + "";
+                            SQLiteCommand cmd = new SQLiteCommand(mod, conn);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
-                }
 
-                //informe
-                
+                    //informe
                     Mes m = (Mes)MescomboBox.SelectedValue;
                     string mod1 = "update informe set fechaenv='" + FechaServ.Text + "', hora='" + horatextBox.Text + "', mes=" + m.IdMes + ", anho=" + AnhotextBox.Text + ", cantcia_est=" + cantciaesttextBox.Text + ", autor='" +
                     autortextBox.Text + "', telefono='" + teleftextBox.Text + "', lugar='" + lugartextBox.Text + "', fax='" + faxtextBox.Text + "', fechacierre='" + FechaCierre.Text + "', cantserv=" + totalservtextBox.Text + " where idinforme=" +
                     codrestextBox.Text + "";
-                    SQLiteCommand cmd1 = new SQLiteCommand(mod1, ConexionDB.conectar());
+                    SQLiteCommand cmd1 = new SQLiteCommand(mod1, conn);
                     cmd1.ExecuteNonQuery();
+                    AuditoriaService.RegistrarAuditoria(username, "Modificacion de informe");
+                    Limpiar();
+                    Mostrar();
+                }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                if (codrestextBox.Text == " ")
+                {
+                    MessageBox.Show("ingrese el nro. de código para actualizar los datos!");
                 }
                 else
                 {
-                    if (codrestextBox.Text == " ")
+                    if (codrestextBox.Text == "0")
                     {
-                        MessageBox.Show("ingrese el nro. de código para actualizar los datos!");
+
+                        MessageBox.Show("ingrese el nro. de código correcto!");
+
                     }
                     else
                     {
-                        if (codrestextBox.Text == "0")
-                        {
-
-                            MessageBox.Show("ingrese el nro. de código correcto!");
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("completa todos los campos!");
-                        }
+                        MessageBox.Show("completa todos los campos!");
                     }
-
                 }
 
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            AuditoriaService.RegistrarAuditoria(username, "Modificacion de informe");
-            Limpiar();
-            Mostrar();
         }
+    
+
         private void DeleteresButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (codtextBox.Text == "")
+                if (codrestextBox.Text == "")
                 {
                     MessageBox.Show("ingrese el nro. de código para eliminar los datos!");
                 }
                 else
                 {
-                    if (codtextBox.Text == "0")
+                    if (codrestextBox.Text == "0")
                     {
 
                         MessageBox.Show("ingrese el nro. de código correcto!");
@@ -741,6 +784,62 @@ namespace test1
                 MessageBox.Show(ex.Message);
             }
         }
+        private void UserdataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (UserdataGrid.SelectedItem != null)
+                {
+                    dynamic selectedRow = UserdataGrid.SelectedItem;
+
+                    int id = Convert.ToInt32(selectedRow["codigo"]);
+                    string username = selectedRow["usuario"].ToString();
+                    string role = selectedRow["rol"].ToString();
+                    string CI = selectedRow["CI"].ToString();
+                    string correo = selectedRow["correo"].ToString();
+                    string phone = selectedRow["telef"].ToString();
+
+
+                    codusertextBox.Text = id.ToString();
+                    UsuariotextBox.Text = username;
+                    RolComboBox.Text = role;
+                    UsercitextBox.Text = CI;
+                    UsercorreotextBox.Text = correo;
+                    UserteleftextBox.Text = phone;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void DondataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (DonaciondataGrid.SelectedItem != null)
+                {
+                    dynamic selectedRow = DonaciondataGrid.SelectedItem;
+
+                    int id = Convert.ToInt32(selectedRow["codigo"]);
+                    string donador = selectedRow["donador"].ToString();
+                    string descripcion = selectedRow["descripcion"].ToString();
+                    string cantidad = selectedRow["cantidad"].ToString();
+
+                    CodDontextBox.Text = id.ToString();
+                    donadortextBox.Text = donador;
+                    DescripcionDontextBox.Text = descripcion;
+                    CantDontextBox.Text = cantidad;
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void LogOutButton_Clikc(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Quieres cerrar sesión?", "Cierre de sesión", MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -756,7 +855,7 @@ namespace test1
         /////////////Generar Word//////////////
         private void GenerarWordButton_Click(object sender, RoutedEventArgs e)
         {
-            if (codtextBox.Text != "" && codtextBox.Text != "0")
+            if (filtrotextBox.Text != "" && filtrotextBox.Text != "0")
             {
                 // Obtener los datos filtrados de la base de datos
                 string periodo = "";
@@ -897,11 +996,13 @@ namespace test1
                     SaveFileDialog dialogoGuardar = new SaveFileDialog();
                     dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
                     dialogoGuardar.DefaultExt = "docx";
-                    AuditoriaService.RegistrarAuditoria(username, "Generacion de documento Word");
+                   
                     if (dialogoGuardar.ShowDialog() == true)
                     {
                         string rutaArchivo = dialogoGuardar.FileName;
                         File.Move(filePath, rutaArchivo);
+                        AuditoriaService.RegistrarAuditoria(username, "Generacion de documento Word");
+                        Mostrar();
                         MessageBox.Show("Documento guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
@@ -912,7 +1013,7 @@ namespace test1
             }
             else
             {
-                MessageBox.Show("ingrese el número del código");
+                MessageBox.Show("ingrese el año del periodo");
             }
         }
         private void AddParagraphCombus(Body body, string text, JustificationValues justification, int fontSize, bool isBold)
@@ -1173,7 +1274,6 @@ namespace test1
                                 SaveFileDialog dialogoGuardar = new SaveFileDialog();
                                 dialogoGuardar.Filter = "Archivos Word (*.docx)|*.docx";
                                 dialogoGuardar.DefaultExt = "docx";
-
                                 if (dialogoGuardar.ShowDialog() == true)
                                 {
                                     string rutaArchivo = dialogoGuardar.FileName;
@@ -1181,14 +1281,14 @@ namespace test1
                                     MessageBox.Show("Documento guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                                 }
                             }
-
-                        }
-                
+                    }
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
+                AuditoriaService.RegistrarAuditoria(username, "Generacion de documento Word");
+                Mostrar();
             }
             else
             {
@@ -1198,11 +1298,10 @@ namespace test1
 
         private void VerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (filtroañotextBox.Text != "" && filtroañotextBox.Text != "0" )
+            if (!string.IsNullOrWhiteSpace(filtroañotextBox.Text)&& filtroañotextBox.Text != "0" && int.TryParse(filtroañotextBox.Text, out int año) && año >= 2000)
             {
                 try
                 {
-               
                         string esquema = "select m.descripcion, sum(sss.cobertura) as cobertura, sum(ss.cant1041) as accidentes, sum(s.estructural) as estructural,sum(s.vehicular) as vehicular,sum(s.pastizal) as pastizal,sum(sss.rescate) as rescate,sum(sss.aniali) as animales_alimañas from informe i inner join mes m, serv1040 s, serv1041 ss, serv1043 sss where i.mes=m.idmes and i.idserv1040=s.idserv1040 and i.idserv1041=ss.idserv1041 and i.idserv1043=sss.idserv1043 and i.anho=" + filtroañotextBox.Text + " group by m.descripcion";
                         SQLiteCommand cmd = new SQLiteCommand(esquema, ConexionDB.conectar());
                         esquemadataGrid.ItemsSource = cmd.ExecuteReader();
@@ -1299,7 +1398,14 @@ namespace test1
             }
             else
             {
-                MessageBox.Show("ingresa el año para filtrar");
+                if (int.TryParse(filtroañotextBox.Text, out int anho) && anho < 2000)
+                {
+                    MessageBox.Show("ingrese un año mayor");
+                }
+                else
+                {
+                    MessageBox.Show("ingresa el año para filtrar");
+                }
             }
         }
         private void SaveUsers_ButtonClick(object sender, RoutedEventArgs e)
@@ -1346,11 +1452,11 @@ namespace test1
                 {
                     string Rol = RolComboBox.SelectedItem.ToString();
                     string modifyuser = "update users set username='" + UsuariotextBox.Text + "', password='" + UserpasstextBox.Password + "', role='" + Rol + "', CI=" + UsercitextBox.Text + ", correo='" + UsercorreotextBox.Text + "', phone='" + UserteleftextBox.Text + "' where id=" + codusertextBox.Text + "";
-                     SQLiteCommand cmd = new SQLiteCommand(modifyuser, ConexionDB.conectar());
-                     cmd.ExecuteNonQuery();
+                    SQLiteCommand cmd = new SQLiteCommand(modifyuser, ConexionDB.conectar());
+                    cmd.ExecuteNonQuery();
                     AuditoriaService.RegistrarAuditoria(username, "Modificacion de Usuario");
                     Limpiar();
-                     Mostrar();
+                    Mostrar();
                     
                 }
                 catch (Exception ex)
@@ -1390,26 +1496,76 @@ namespace test1
 
         private void SaveDonacion_ButtonClick(object sender, RoutedEventArgs e)
         {
-            try
+            if(donadortextBox.Text!="" && DescripcionDontextBox.Text!="" && CantDontextBox.Text != "")
             {
-                string save = "insert into donacion values nombre='" + donadortextBox.Text + "', descripcion='" + DescripcionDontextBox.Text + "', cantidad=" + CantDontextBox.Text + "";
-                SQLiteCommand cmd = new SQLiteCommand(save, ConexionDB.conectar());
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    string save = "insert into donacion (donador,descripcion,cantidad) values ('"+donadortextBox.Text+"','"+DescripcionDontextBox.Text+"',"+CantDontextBox.Text+")";
+                    SQLiteCommand cmd = new SQLiteCommand(save, ConexionDB.conectar());
+                    cmd.ExecuteNonQuery();
+                    AuditoriaService.RegistrarAuditoria(username, "Registro de Donación");
+                    Limpiar();
+                    Mostrar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("complete todos los campos!");
             }
+           
         }
-
         private void ModifyDonacionButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (CodDontextBox.Text!="" && donadortextBox.Text != "" && DescripcionDontextBox.Text != "" && CantDontextBox.Text != "")
+            {
+                try
+                {
+                    string update = " update donacion set donador='" + donadortextBox.Text + "', descripcion='" + DescripcionDontextBox.Text + "', cantidad=" + CantDontextBox.Text + " where iddonacion="+CodDontextBox.Text+"";
+                    SQLiteCommand cmd = new SQLiteCommand(update, ConexionDB.conectar());
+                    cmd.ExecuteNonQuery();
+                    AuditoriaService.RegistrarAuditoria(username, "Actualización de Donación");
+                    Limpiar();
+                    Mostrar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                if(CodDontextBox.Text == "" && CodDontextBox.Text == "0")
+                {
+                    MessageBox.Show("ingresa el número del código!");
+                }
+                else
+                {
+                    MessageBox.Show("complete todos los campos!");
+                }
+            }
         }
-
         private void DeleteDonacionButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if(CodDontextBox.Text!="" && CodDontextBox.Text != "0")
+            {
+                try
+                {
+                    string delete = "delete from donacion where iddonacion="+CodDontextBox.Text+"";
+                    SQLiteCommand cmd = new SQLiteCommand(delete, ConexionDB.conectar());
+                    cmd.ExecuteNonQuery();
+                    AuditoriaService.RegistrarAuditoria(username, "Eliminación de Donación");
+                    Limpiar();
+                    Mostrar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }
